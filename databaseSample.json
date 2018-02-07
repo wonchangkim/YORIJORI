@@ -1,0 +1,68 @@
+{
+  "users": {
+    "uid": {
+      "email" : "wonchang.k@gmail.com",
+      "profile_picture" : "https:/googlestorage.....",
+      "username" : "김원창"
+    }
+  },
+  "user-shoppingmemo": {
+    "uid" :{
+      "key" : {
+        "title" : "감자전",
+        "need_ingredients" : {
+          [ "감자" , "밀가루", "식용유" ]
+        }
+      }
+    }
+  },
+  "user-cookmark": {
+    "fYTo9wr4EVPA5YuqqLquOZjrT6b2": {
+      "-L2_QvgdERmVvhoxwvlY" : {
+        "title": "김치찌개",
+        "cooking_no" : {
+          "cooking_DC" : "양지머리로 육수를 낸 후 식혀 걷어낸후 , 불린 쌀을 널고 고슬고슬하게 밥을 짓는다.",
+          "img_url" : "http://file......."
+        }
+      }
+    }
+  },
+  "posts": {
+    "-L2_QvgdERmVvhoxwvlY" : {
+      "author" : "요리왕비룡",
+      "authorPic" : "http://erw......",
+      "title": "된장찌개",
+      "contents": "어제만들어 본 된장찌개",
+      "foodpicture_url": "http://werwersdfw...",
+      "startCount": 1,
+      "starts": {
+        "fYTo9wr4EVPA5YuqqLquOZjrT6b2": true
+      }
+    }
+  },
+  "user-post": {
+    "fYTo9wr4EVPA5YuqqLquOZjrT6b2(UID)": {
+      "-L2_QvgdERmVvhoxwvlY": {
+        "author": "요리왕비룡",
+        "authorPic": "http://erw......",
+        "title" : "된장찌개",
+        "contents" : "어제만들어 본 된장찌개",
+        "foodpicture_url" : "http://werwersdfw...",
+        "startCount" : 1,
+        "starts" : {
+          "fYTo9wr4EVPA5YuqqLquOZjrT6b2" : true
+        }
+      }
+    }
+  },
+  "post-comments" : {
+    "--L2_QvgdERmVvhoxwvlY": {
+      "-L2fdsafdas" : {
+        "ahthor" : "평가원",
+        "text" : "맛없어보여요..",
+        "uid" : "fYTo9wr4EVPA5YuqqLquOZjrT6b2"
+      }
+
+    }
+  }
+}

@@ -9,3 +9,9 @@
   - storybook 설정
   - editorconfig 설정
   - github 저장소 생성
+
+### 2월 7일
+  - 데이터베이수 구조 작성
+  - react-Native 기본 세팅 [https://github.com/wonchangkim/native-yorijori]
+
+
