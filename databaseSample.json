@@ -10,8 +10,7 @@
     "uid" :{
       "key" : {
         "title" : "감자전",
-        "need_ingredients" : {
-          [ "감자" , "밀가루", "식용유" ]
+          매번가져오기
         }
       }
     }
@@ -19,14 +18,10 @@
   "user-cookmark": {
     "fYTo9wr4EVPA5YuqqLquOZjrT6b2": {
       "-L2_QvgdERmVvhoxwvlY" : {
-        "title": "김치찌개",
-        "cooking_no" : {
-          "cooking_DC" : "양지머리로 육수를 낸 후 식혀 걷어낸후 , 불린 쌀을 널고 고슬고슬하게 밥을 짓는다.",
-          "img_url" : "http://file......."
+        "title": "김치찌개", 일련번호만 저장
         }
       }
-    }
-  },
+    },
   "posts": {
     "-L2_QvgdERmVvhoxwvlY" : {
       "author" : "요리왕비룡",
@@ -42,17 +37,8 @@
   },
   "user-post": {
     "fYTo9wr4EVPA5YuqqLquOZjrT6b2(UID)": {
-      "-L2_QvgdERmVvhoxwvlY": {
-        "author": "요리왕비룡",
-        "authorPic": "http://erw......",
-        "title" : "된장찌개",
-        "contents" : "어제만들어 본 된장찌개",
-        "foodpicture_url" : "http://werwersdfw...",
-        "startCount" : 1,
-        "starts" : {
-          "fYTo9wr4EVPA5YuqqLquOZjrT6b2" : true
-        }
-      }
+      "-L2_QvgdERmVvhoxwvlY": true,
+      "-L2*1Y*OHJN<OILKJKJK": true
     }
   },
   "post-comments" : {

@@ -14,4 +14,16 @@
   - 데이터베이수 구조 작성
   - react-Native 기본 세팅 [https://github.com/wonchangkim/native-yorijori]
 
+### 2월 8일
+  - 계획수정 : react만으로 만들기, 추후 react-native 도전
+  - database 구조 컨펌 : 중복데이터 제거 및 효율적으로 변경할껏
+
+### 2월 9일
+  - firebase 설치
+  - LoginScreen 및 LoginScreenContainer
+  - LoginLogo,LoginScreesn,SignupModal,SignupScreen
+
+### 2월 10일
+
+
 

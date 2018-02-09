@@ -3,9 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "firebase": "^4.9.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-scripts": "1.1.0"
+    "react-dropzone": "^4.2.7",
+    "react-dropzone-component": "^3.1.0",
+    "react-motion-menu": "^0.4.4",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.1.0",
+    "semantic-ui-css": "^2.2.14",
+    "semantic-ui-react": "^0.78.2",
+    "styled-components": "^3.1.6"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -21,9 +29,10 @@
     "@storybook/addons": "^3.3.12",
     "@storybook/react": "^3.3.12",
     "babel-core": "^6.26.0",
-    "eslint-config-airbnb": "^16.1.0",
-    "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-react": "^7.6.1"
+    "eslint": "^4.9.0",
+    "eslint-config-airbnb": "16.1.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.4.0"
   }
 }
