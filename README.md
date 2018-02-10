@@ -24,6 +24,16 @@
   - LoginLogo,LoginScreesn,SignupModal,SignupScreen
 
 ### 2월 10일
+  - 반응형 이미지 대첵마련
+  - 라우터 설치
+  - withAuth
+  - 메인페이지
+    - Mainmenu 기본 에니메이션
+    - 나의 냉장고 PC 작성
+
+  #### 해야될 일
+    - 메인페이지 완성 및 vision api 연결
+
 
 
 

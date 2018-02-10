@@ -1,21 +1,65 @@
 import React, { Component } from 'react';
-import { Segment, Button, Grid, Form } from 'semantic-ui-react';
+import { Button, Icon } from 'semantic-ui-react';
+import styled from 'styled-components';
+import LoginForm from '../components/LoginForm';
+import background from '../assets/images/backgroundImg1200.png';
+import LoginLogo from '../components/LoginLogo';
+import SignupModal from '../components/SignupModal';
 
+const FullHeightGrid = styled.div`
+  height: 100vh;
+  width: 100vw;
+  background: url(${background}) no-repeat center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+`;
+const OutterGradient = styled.div`
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+  box-shadow: 9px 11px 29px -6px rgba(0,0,0,0.6);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+const InnerGradient = styled.div`
+  width: 450px;
+  height: 450px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(255,255,255,1) 0%, rgba(240,240,240,1) 68%, rgba(245,245,245,1) 80%, rgba(204,204,204,1) 100%);
+  box-shadow: inset 2px 2px 8px -6px rgba(0,0,0,0.4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+const GoogleButton = styled(Button)`
+  margin: 10px !important;
+`;
 export default class LoginScreen extends Component {
   static defaultProps = {
-    onLogin: () => {},
+    onGoogleLogin: () => {},
   }
   render() {
     return (
-      <Grid.Column style={{ width: '300px' }}>
-        <Segment>
-          <Form>
-            <Form.Input label="Email" placeholder="이메일을 입력하세요" />
-            <Form.Input label="Password" type="password" placeholder="비밀번호를 입력하세요" />
-            <Button color="olive" onClick={this.props.onLogin}>로그인</Button>
-          </Form>
-        </Segment>
-      </Grid.Column>
+      <FullHeightGrid columns={1} centered verticalAlign="top">
+        <OutterGradient>
+          <InnerGradient>
+            <LoginLogo />
+            <LoginForm />
+            <GoogleButton onClick={this.props.onGoogleLogin} color="google plus">
+              <Icon name="google plus" /> 구글 로그인
+            </GoogleButton>
+          </InnerGradient>
+        </OutterGradient>
+      </FullHeightGrid>
     );
   }
 }
+
+/* < Tab > <SignupBtn color="olive">회원가입</SignupBtn> < /Tab> */
+/* < Tab > <SignupBtn color="olive">회원가입</SignupBtn> < /Tab> */

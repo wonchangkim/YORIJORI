@@ -1,7 +1,6 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
 import styled from 'styled-components';
-import { Segment, Button, Grid, Form, Icon } from 'semantic-ui-react';
 import ProfileImg from '../assets/images/profileImg.png';
 
 const ImgCricle = styled(Dropzone)`
@@ -35,11 +34,6 @@ export default class ProfilePicDrop extends React.Component {
           <h2>Accepted files</h2>
           <ul>
             {this.state.accepted.map(f => <li key={f.name}>{f.name}- {f.size}bytes</li>)}
-
-          </ul>
-          <h2>Rejected files</h2>
-          <ul>
-            {this.state.rejected.map(f => <li key={f.name}>{f.name}-{f.size}bytes</li>)}
           </ul>
         </aside>
       </section>
