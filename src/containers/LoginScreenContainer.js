@@ -1,7 +1,7 @@
 import * as firebase from 'firebase';
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import LoginScreen from '../components/LoginScreen';
+import LoginScreen from '../components/Login/LoginScreen';
 
 export default class LoginScreenContainer extends Component {
   state = {
@@ -14,7 +14,9 @@ export default class LoginScreenContainer extends Component {
       redirectToMain: true,
     });
   };
-
+  handleSignup = () => {
+    console.log('회원가입모달 오픈');
+  }
   render() {
     if (this.state.redirectToMain) {
       return (
@@ -23,7 +25,7 @@ export default class LoginScreenContainer extends Component {
     }
     return (
       <div>
-        <LoginScreen onGoogleLogin={this.handleGoogleLogin} />
+        <LoginScreen onGoogleLogin={this.handleGoogleLogin} onSignup={this.handleSignup} />
       </div>
     );
   }

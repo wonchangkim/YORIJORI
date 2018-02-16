@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { Button } from 'semantic-ui-react';
 import styled from 'styled-components';
-import Camera from '../components/Ui/Camera';
 
 const Wrapper = styled.div`
   position: relative;
@@ -11,14 +9,13 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 50px;
 `;
 const FridgeOutter = styled.div`
   width: 90%;
   height: 80%;
   background-color: #FFF;
   border-radius: 50px;
-  box-shadow: 7px 9px 8px 0px rgba(0,0,0,0.4);
+  box-shadow: 7px 9px 5px 0px rgba(0,0,0,0.4);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -45,7 +42,6 @@ const Fridge = styled.div`
   justify-content: space-around;
 `;
 
-
 export default class MyStorage extends Component {
   render() {
     return (
@@ -53,10 +49,8 @@ export default class MyStorage extends Component {
         <FridgeOutter>
           <FridgeInner>
             <Fridge>
-              <p>회원님의 냉장고에는 재료가 아직없습니다.</p>
               <div>
-                <Button circular icon="search" color="olive" />
-                <Camera />
+                  dfadfas
               </div>
             </Fridge>
           </FridgeInner>

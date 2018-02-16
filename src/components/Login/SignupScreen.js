@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Segment, Button, Grid, Form } from 'semantic-ui-react';
-import ProfilePicDrop from './ProfilePicDrop';
+import { Button, Grid, Form } from 'semantic-ui-react';
+import ProfilePicDrop from '../ProfilePicDrop';
 
 export default class SignupScreen extends Component {
   render() {

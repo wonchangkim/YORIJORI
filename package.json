@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "antd": "^3.2.1",
+    "babel-cli": "^6.26.0",
     "firebase": "^4.9.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -12,6 +14,7 @@
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.0",
+    "redux-thunk": "^2.2.0",
     "semantic-ui-css": "^2.2.14",
     "semantic-ui-react": "^0.78.2",
     "styled-components": "^3.1.6"
@@ -30,10 +33,16 @@
     "@storybook/addons": "^3.3.12",
     "@storybook/react": "^3.3.12",
     "babel-core": "^6.26.0",
+    "babel-plugin-import": "^1.6.4",
+    "css-loader": "^0.28.9",
     "eslint": "^4.9.0",
     "eslint-config-airbnb": "16.1.0",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
-    "eslint-plugin-react": "^7.4.0"
+    "eslint-plugin-react": "^7.4.0",
+    "less": "^3.0.1",
+    "less-loader": "^4.0.5",
+    "less-vars-to-js": "^1.2.1",
+    "style-loader": "^0.20.2"
   }
 }

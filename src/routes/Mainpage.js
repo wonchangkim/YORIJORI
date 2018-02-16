@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import MyStorage from '../components/MyStorage';
-import Menubar from '../components/MenuBar';
+import Layout from '../components/Layout';
+
 
 export default class MainScreenContainer extends Component {
   render() {
     return (
-      <div>
+      <Layout title="나의냉장고">
         <MyStorage />
-        <Menubar />
-      </div>
+      </Layout>
     );
   }
 }

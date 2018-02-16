@@ -16,7 +16,7 @@ export default function withAuth(WrappedComponent) {
         this.setState({ currentUser });
       } else {
         this.setState({ loading: true });
-        const unsubscribe = firebase.auth().onAuthStateChanged((user) =>{
+        const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
           unsubscribe();
           if (user) {
             this.setState({ currentUser: user, loading: false });

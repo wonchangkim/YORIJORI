@@ -6,6 +6,14 @@
       "username" : "김원창"
     }
   },
+  "user-재료": {
+    "uid" : {
+      "key" : {
+        "title" : "돼지고기",
+        "imageUrl" : "....",
+       }
+    }
+  }
   "user-shoppingmemo": {
     "uid" :{
       "key" : {
