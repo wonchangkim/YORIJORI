@@ -3,13 +3,11 @@ import styled from 'styled-components';
 import logo from '../../assets/images/logo350.png';
 
 const Logo = styled.img`
-  width: 60px;
-  top: -70px;
-  left: 10px;
+  width: 40px;
   transform: rotate(30deg);
 `;
 const SubTitle = styled.h3`
-  margin: 20px 0 0 0;
+  margin: 10px 0 0 0;
   color: #B5CB31;
 `;
 const MainTitle = styled.h1`
@@ -20,10 +18,10 @@ const Wrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 150px;
+  height: 130px;
 `;
 
-export default class LoginLogo extends Component {
+export default class MainLogo extends Component {
   render() {
     return (
       <Wrap>

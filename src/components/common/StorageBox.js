@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
+
 const Wrapper = styled.div`
   position: relative;
-  width: 90vw;
-  height: 90vh;
+  width: 98vw;
+  height: 98vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  margin-top: 15px;
 `;
 const FridgeOutter = styled.div`
   width: 90%;
-  height: 80%;
+  height: 90%;
   background-color: #FFF;
   border-radius: 50px;
-  box-shadow: 7px 9px 5px 0px rgba(0,0,0,0.4);
+  box-shadow: 7px 9px 8px 9px rgba(0,0,0,0.4);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -32,8 +33,8 @@ const FridgeInner = styled.div`
   align-items: center;
 `;
 const Fridge = styled.div`
-  width: 80%;
-  height: 80%;
+  width: 88%;
+  height: 88%;
   background: linear-gradient(135deg, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%);
   border-radius: 30px;
   display: flex;
@@ -42,6 +43,7 @@ const Fridge = styled.div`
   justify-content: space-around;
 `;
 
+
 export default class MyStorage extends Component {
   render() {
     return (
@@ -49,9 +51,7 @@ export default class MyStorage extends Component {
         <FridgeOutter>
           <FridgeInner>
             <Fridge>
-              <div>
-                  dfadfas
-              </div>
+              {this.props.children}
             </Fridge>
           </FridgeInner>
         </FridgeOutter>

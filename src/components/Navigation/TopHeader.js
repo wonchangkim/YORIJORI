@@ -4,17 +4,14 @@ import styled from 'styled-components';
 import plateTop from '../../assets/images/plateTop.png';
 
 const Wrap = styled.div`
-  position : fixed;
-  top: 0;
-  height: 80px;
-  width: 180px;
+  height: 73px;
+  width: 182px;
   background: url(${plateTop}) no-repeat center;
-  background-size: 180px;
+  background-size: 160px 69px;
   text-align: center;
-  magin: 0 auto;
   padding: 15px;
   webkit-filter: drop-shadow(1px 1px 6px rgba(0, 0, 0, 0.5));
-  filter: drop-shadow(1px 1px 6px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(1px 1px 6px rgba(0, 0, 0, 0.8));
 `;
 
 export default class TopHeader extends Component {

@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux';
-import IngredientsAdd from './IngredientsAdd';
+import User from './User';
+import createUser from './createUser';
 
-
-export default combineReducers({ IngredientsAdd });
+export default combineReducers({
+  User, createUser,
+});

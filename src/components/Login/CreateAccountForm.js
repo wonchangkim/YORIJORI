@@ -14,16 +14,17 @@ const GoogleBtnStyle = styled(Button)`
   margin-top: 1em !important;
 `;
 
-export default class LoginForm extends Component {
+export default class CreateAccountForm extends Component {
   static defaultProps = {
-    errorMessage: '',
-    onlogin: () => {},
+    userCreateErrorMessage: '',
     onGooglelogin: () => {},
+    onCreate: () => {},
   }
 
   state = {
     email: '',
     password: '',
+    comfirmpassword: '',
   };
   handleChange = (e, { name, value }) => {
     this.setState({
@@ -31,28 +32,32 @@ export default class LoginForm extends Component {
     });
   }
   handleSubmit = () => {
-    this.props.onlogin(this.state);
+    this.props.onCreate(this.state);
   }
   handleGooglelogin = () => {
     this.props.onGooglelogin();
   }
 
   render() {
-    const { email, password } = this.state;
+    const { email, password, comfirmpassword } = this.state;
     const { errorMessage } = this.props;
     return (
       <FormWrap>
         <Form as="div">
           <Form.Field>
             <label>이메일</label>
-            <Input icon="mail" iconPosition="left" name="email" value={email}type="text" onChange={this.handleChange} />
+            <Input icon="mail" iconPosition="left" name="email" value={email} type="text" onChange={this.handleChange} />
           </Form.Field>
           <Form.Field>
             <label>비밀번호</label>
-            <Input icon="key" iconPosition="left" name="password" value={password}type="password" onChange={this.handleChange} />
+            <Input icon="key" iconPosition="left" name="password" value={password} type="password" onChange={this.handleChange} />
           </Form.Field>
-          <BtnStyle color="olive" type="submit" onClick={this.handleSubmit}>로그인</BtnStyle>
-          <BtnStyle as={Link} to="/CreateAccount" floated="right" basic color="olive" content="Olive" type="button" >회원가입</BtnStyle>
+          <Form.Field>
+            <label>비밀번호확인</label>
+            <Input icon="key" iconPosition="left" name="comfirmpassword" value={comfirmpassword} type="password" onChange={this.handleChange} />
+          </Form.Field>
+          <BtnStyle color="olive" type="submit" onClick={this.handleSubmit}>회원가입</BtnStyle>
+          <BtnStyle as={Link} to="/login" floated="right" basic color="olive" content="Olive" type="button" >뒤로가기</BtnStyle>
           {
             errorMessage && (
               <Message negative>

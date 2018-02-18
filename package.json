@@ -43,6 +43,7 @@
     "less": "^3.0.1",
     "less-loader": "^4.0.5",
     "less-vars-to-js": "^1.2.1",
+    "redux-devtools": "^3.4.1",
     "style-loader": "^0.20.2"
   }
 }
