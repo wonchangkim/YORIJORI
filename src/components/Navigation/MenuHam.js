@@ -5,7 +5,7 @@ const Wrap = styled.div`
  width: 40px;
  height: 24px;
  position: relative;
- top: 10px;
+ top: 8px;
 
  ${props => props.buttonOn && css`
   ${HamTop} {

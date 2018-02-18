@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import MenuHam from '../Navigation/MenuHam';
 import ProfileImg from '../../assets/images/profileImg.png';
-import menuImg from '../../assets/images/menuImg.png';
-import plateTop from '../../assets/images/plateTop.png';
+
 
 const WrapMenu = styled.div`
   position: fixed;
@@ -19,10 +18,10 @@ const WrapMenu = styled.div`
   align-items: center;
 `;
 const InsideArea = styled.div`
-  height: 80px;
-  width: 180px;
-  background: url(${plateTop}) no-repeat center;
-  background-size: 180px;
+  height: 50px;
+  width: 100px;
+  background: #FFF;
+  border-radius: 0 0 50px 50px ;
   position: absolute;
   bottom: 0;
   transform: rotate(180deg);
@@ -32,8 +31,8 @@ const InsideArea = styled.div`
 `;
 const OutsideArea = styled.div`
   width: 340px;
-  height: 190px;
-  background: #19C6B0;
+  height: 170px;
+  background: #B5CA40;
   border-radius: 340px 340px 0 0 ;
   position: absolute;
   bottom: 0;
@@ -97,7 +96,7 @@ export default class MenuBar extends Component {
     this.setState(prevState => ({
       click: !prevState.click,
       transform: prevState.click ? 'scale(0.1)' : 'scale(1)',
-      buttonOn: !prevState.click && true,
+      buttonOn: !prevState.click,
     }));
   }
 

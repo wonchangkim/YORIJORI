@@ -1,30 +1,14 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
-import MyStorage from '../components/MyStorage';
-import {fetchMyIngredientsList} from '../ducks/IngredientsList';
+import StorageBox from '../components/common/StorageBox';
+import IngredientCard from '../components/common/IngredientCard';
 
-class MyStorageContainer extends Component {
-  static defaultProps = {
-    omMount: () => {},
-  }
-  componentDidMount() {
-    this.props.omMount();
-  }
+export default class MyStorageContainer extends Component {
   render() {
-    const { onMount, ...rest } = this.props;
     return (
-
-    )
+      <StorageBox title="재료" >
+        <IngredientCard title="돼지고기" date="2018.2.17" />
+      </StorageBox>
+    );
   }
 }
-
-export default connect(
-  state => ({
-
-  }),
-  dispatch => ({
-    onMount: () => {
-      dispatch(fetchMyIngredientsList());
-    }
-  })
-)(MyStorageContainer)

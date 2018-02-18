@@ -37,21 +37,46 @@ const Fridge = styled.div`
   height: 88%;
   background: linear-gradient(135deg, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%);
   border-radius: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
+  text-align : center;
 `;
-
-
-export default class MyStorage extends Component {
+const Title = styled.h1`
+  font-size: 80px;
+  line-height: 200px;
+  background-color: RGBA(193, 193, 193, 0.2);
+  color: transparent;
+  text-shadow: 2px 2px 2px rgba(255,255,255,1);
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+`;
+const List = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
+const TiteleWrap = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background-color: RGBA(243, 243, 243, 0.5);
+  box-shadow: inset 0px 0px 4px 2px RGBA(223, 223, 223,0.3);
+`;
+export default class StorageBox extends Component {
   render() {
     return (
       <Wrapper>
         <FridgeOutter>
           <FridgeInner>
             <Fridge>
-              {this.props.children}
+              <TiteleWrap>
+                <Title>{this.props.title}</Title>
+              </TiteleWrap>
+              <List>
+                {this.props.children}
+              </List>
             </Fridge>
           </FridgeInner>
         </FridgeOutter>

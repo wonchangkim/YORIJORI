@@ -15,11 +15,6 @@ const Wrap = styled.div`
 `;
 
 export default class TopHeader extends Component {
-  static defaultProps = {
-    titileProps: {},
-    accountProps: {},
-  }
-
   render() {
     const { title } = this.props;
     return (

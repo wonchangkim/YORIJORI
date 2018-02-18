@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import StorageBox from '../components/common/StorageBox';
 import Layout from '../components/common/Layout';
-
+import MyStorageContainer from '../containers/MyStorageContainer';
 
 export default class MainScreenContainer extends Component {
   render() {
     return (
       <Layout title="나의냉장고">
-        <StorageBox />
+        <MyStorageContainer />
       </Layout>
     );
   }
