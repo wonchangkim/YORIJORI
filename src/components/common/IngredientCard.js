@@ -15,7 +15,6 @@ const Flipper = styled.div`
   transition: 0.6s;
   transform-style: preserve-3d;
   position: relative;
-  transition: 0.6s;
 `;
 
 const CardFront = styled.div`

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 
 const Wrapper = styled.div`
@@ -38,6 +38,7 @@ const Fridge = styled.div`
   background: linear-gradient(135deg, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%);
   border-radius: 30px;
   text-align : center;
+  padding: 15px;
 `;
 const Title = styled.h1`
   font-size: 80px;
@@ -52,6 +53,9 @@ const Title = styled.h1`
 const List = styled.div`
   display: flex;
   flex-wrap: wrap;
+  ${props => props.bigger && css`
+    height: 100%;
+  `}
 `;
 const TiteleWrap = styled.div`
   position: absolute;
@@ -71,12 +75,24 @@ export default class StorageBox extends Component {
         <FridgeOutter>
           <FridgeInner>
             <Fridge>
-              <TiteleWrap>
-                <Title>{this.props.title}</Title>
-              </TiteleWrap>
-              <List>
-                {this.props.children}
-              </List>
+              {
+                this.props.title
+                ?
+                  <TiteleWrap >
+                    <Title>
+                      {this.props.title}
+                    </Title>
+                  </TiteleWrap>
+                : null
+              }
+              {
+                this.props.children
+                ?
+                  <List bigger={this.props.size}>
+                    {this.props.children}
+                  </List>
+                : null
+              }
             </Fridge>
           </FridgeInner>
         </FridgeOutter>

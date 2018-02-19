@@ -1,9 +1,9 @@
-import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import StorageBox from '../components/common/StorageBox';
 import IngredientCard from '../components/common/IngredientCard';
 
 export default class MyStorageContainer extends Component {
+
   render() {
     return (
       <StorageBox title="재료" >

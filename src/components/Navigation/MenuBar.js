@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import MenuHam from '../Navigation/MenuHam';
 import ProfileImg from '../../assets/images/profileImg.png';
-
+import CameraContainer from '../../containers/CameraContainer';
 
 const WrapMenu = styled.div`
   position: fixed;
@@ -110,7 +110,7 @@ export default class MenuBar extends Component {
           <Btn to="cookmark" second="true">쿡마크</Btn>
           <Btn to="memo" third="true">메모</Btn>
           <Btn to="share" fourth="true">쉐어</Btn>
-          <Btn to="imageSearch" >카메라</Btn>
+          <CameraContainer />
         </OutsideArea>
         <InsideArea onClick={this.onScale}>
           <MenuHam buttonOn={this.state.buttonOn} />

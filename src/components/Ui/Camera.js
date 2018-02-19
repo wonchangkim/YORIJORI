@@ -30,52 +30,46 @@ const ImageWrap = styled.div`
   width: 300px;
   height: 100px;
 `;
-export default class Cameratest extends Component {
+export default class Camera extends Component {
   static defaultProps = {
-    errorMessage: '',
-    onSumit: () => {},
-    creating: false,
-  }
-  state = {
-    title: '',
+    onCapture: () => {},
+    success: false,
     imageUrl: '',
   }
-  handleSubmit = (e) => {
-    e.preventDefault();
-    this.props.onSubmit(this.state);
+  state = {
+    imageUrl: '',
   }
   handleImageChange = (e) => {
     const reader = new FileReader();
     const file = e.target.files[0];
-    console.log(file.name);
+    const Url = URL.createObjectURL(file);
+    // console.log(file.name);
     reader.onloadend = () => {
-      this.setState({
-        imageUrl: reader.result,
-        title: file.name,
-      });
+      this.setState(prevState => ({
+        imageUrl: Url,
+      }));
+      this.props.onCapture(this.state)
     };
-    reader.readAsDataURL(file);
-    console.log('handle uploading-', this.state.imageUrl);
+    const url = reader.readAsDataURL(file);
+    console.log('file', file.name);
+    console.log('handle uploading-', Url);
   };
 
-
   render() {
-    const { imageUrl } = this.state;
-    let $imagePreview = null;
-    if (imageUrl) {
-      $imagePreview = (<img src={imageUrl} width="300" alt="img" />);
-    } else {
-      $imagePreview = (<div className="previewText">사진검색을 통해 재료를 추가하세요.</div>);
-    }
+    // const { imageUrl } = this.state;
+    // let $imagePreview = null;
+    // if (imageUrl) {
+    //   $imagePreview = (<img src={imageUrl} width="300" alt="img" />);
+    // }
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
+        <form>
           <CameraLabel htmlFor="camera" />
-          <CameraBtn onChange={this.handleImageChange} type="file" id="camera" name="title" accept="image/*" capture="environment" />
+          <CameraBtn onChange={this.handleImageChange} type="file" id="camera" name="title" accept="image/*" />
         </form>
-        <ImageWrap>
+        {/* <ImageWrap>
           {$imagePreview}
-        </ImageWrap>
+        </ImageWrap> */}
       </div>
     );
   }
