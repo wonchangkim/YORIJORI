@@ -9,16 +9,17 @@ export function fetchCreating() {
   };
 }
 
-export function fetchSuccess({ base64 }) {
-  return {
-    type: SUCCESS,
-    base64,
-  };
-}
 export function fetchDone(result) {
   return {
     type: DONE,
     result,
+  };
+}
+export function fetchSuccess({ base64 }, transResult) {
+  return {
+    type: SUCCESS,
+    base64,
+    transResult,
   };
 }
 export function fetchError(errorMessage) {
@@ -34,6 +35,7 @@ const initialState = {
   errorMessage: '',
   base64: '',
   result: [],
+  transResult: [],
 };
 
 export default function (state = initialState, action) {
@@ -45,6 +47,7 @@ export default function (state = initialState, action) {
         errorMessage: '',
         base64: '',
         result: [],
+        transResult: [],
       };
     case DONE:
       return {
@@ -52,12 +55,14 @@ export default function (state = initialState, action) {
         errorMessage: '',
         base64: '',
         result: action.result,
+        transResult: [],
       };
     case SUCCESS:
       return {
         ...state,
         success: true,
         base64: action.base64,
+        transResult: action.transResult,
       };
     case ERROR:
       return {
@@ -65,6 +70,7 @@ export default function (state = initialState, action) {
         errorMessage: action.errorMessage,
         base64: '',
         result: [],
+        transResult: [],
       };
     default:
       return state;
@@ -94,8 +100,8 @@ export const fetchvision = ({ base64 }) => async (dispatch) => {
   dispatch(fetchCreating());
   try {
     const visionUrl = 'https://vision.googleapis.com/v1/images:annotate?key=AIzaSyB4iT8dqlu88KMWEGSV8MxNqRsUeXNvJ6g';
-
-    const vision = fetch(visionUrl, {
+    const tranlatUrl = 'https://translation.googleapis.com/language/translate/v2?key=AIzaSyB4iT8dqlu88KMWEGSV8MxNqRsUeXNvJ6g';
+    await fetch(visionUrl, {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
@@ -106,12 +112,26 @@ export const fetchvision = ({ base64 }) => async (dispatch) => {
         const result = res.responses[0].labelAnnotations
           .map(({ description }) => (description));
         console.log(result);
-        dispatch(fetchDone(result))
-        dispatch(fetchSuccess({ base64 }));
-
+        dispatch(fetchDone(result));
+        const translateRequest = {
+          q: result,
+          target: 'ko',
+        };
+        fetch(tranlatUrl, {
+          method: 'post',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(translateRequest),
+        }).then(response => response.json())
+          .then((response) => {
+            const transResult = response.data.translations
+              .map(({ translatedText }) => (translatedText));
+            console.log(transResult);
+            dispatch(fetchSuccess({ base64 }, transResult));
+          });
       });
 
-    await Promise.all([vision]);
 
   } catch (e) {
     dispatch(fetchError(`${e.message}`));
