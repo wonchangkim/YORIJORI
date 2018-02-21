@@ -6,8 +6,8 @@ import Camera from '../components/Ui/Camera';
 
 class CameraContainer extends Component {
   render() {
-    const { success, ...rest } = this.props;
-    if (success) {
+    const { creating, ...rest } = this.props;
+    if (creating) {
       return (
         <Redirect to="/Newingredients" {...rest} />
       );
@@ -21,6 +21,7 @@ class CameraContainer extends Component {
 }
 export default connect(
   state => ({
+    creating: state.CameraCapture.creating,
     success: state.CameraCapture.success,
     imageUrl: state.CameraCapture.imageUrl,
     base64: state.CameraCapture.base64,

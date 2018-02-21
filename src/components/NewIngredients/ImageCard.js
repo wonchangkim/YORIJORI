@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import FootterButton from './FootterButton';
+import SearchingButtonContainer from '../../containers/SearchingButtonContainer';
 
 const CardWarp = styled.div`
   border-radius: 30px !important;
@@ -36,7 +37,7 @@ const FootterWrap = styled.div`
 `;
 export default class ImageCard extends Component {
   render() {
-    const { imageUrl, base64 } = this.props;
+    const { imageUrl } = this.props;
     return (
       <CardWarp as="div" >
         <ImageWrap>
@@ -45,7 +46,7 @@ export default class ImageCard extends Component {
         <FootterWrap>
           <div>
             <p>사진을 검색 하시겠 습니까?</p>
-            <FootterButton />
+            <SearchingButtonContainer />
           </div>
         </FootterWrap>
       </CardWarp>

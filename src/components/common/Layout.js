@@ -13,6 +13,7 @@ const Wrap = styled.div`
   flex-direction: column;
   align-items: center;
   background-color: #7DAA55;
+
 `;
 export default class Layout extends Component {
   render() {
@@ -25,3 +26,4 @@ export default class Layout extends Component {
     );
   }
 }
+//  background: linear-gradient(to right, #00E39F, #00C4E1);

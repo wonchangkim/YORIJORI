@@ -26,10 +26,6 @@ const CameraLabel = styled.label`
     background-color: #EE7A10;
   }
 `;
-const ImageWrap = styled.div`
-  width: 300px;
-  height: 100px;
-`;
 export default class Camera extends Component {
   static defaultProps = {
     onCapture: () => {},
@@ -45,35 +41,24 @@ export default class Camera extends Component {
     const reader = new FileReader();
     const file = e.target.files[0];
     const Url = URL.createObjectURL(file);
-    console.log(file)
     // console.log(file.name);
     reader.onloadend = () => {
       this.setState({
         imageUrl: Url,
         base64: reader.result,
       });
-      console.log(reader.result);
       this.props.onCapture(this.state);
     };
     reader.readAsDataURL(file);
-    console.log('handle uploading-', Url);
   };
 
   render() {
-    // const { imageUrl } = this.state;
-    // let $imagePreview = null;
-    // if (imageUrl) {
-    //   $imagePreview = (<img src={imageUrl} width="300" alt="img" />);
-    // }
     return (
       <div>
         <form>
           <CameraLabel htmlFor="camera" />
           <CameraBtn onChange={this.handleImageChange} type="file" id="camera" accept="image/*" />
         </form>
-        {/* <ImageWrap>
-          {$imagePreview}
-        </ImageWrap> */}
       </div>
     );
   }

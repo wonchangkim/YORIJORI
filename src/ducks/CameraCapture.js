@@ -1,14 +1,12 @@
-
+export const CREATING = 'camera/CREATING';
 export const SUCCESS = 'camera/SUCCESS';
 export const ERROR = 'camera/ERROR';
 
-// export function cameraCreating({ title, imageUrl }) {
-//   return {
-//     type: CREATING,
-//     title,
-//     imageUrl,
-//   };
-// }
+export function cameraCreating() {
+  return {
+    type: CREATING,
+  };
+}
 
 export function cameraSuccess({ imageUrl, base64 }) {
   return {
@@ -26,6 +24,7 @@ export function cameraError(errorMessage) {
 }
 
 const initialState = {
+  creating: '',
   success: false,
   errorMessage: '',
   imageUrl: '',
@@ -34,6 +33,14 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
+    case CREATING:
+      return {
+        creating: true,
+        success: false,
+        errorMessage: '',
+        imageUrl: '',
+        base64: '',
+      };
     case SUCCESS:
       return {
         success: true,
@@ -53,9 +60,11 @@ export default function (state = initialState, action) {
   }
 }
 
+// thunk
+
 export const getImage = ({ imageUrl, base64 }) => (dispatch) => {
   try {
-    // dispatch(cameraCreating({ title, imageUrl }));
+    dispatch(cameraCreating());
     dispatch(cameraSuccess({ imageUrl, base64 }));
   } catch (e) {
     dispatch(cameraError(`${e.message}`));

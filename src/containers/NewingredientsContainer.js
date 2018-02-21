@@ -17,5 +17,4 @@ export default connect(
     imageUrl: state.CameraCapture.imageUrl,
     base64: state.CameraCapture.base64,
   }),
-  null,
 )(NewingredientsContainer);
