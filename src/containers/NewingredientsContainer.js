@@ -12,9 +12,8 @@ class NewingredientsContainer extends Component {
 }
 
 
-export default connect(
-  state => ({
-    imageUrl: state.CameraCapture.imageUrl,
-    base64: state.CameraCapture.base64,
-  }),
-)(NewingredientsContainer);
+export default connect(state => ({
+  imageUrl: state.CameraCapture.imageUrl,
+  base64: state.CameraCapture.base64,
+  transResult: state.Fetchvision.transResult,
+}))(NewingredientsContainer);

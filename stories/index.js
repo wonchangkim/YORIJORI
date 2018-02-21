@@ -1,10 +1,3 @@
 import 'semantic-ui-css/semantic.min.css';
 import 'antd/dist/antd.css';
-import './LoginScreen';
-import './LoginForm';
-import './MyStorage';
-import './MenuBar';
-import './Dimmer';
-import './WrappedRegistrationForm';
-import './PlateUi';
-import './SignupForm';
+import './ResultModal';
