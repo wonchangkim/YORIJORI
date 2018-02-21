@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
-import { Button, Icon, Label } from 'semantic-ui-react';
-import styled from 'styled-components';
+import { Button } from 'semantic-ui-react';
 
-const ButtonWrap = styled(Button)`
-  width: 100px;
-`
 
 export default class FotterButton extends Component {
   render() {

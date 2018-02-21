@@ -4,9 +4,9 @@ import Newingredients from '../components/Newingredients';
 
 class NewingredientsContainer extends Component {
   render() {
-    const { imageUrl } = this.props;
+    const { ...rest } = this.props;
     return (
-      <Newingredients imageUrl={imageUrl} />
+      <Newingredients {...rest} />
     );
   }
 }
@@ -15,6 +15,7 @@ class NewingredientsContainer extends Component {
 export default connect(
   state => ({
     imageUrl: state.CameraCapture.imageUrl,
+    base64: state.CameraCapture.base64,
   }),
   null,
 )(NewingredientsContainer);

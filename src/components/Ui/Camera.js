@@ -35,23 +35,27 @@ export default class Camera extends Component {
     onCapture: () => {},
     success: false,
     imageUrl: '',
+    base64: '',
   }
   state = {
     imageUrl: '',
+    base64: '',
   }
   handleImageChange = (e) => {
     const reader = new FileReader();
     const file = e.target.files[0];
     const Url = URL.createObjectURL(file);
+    console.log(file)
     // console.log(file.name);
     reader.onloadend = () => {
-      this.setState(prevState => ({
+      this.setState({
         imageUrl: Url,
-      }));
-      this.props.onCapture(this.state)
+        base64: reader.result,
+      });
+      console.log(reader.result);
+      this.props.onCapture(this.state);
     };
-    const url = reader.readAsDataURL(file);
-    console.log('file', file.name);
+    reader.readAsDataURL(file);
     console.log('handle uploading-', Url);
   };
 
@@ -65,7 +69,7 @@ export default class Camera extends Component {
       <div>
         <form>
           <CameraLabel htmlFor="camera" />
-          <CameraBtn onChange={this.handleImageChange} type="file" id="camera" name="title" accept="image/*" />
+          <CameraBtn onChange={this.handleImageChange} type="file" id="camera" accept="image/*" />
         </form>
         {/* <ImageWrap>
           {$imagePreview}

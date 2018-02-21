@@ -10,10 +10,11 @@ export const ERROR = 'camera/ERROR';
 //   };
 // }
 
-export function cameraSuccess({ imageUrl }) {
+export function cameraSuccess({ imageUrl, base64 }) {
   return {
     type: SUCCESS,
     imageUrl,
+    base64,
   };
 }
 
@@ -28,6 +29,7 @@ const initialState = {
   success: false,
   errorMessage: '',
   imageUrl: '',
+  base64: '',
 };
 
 export default function (state = initialState, action) {
@@ -37,22 +39,24 @@ export default function (state = initialState, action) {
         success: true,
         errorMessage: '',
         imageUrl: action.imageUrl,
+        base64: action.base64,
       };
     case ERROR:
       return {
         success: false,
         errorMessage: action.errorMessage,
         imageUrl: '',
+        base64: '',
       };
     default:
       return state;
   }
 }
 
-export const getImage = ({ imageUrl }) => (dispatch) => {
+export const getImage = ({ imageUrl, base64 }) => (dispatch) => {
   try {
     // dispatch(cameraCreating({ title, imageUrl }));
-    dispatch(cameraSuccess({ imageUrl }));
+    dispatch(cameraSuccess({ imageUrl, base64 }));
   } catch (e) {
     dispatch(cameraError(`${e.message}`));
   }

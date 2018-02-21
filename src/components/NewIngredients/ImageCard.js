@@ -36,7 +36,7 @@ const FootterWrap = styled.div`
 `;
 export default class ImageCard extends Component {
   render() {
-    const { imageUrl } = this.props;
+    const { imageUrl, base64 } = this.props;
     return (
       <CardWarp as="div" >
         <ImageWrap>

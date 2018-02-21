@@ -9,7 +9,7 @@ class CameraContainer extends Component {
     const { success, ...rest } = this.props;
     if (success) {
       return (
-        <Redirect to="/Newingredients" />
+        <Redirect to="/Newingredients" {...rest} />
       );
     }
     return (
@@ -23,10 +23,11 @@ export default connect(
   state => ({
     success: state.CameraCapture.success,
     imageUrl: state.CameraCapture.imageUrl,
+    base64: state.CameraCapture.base64,
   }),
   dispatch => ({
-    onCapture: ({ imageUrl }) => {
-      dispatch(getImage({ imageUrl }));
+    onCapture: ({ imageUrl, base64 }) => {
+      dispatch(getImage({ imageUrl, base64 }));
     },
   }),
 )(CameraContainer);

@@ -10,7 +10,7 @@ class MenuContainer extends Component {
     const { menuOn, ...rest } = this.props;
     if (menuOn) {
       return (
-        <MenuBar {...rest }/>
+        <MenuBar {...rest } />
       );
     }
     return (
