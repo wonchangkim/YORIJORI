@@ -33,6 +33,7 @@ const initialState = {
   success: false,
   errorMessage: '',
   title: '',
+  done: false,
 };
 
 export default function (state = initialState, action) {
@@ -43,14 +44,15 @@ export default function (state = initialState, action) {
         success: false,
         errorMessage: '',
         title: '',
+        done: '',
       };
     case DONE:
       return {
-        success: true,
+        success: false,
         errorMessage: '',
         title: '',
-        result: action.result,
-
+        result: '',
+        done: true,
       };
     case SUCCESS:
       return {
@@ -73,11 +75,20 @@ export default function (state = initialState, action) {
 
 // thunk
 
-export const addDatabase = title => async (dispatch) => {
+export const addDatabase = (title, filename, base64) => async (dispatch) => {
   dispatch(firebaseCreating());
   const { uid } = firebase.auth().currentUser;
   try {
-    const userIngredientsRef = firebase.database().ref(`usersIngredients/${uid}`).push({ title });
+    const snapshot = await firebase.storage().ref(`images${uid}:${new Date().getTime()}`).putString(base64, 'data_url');
+
+    const userIngredientsRef = await firebase.database().ref(`usersIngredients/${uid}`).push({
+      title,
+      createdAt: firebase.database.ServerValue.TIMESTAMP,
+      downloadURL: snapshot.downloadURL,
+      filename,
+    });
+    console.log(firebase.auth())
+    dispatch(firebaseDone());
   } catch (e) {
     dispatch(firebaseError(`${e.message}`));
   }

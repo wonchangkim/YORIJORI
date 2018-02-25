@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import onClickOutside from 'react-onclickoutside';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import MenuHam from '../Navigation/MenuHam';
@@ -87,19 +88,24 @@ const styles = {
 };
 
 
-export default class MenuBar extends Component {
+class MenuBar extends Component {
   state = {
     transform: 'scale(0.1)',
     buttonOn: false,
+    click: false,
   }
   onScale = () => {
     this.setState(prevState => ({
       click: !prevState.click,
       transform: prevState.click ? 'scale(0.1)' : 'scale(1)',
-      buttonOn: !prevState.click,
+      buttonOn: !prevState.buttonOn,
     }));
   }
-
+  handleClickOutside = () => {
+    if (this.state.click) {
+      this.onScale();
+    }
+  }
   render() {
     const { transform } = this.state;
     return (
@@ -119,3 +125,5 @@ export default class MenuBar extends Component {
     );
   }
 }
+
+export default onClickOutside(MenuBar);

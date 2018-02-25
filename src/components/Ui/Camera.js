@@ -36,17 +36,21 @@ export default class Camera extends Component {
   state = {
     imageUrl: '',
     base64: '',
+    filename: '',
   }
   handleImageChange = (e) => {
     const reader = new FileReader();
     const file = e.target.files[0];
     const Url = URL.createObjectURL(file);
+
     // console.log(file.name);
     reader.onloadend = () => {
       this.setState({
         imageUrl: Url,
         base64: reader.result,
+        filename: file.name,
       });
+      console.log(reader.result)
       this.props.onCapture(this.state);
     };
     reader.readAsDataURL(file);

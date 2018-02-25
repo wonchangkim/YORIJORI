@@ -25,10 +25,11 @@ export default connect(
     success: state.CameraCapture.success,
     imageUrl: state.CameraCapture.imageUrl,
     base64: state.CameraCapture.base64,
+    filename: state.CameraCapture.filename,
   }),
   dispatch => ({
-    onCapture: ({ imageUrl, base64 }) => {
-      dispatch(getImage({ imageUrl, base64 }));
+    onCapture: ({ filename, imageUrl, base64 }) => {
+      dispatch(getImage({ filename, imageUrl, base64 }));
     },
   }),
 )(CameraContainer);

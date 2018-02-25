@@ -10,18 +10,16 @@ export default class ResultDimmer extends Component {
   handleClose = () => this.setState({ active: false })
   handleChange = (e) => {
     const { value } = e.target;
-    console.log(e.target.value);
     this.setState(prevState => ({
       title: value,
-      onBtn : true,
-    }))
+      onBtn: true,
+    }));
     setTimeout(() => {
-
       console.log(this.state);
     }, 100);
   }
   handelClick = () => {
-    this.props.onAdd(this.state.title);
+    this.props.onAdd(this.state.title, this.props.filename, this.props.base64);
   }
   render() {
     const { success, transResult } = this.props;

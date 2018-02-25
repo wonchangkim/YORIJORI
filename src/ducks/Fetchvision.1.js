@@ -65,6 +65,7 @@ export default function (state = initialState, action) {
         errorMessage: '',
         success: true,
         base64: action.base64,
+        result: [],
         transResult: action.transResult,
         done: '',
       };
@@ -105,38 +106,36 @@ export const fetchvision = ({ base64 }) => async (dispatch) => {
   try {
     const visionUrl = 'https://vision.googleapis.com/v1/images:annotate?key=AIzaSyB4iT8dqlu88KMWEGSV8MxNqRsUeXNvJ6g';
     const tranlatUrl = 'https://translation.googleapis.com/language/translate/v2?key=AIzaSyB4iT8dqlu88KMWEGSV8MxNqRsUeXNvJ6g';
-    await fetch(visionUrl, {
+    // vision api
+    const fetching = fetch(visionUrl, {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(request),
-    }).then(res => res.json())
-      .then((res) => {
-        const result = res.responses[0].labelAnnotations
-          .map(({ description }) => (description));
-        console.log(result);
-        const translateRequest = {
-          q: result,
-          target: 'ko',
-        };
-        fetch(tranlatUrl, {
-          method: 'post',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(translateRequest),
-        }).then(response => response.json())
-          .then((response) => {
-            const transResult = response.data.translations
-              .map(({ translatedText }) => (translatedText));
-            console.log(transResult);
-            dispatch(fetchSuccess({ base64 }, transResult));
-          });
-      });
-
-    // dispatch(fetchDone());
+    });
+    const fetchRes = fetching.json();
+    const Data = fetchRes.responses[0].labelAnnotations.map(({ description }) => (description));
+    // translate
+    const translateRequest = {
+      q: Data,
+      target: 'ko',
+    };
+    const transfetch = fetch(tranlatUrl, {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(translateRequest),
+    });
+    const transfetchRes = transfetch.json();
+    const transData = transfetchRes.data.translations.map(({ translatedText }) => (translatedText));
+    console.log(transData);
+    await Promise.all([fetching, transfetch]);
+    dispatch(fetchSuccess({ base64 }, transData));
+    dispatch(fetchDone());
   } catch (e) {
     dispatch(fetchError(`${e.message}`));
   }
 };
+

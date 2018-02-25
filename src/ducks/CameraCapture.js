@@ -8,11 +8,12 @@ export function cameraCreating() {
   };
 }
 
-export function cameraSuccess({ imageUrl, base64 }) {
+export function cameraSuccess({ filename, imageUrl, base64 }) {
   return {
     type: SUCCESS,
     imageUrl,
     base64,
+    filename,
   };
 }
 
@@ -29,6 +30,7 @@ const initialState = {
   errorMessage: '',
   imageUrl: '',
   base64: '',
+  filename: '',
 };
 
 export default function (state = initialState, action) {
@@ -40,6 +42,7 @@ export default function (state = initialState, action) {
         errorMessage: '',
         imageUrl: '',
         base64: '',
+        filename: '',
       };
     case SUCCESS:
       return {
@@ -47,6 +50,7 @@ export default function (state = initialState, action) {
         errorMessage: '',
         imageUrl: action.imageUrl,
         base64: action.base64,
+        filename: action.filename,
       };
     case ERROR:
       return {
@@ -54,6 +58,7 @@ export default function (state = initialState, action) {
         errorMessage: action.errorMessage,
         imageUrl: '',
         base64: '',
+        filename: '',
       };
     default:
       return state;
@@ -62,10 +67,10 @@ export default function (state = initialState, action) {
 
 // thunk
 
-export const getImage = ({ imageUrl, base64 }) => (dispatch) => {
+export const getImage = ({ filename, imageUrl, base64 }) => (dispatch) => {
   try {
     dispatch(cameraCreating());
-    dispatch(cameraSuccess({ imageUrl, base64 }));
+    dispatch(cameraSuccess({ filename, imageUrl, base64 }));
   } catch (e) {
     dispatch(cameraError(`${e.message}`));
   }

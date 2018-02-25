@@ -38,7 +38,6 @@ const Fridge = styled.div`
   background: linear-gradient(135deg, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%);
   border-radius: 30px;
   text-align : center;
-  padding: 15px;
 `;
 const Title = styled.h1`
   font-size: 80px;
@@ -51,8 +50,6 @@ const Title = styled.h1`
   background-clip: text;
 `;
 const List = styled.div`
-  display: flex;
-  flex-wrap: wrap;
   ${props => props.bigger && css`
     height: 100%;
   `}

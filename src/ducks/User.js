@@ -6,16 +6,16 @@ export const SUCCESS = 'user/SUCCESS';
 export const ERROR = 'user/ERROR';
 export const USER_CREATE_ERROR = 'user/USER_CREATE_ERROR';
 
-export function getUser() {
-  return dispatch => {
-    firebase.auth().onAuthStateChanged(user => {
-      dispatch({
-        type: GET_USER,
-        user,
-      })
-    })
-  };
-}
+// export function getUser() {
+//   return dispatch => {
+//     firebase.auth().onAuthStateChanged(user => {
+//       dispatch({
+//         type: GET_USER,
+//         user,
+//       })
+//     })
+//   };
+// }
 export function userError(errorMessage) {
   return {
     type: ERROR,
