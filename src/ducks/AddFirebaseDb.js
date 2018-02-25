@@ -80,8 +80,7 @@ export const addDatabase = (title, filename, base64) => async (dispatch) => {
   const { uid } = firebase.auth().currentUser;
   try {
     const snapshot = await firebase.storage().ref(`images${uid}:${new Date().getTime()}`).putString(base64, 'data_url');
-
-    const userIngredientsRef = await firebase.database().ref(`usersIngredients/${uid}`).push({
+    await firebase.database().ref(`usersIngredients/${uid}`).push({
       title,
       createdAt: firebase.database.ServerValue.TIMESTAMP,
       downloadURL: snapshot.downloadURL,

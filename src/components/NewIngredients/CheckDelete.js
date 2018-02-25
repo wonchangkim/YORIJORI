@@ -1,4 +1,3 @@
-import * as firebase from 'firebase';
 import React, { Component } from 'react';
 import { Button, Dimmer, Header } from 'semantic-ui-react';
 
@@ -18,11 +17,8 @@ export default class checkDelete extends Component {
   //   this.setState({ active: false })
   // }
   handelClick = () => {
-    const { id } = this.props;
     console.log(this.props.cardId);
     this.props.onDelete(this.props.cardId);
-    // const { uid } = firebase.auth().currentUser;
-    // firebase.database().ref(`usersIngredients/${uid}`).child(`${this.props.cardId}`).remove();
   }
   render() {
     return (

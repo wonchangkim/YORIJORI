@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import CheckDelete from '../components/NewIngredients/CheckDelete';
 import { deleteDatabase } from '../ducks/Getdatabase';
 
@@ -8,6 +9,12 @@ class CheckDeleteContainer extends Component {
     onDelete: () => {},
   }
   render() {
+    const { done } = this.props;
+    if (done) {
+      return (
+        <Redirect to="main" />
+      );
+    }
     return (
       <CheckDelete {...this.props} />
     );
@@ -16,7 +23,7 @@ class CheckDeleteContainer extends Component {
 
 export default connect(
   state => ({
-    loading: state.Getdatabase.loading,
+    done: state.Getdatabase.done,
     ingredients: state.Getdatabase.ingredients,
   }),
   dispatch => ({

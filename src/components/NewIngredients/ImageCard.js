@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import FootterButton from './FootterButton';
 import SearchingButtonContainer from '../../containers/SearchingButtonContainer';
 import VisionResultDimmerContainer from '../../containers/VisionResultDimmerContainer';
 
@@ -15,16 +14,7 @@ const IngredientImg = styled.img`
   width: 100%;
   height: 100%;
 `;
-const HeaderWrap = styled.div`
-  background: RGBA(181, 203, 49, 0.7);
-  height: 40px;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-`;
-const H5 = styled.h5`
-  margin: 10px 0 1px 0;
-`;
+
 const ImageWrap = styled.div`
   position: relative;
   height: 70%;

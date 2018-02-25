@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import FlipperCard from '../common/FlipperCard';
+import NothingIngredients from '../common/NothingIngredients';
 
 const HeaderWrap = styled.div`
   position: absolute;
@@ -32,27 +33,27 @@ const ImgWrap = styled.img`
   max-width: 100%;
 `;
 export default class IngredientCard extends Component {
-  // handleDelete = () => {
-  //   this.props.onDelete();
-  // }
   render() {
     const { ingredients } = this.props;
     return (
-      <FlipCardWrap>
-        {
-          ingredients.map(({
-            id, title, downloadURL, createdAt,
-          }) => (
-            <FlipperCard key={id} cardId={id}>
-              <ImgWrap src={downloadURL} alt="재료이미지" />
-              <HeaderWrap>
-                <H5>{title}</H5>
-                <Meta>{createdAt}</Meta>
-              </HeaderWrap>
-            </FlipperCard>
-          ))
-        }
-      </FlipCardWrap>
+      ingredients ?
+        <FlipCardWrap>
+          {
+              ingredients.map(({
+                id, title, downloadURL, createdAt,
+              }) => (
+                <FlipperCard key={id} cardId={id}>
+                  <ImgWrap src={downloadURL} alt="재료이미지" />
+                  <HeaderWrap>
+                    <H5>{title}</H5>
+                    <Meta>{createdAt}</Meta>
+                  </HeaderWrap>
+                </FlipperCard>
+              ))
+          }
+        </FlipCardWrap>
+        : <NothingIngredients />
+
     );
   }
 }

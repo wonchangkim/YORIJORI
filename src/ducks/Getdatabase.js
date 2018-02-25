@@ -3,6 +3,8 @@ import * as firebase from 'firebase';
 export const LOADING = 'getdatabase/LOADING';
 export const SUCCESS = 'getdatabase/SUCCESS';
 export const ERROR = 'getdatabase/ERROR';
+export const DELETE = 'getdatabase/DELETE';
+export const NULL = 'getdatabase/NULL';
 
 export function getdataLoading() {
   return {
@@ -14,6 +16,16 @@ export function getdataSuccess(ingredients) {
   return {
     type: SUCCESS,
     ingredients,
+  };
+}
+export function getdataNull() {
+  return {
+    type: NULL,
+  };
+}
+export function getdataDelete() {
+  return {
+    type: DELETE,
   };
 }
 export function getdataError(errorMessage) {
@@ -28,6 +40,7 @@ const initialState = {
   success: false,
   errorMessage: '',
   ingredients: [],
+  done: false,
 };
 
 export default function (state = initialState, action) {
@@ -38,6 +51,7 @@ export default function (state = initialState, action) {
         success: false,
         errorMessage: '',
         ingredients: [],
+        done: false,
       };
     case SUCCESS:
       return {
@@ -45,6 +59,24 @@ export default function (state = initialState, action) {
         success: true,
         errorMessage: '',
         ingredients: action.ingredients,
+        done: false,
+      };
+    case DELETE:
+      return {
+        loading: false,
+        success: false,
+        errorMessage: '',
+        ingredients: '',
+        done: true,
+      };
+    case NULL:
+      return {
+        loading: false,
+        success: false,
+        errorMessage: '',
+        ingredients: '',
+        done: true,
+        nothingdata: false,
       };
     case ERROR:
       return {
@@ -52,6 +84,7 @@ export default function (state = initialState, action) {
         success: false,
         errorMessage: action.errorMessage,
         ingredients: [],
+        done: false,
       };
     default:
       return state;
@@ -66,12 +99,16 @@ export const getdatabaseIngredients = () => async (dispatch) => {
     const { uid } = firebase.auth().currentUser;
     const snapshot = await firebase.database().ref(`usersIngredients/${uid}`).once('value');
     const ingredientsObj = snapshot.val();
-    const ingredients = Object.entries(ingredientsObj).map(([id, title]) => ({
-      ...title,
-      id,
-    }));
-    console.log(ingredients)
-    dispatch(getdataSuccess(ingredients));
+    if (ingredientsObj) {
+      const ingredients = Object.entries(ingredientsObj).map(([id, title]) => ({
+        ...title,
+        id,
+      }));
+      console.log(ingredients);
+      dispatch(getdataSuccess(ingredients));
+    } else {
+      dispatch(getdataNull());
+    }
   } catch (e) {
     dispatch(getdataError(`${e.message}`));
   }
@@ -83,6 +120,7 @@ export const deleteDatabase = cardId => async (dispatch) => {
     const { uid } = firebase.auth().currentUser;
     console.log(cardId);
     await firebase.database().ref(`usersIngredients/${uid}`).child(`${cardId}`).remove();
+    dispatch(getdataDelete());
   } catch (e) {
     dispatch(getdataError(`${e.message}`));
   }
