@@ -5,13 +5,20 @@ export const SUCCESS = 'getdatabase/SUCCESS';
 export const ERROR = 'getdatabase/ERROR';
 export const DELETE = 'getdatabase/DELETE';
 export const NULL = 'getdatabase/NULL';
+export const ADDSEARCHFROM = 'getdatabase/ADDSEARCHFROM';
 
 export function getdataLoading() {
   return {
     type: LOADING,
   };
 }
-
+export function addSearchForm(cardId, title) {
+  return {
+    type: ADDSEARCHFROM,
+    cardId,
+    title,
+  };
+}
 export function getdataSuccess(ingredients) {
   return {
     type: SUCCESS,
@@ -41,6 +48,8 @@ const initialState = {
   errorMessage: '',
   ingredients: [],
   done: false,
+  addSearchFormOn: false,
+  searchData: [],
 };
 
 export default function (state = initialState, action) {
@@ -77,6 +86,12 @@ export default function (state = initialState, action) {
         ingredients: '',
         done: true,
         nothingdata: false,
+      };
+    case ADDSEARCHFROM:
+      return {
+        ...state,
+        addSearchFormOn: true,
+        searchData: [state.searchData, action.title],
       };
     case ERROR:
       return {
@@ -124,4 +139,8 @@ export const deleteDatabase = cardId => async (dispatch) => {
   } catch (e) {
     dispatch(getdataError(`${e.message}`));
   }
+};
+
+export const addIngredientForm = (cardId, title) => async (dispatch) => {
+  dispatch(addSearchForm(cardId, title));
 };

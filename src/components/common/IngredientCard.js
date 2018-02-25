@@ -33,8 +33,11 @@ const ImgWrap = styled.img`
   max-width: 100%;
 `;
 export default class IngredientCard extends Component {
+  static defaultProps = {
+    onAddIngredients: () => {},
+  }
   render() {
-    const { ingredients } = this.props;
+    const { ingredients, onAddIngredients } = this.props;
     return (
       ingredients ?
         <FlipCardWrap>
@@ -42,7 +45,7 @@ export default class IngredientCard extends Component {
               ingredients.map(({
                 id, title, downloadURL, createdAt,
               }) => (
-                <FlipperCard key={id} cardId={id}>
+                <FlipperCard key={id} cardId={id} title={title} onAddIngredients={onAddIngredients}>
                   <ImgWrap src={downloadURL} alt="재료이미지" />
                   <HeaderWrap>
                     <H5>{title}</H5>

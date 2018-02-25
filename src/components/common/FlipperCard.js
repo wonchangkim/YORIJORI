@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Icon } from 'semantic-ui-react';
 import CheckDeleteContainer from '../../containers/CheckDeleteContainer';
+import SearchFormContaienr from '../../containers/SearchFormContaienr';
 
 const CardWarp = styled.div`
   width: 120px;
@@ -67,6 +68,7 @@ class FlipperCard extends Component {
     click: false,
     visivle: false,
     deleteDimemr: false,
+    addContainer: false,
   }
 
 
@@ -92,14 +94,21 @@ class FlipperCard extends Component {
       deleteDimemr: !prevState.deleteDimemr,
     }));
   }
-
+  handleAdd = () => {
+    this.props.onAddIngredients(this.props.cardId, this.props.title);
+    console.log(this.props.cardId, this.props.title);
+    console.log('추가');
+  }
   render() {
     const { transform } = this.state;
 
     return (
       <div>
+        {/* {
+          this.state.addContainer ? <SearchFormContaienr /> : null
+        } */}
         {
-          this.state.deleteDimemr ? <CheckDeleteContainer {...this.props}/> : null
+          this.state.deleteDimemr ? <CheckDeleteContainer {...this.props} /> : null
         }
         <CardWarp>
           <Flipper style={{ transform }} >
@@ -108,7 +117,7 @@ class FlipperCard extends Component {
             </CardFront>
             <CardBack>
               <BackWrap>
-                <Left>
+                <Left onClick={this.handleAdd}>
                   <Icon name="plus circle" size="large" />
                 </Left>
                 <Right onClick={this.handleDelete}>
