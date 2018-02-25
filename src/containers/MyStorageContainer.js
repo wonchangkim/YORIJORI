@@ -3,7 +3,7 @@ import * as firebase from 'firebase';
 import { connect } from 'react-redux';
 import StorageBox from '../components/common/StorageBox';
 import IngredientCard from '../components/common/IngredientCard';
-import { getdatabaseIngredients } from '../ducks/Getdatabase';
+import { getdatabaseIngredients, deleteDatabase } from '../ducks/Getdatabase';
 
 class MyStorageContainer extends Component {
   static defaultProps = {
@@ -30,6 +30,9 @@ export default connect(
   dispatch => ({
     onMount: () => {
       dispatch(getdatabaseIngredients());
+    },
+    onDelete: ({ cardId }) => {
+      dispatch(deleteDatabase({ cardId }));
     },
   }),
 )(MyStorageContainer);

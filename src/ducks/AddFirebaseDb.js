@@ -93,3 +93,4 @@ export const addDatabase = (title, filename, base64) => async (dispatch) => {
     dispatch(firebaseError(`${e.message}`));
   }
 };
+

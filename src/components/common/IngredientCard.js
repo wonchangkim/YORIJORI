@@ -30,11 +30,11 @@ const FlipCardWrap = styled.div`
 `;
 const ImgWrap = styled.img`
   max-width: 100%;
-`
+`;
 export default class IngredientCard extends Component {
-  handleDelet = () => {
-    this.props.onDelet();
-  }
+  // handleDelete = () => {
+  //   this.props.onDelete();
+  // }
   render() {
     const { ingredients } = this.props;
     return (
@@ -43,7 +43,7 @@ export default class IngredientCard extends Component {
           ingredients.map(({
             id, title, downloadURL, createdAt,
           }) => (
-            <FlipperCard key={id}>
+            <FlipperCard key={id} cardId={id}>
               <ImgWrap src={downloadURL} alt="재료이미지" />
               <HeaderWrap>
                 <H5>{title}</H5>

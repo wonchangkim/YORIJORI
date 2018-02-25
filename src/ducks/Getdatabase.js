@@ -64,7 +64,7 @@ export const getdatabaseIngredients = () => async (dispatch) => {
   dispatch(getdataLoading());
   try {
     const { uid } = firebase.auth().currentUser;
-    const snapshot = await firebase.database().ref(`usersIngredients/${ uid }`).once('value');
+    const snapshot = await firebase.database().ref(`usersIngredients/${uid}`).once('value');
     const ingredientsObj = snapshot.val();
     const ingredients = Object.entries(ingredientsObj).map(([id, title]) => ({
       ...title,
@@ -72,6 +72,17 @@ export const getdatabaseIngredients = () => async (dispatch) => {
     }));
     console.log(ingredients)
     dispatch(getdataSuccess(ingredients));
+  } catch (e) {
+    dispatch(getdataError(`${e.message}`));
+  }
+};
+
+export const deleteDatabase = cardId => async (dispatch) => {
+  dispatch(getdataLoading());
+  try {
+    const { uid } = firebase.auth().currentUser;
+    console.log(cardId);
+    await firebase.database().ref(`usersIngredients/${uid}`).child(`${cardId}`).remove();
   } catch (e) {
     dispatch(getdataError(`${e.message}`));
   }

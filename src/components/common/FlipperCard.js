@@ -2,6 +2,7 @@ import onClickOutside from 'react-onclickoutside';
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Icon } from 'semantic-ui-react';
+import CheckDeleteContainer from '../../containers/CheckDeleteContainer';
 
 const CardWarp = styled.div`
   width: 120px;
@@ -64,6 +65,8 @@ class FlipperCard extends Component {
   state = {
     transform: '',
     click: false,
+    visivle: false,
+    deleteDimemr: false,
   }
 
 
@@ -72,37 +75,50 @@ class FlipperCard extends Component {
       click: !prevState.click,
       transform: !prevState.visivle ? 'rotateY(180deg)' : 'rotateY(360deg)',
       visivle: !prevState.visivle,
+
     }));
   }
   handleClickOutside = () => {
-     if (this.state.click) {
+    if (this.state.click) {
       this.handleClick();
     }
+    // this.setState({
+    //   deleteDimemr: false,
+    // });
   }
-  handleDelet = () => {
-    // this.props.onDelet();
-    console.log('delet');
+  handleDelete = () => {
+    console.log(this.props);
+    this.setState(prevState => ({
+      deleteDimemr: !prevState.deleteDimemr,
+    }));
   }
+
   render() {
     const { transform } = this.state;
+
     return (
-      <CardWarp ref={(node) => { this.node = node; }}>
-        <Flipper style={{ transform }} >
-          <CardFront onClick={this.handleClick} >
-            {this.props.children}
-          </CardFront>
-          <CardBack>
-            <BackWrap>
-              <Left>
-                <Icon name="plus circle" size="large" />
-              </Left>
-              <Right onClick={this.handleDelet}>
-                <Icon name="minus circle" size="large" />
-              </Right>
-            </BackWrap>
-          </CardBack>
-        </Flipper>
-      </CardWarp>
+      <div>
+        {
+          this.state.deleteDimemr ? <CheckDeleteContainer {...this.props}/> : null
+        }
+        <CardWarp>
+          <Flipper style={{ transform }} >
+            <CardFront onClick={this.handleClick} >
+              {this.props.children}
+            </CardFront>
+            <CardBack>
+              <BackWrap>
+                <Left>
+                  <Icon name="plus circle" size="large" />
+                </Left>
+                <Right onClick={this.handleDelete}>
+                  <Icon name="minus circle" size="large" />
+                </Right>
+              </BackWrap>
+            </CardBack>
+          </Flipper>
+        </CardWarp>
+      </div>
     );
   }
 }

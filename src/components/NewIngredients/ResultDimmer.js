@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Radio, Button, Dimmer, Header, Icon, List, Checkbox, Form, Segment } from 'semantic-ui-react';
+import { Button, Dimmer, Header } from 'semantic-ui-react';
 
 export default class ResultDimmer extends Component {
   state = {
