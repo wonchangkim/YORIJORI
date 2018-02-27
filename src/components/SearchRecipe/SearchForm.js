@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
+import { Button } from 'semantic-ui-react';
 
 const Wrapper = styled.div`
   position: relative;
@@ -40,6 +41,9 @@ const SearchFormContent = styled.div`
 `;
 
 export default class SearchForm extends Component {
+  handleClick = () => {
+    this.props.onSearch(this.props.searchData);
+  }
   render() {
     const { searchData } = this.props;
     return (
@@ -47,9 +51,9 @@ export default class SearchForm extends Component {
         <SearchFormOutter>
           <SearchFormOutterInner>
             <SearchFormContent>
-                <p>{searchData}</p>
-             </SearchFormContent>
-
+              <p>{searchData}</p>
+              <Button onClick={this.handleClick}>검색하기</Button>
+            </SearchFormContent>
           </SearchFormOutterInner>
         </SearchFormOutter>
       </Wrapper>

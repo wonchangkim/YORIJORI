@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import SearchForm from '../components/SearchRecipe/SearchForm';
-import { getdatabaseIngredients, deleteDatabase } from '../ducks/Getdatabase';
+import {getdatabaseIngredients, deleteDatabase, searchRecipe } from '../ducks/Getdatabase';
 
 class SearchFormContainer extends Component {
   // static defaultProps = {
@@ -27,6 +27,9 @@ export default connect(
     },
     onDelete: ({ cardId }) => {
       dispatch(deleteDatabase({ cardId }));
+    },
+    onSearch: (searchTitle) => {
+      dispatch(searchRecipe(searchTitle));
     },
   }),
 )(SearchFormContainer);

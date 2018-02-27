@@ -1,4 +1,5 @@
 import * as firebase from 'firebase';
+import recipeData from '../assets/recipeData.json';
 
 export const LOADING = 'getdatabase/LOADING';
 export const SUCCESS = 'getdatabase/SUCCESS';
@@ -56,6 +57,7 @@ export default function (state = initialState, action) {
   switch (action.type) {
     case LOADING:
       return {
+        ...state,
         laoding: true,
         success: false,
         errorMessage: '',
@@ -64,6 +66,7 @@ export default function (state = initialState, action) {
       };
     case SUCCESS:
       return {
+        ...state,
         loading: false,
         success: true,
         errorMessage: '',
@@ -72,6 +75,7 @@ export default function (state = initialState, action) {
       };
     case DELETE:
       return {
+        ...state,
         loading: false,
         success: false,
         errorMessage: '',
@@ -80,6 +84,7 @@ export default function (state = initialState, action) {
       };
     case NULL:
       return {
+        ...state,
         loading: false,
         success: false,
         errorMessage: '',
@@ -91,10 +96,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         addSearchFormOn: true,
-        searchData: [state.searchData, action.title],
+        searchData: [...(state.searchData), action.title],
       };
     case ERROR:
       return {
+        ...state,
         loading: false,
         success: false,
         errorMessage: action.errorMessage,
@@ -143,4 +149,37 @@ export const deleteDatabase = cardId => async (dispatch) => {
 
 export const addIngredientForm = (cardId, title) => async (dispatch) => {
   dispatch(addSearchForm(cardId, title));
+};
+
+export const searchRecipe = searchTitle => async(dispatch) => {
+  console.log('검색');
+  console.log(searchTitle[0]);
+  const API_KEY = '068053684a6ffcd05aa40616567345cbdd4febd116fbad4a7e0c0f6ee5741cc1';
+  const request = `http://211.237.50.150:7080/openapi/${API_KEY}/json/Grid_20150827000000000227_1/1/5?IRDNT_NM=${searchTitle[0]}`;
+
+  fetch(request, {
+    method: 'GET',
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET',
+    },
+  })
+    .then(res => res.json()).then((response) => {
+      const result = response.Grid_20150827000000000227_1.row;
+      console.log(result);
+      const newReicpeIdarry = result.map(({ RECIPE_ID }) => (
+        RECIPE_ID
+      ));
+      console.log(newReicpeIdarry);
+      const newData = recipeData.data;
+      const resultData = [];
+      const newArry = (element, index, array) => {
+        const a = newData.filter(data => data.RECIPE_ID === element);
+        resultData.push(a[0]);
+      };
+      newReicpeIdarry.forEach(newArry)
+      console.log(resultData);
+    });
+
+  // console.log(arryByID)
 };
