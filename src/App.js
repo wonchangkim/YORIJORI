@@ -10,6 +10,7 @@ import rootReducer from './ducks/';
 import CreateUserpage from './routes/CreateUserpage';
 import Loginpage from './routes/Loginpage';
 import NewingredientsPage from './routes/NewingredientsPage';
+import DetailRecipePage from './routes/DetailRecipePage';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -28,6 +29,7 @@ class App extends Component {
             <Route path="/CreateAccount" component={CreateUserpage} />
             <Route path="/main" component={MainPage} />
             <Route path="/Newingredients" component={NewingredientsPage} />
+            <Route path="/Detailrecipe" component={DetailRecipePage} />
           </div>
         </BrowserRouter>
       </Provider>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
 import { Button } from 'semantic-ui-react';
+import ResultRecipeTitleContainer from '../../containers/ResultRecipeTitleContainer';
 
 const Wrapper = styled.div`
   position: relative;
@@ -45,9 +46,12 @@ export default class SearchForm extends Component {
     this.props.onSearch(this.props.searchData);
   }
   render() {
-    const { searchData } = this.props;
+    const { searchData, searchRecipeDone } = this.props;
     return (
       <Wrapper>
+        {
+          searchRecipeDone ? <ResultRecipeTitleContainer /> : null
+        }
         <SearchFormOutter>
           <SearchFormOutterInner>
             <SearchFormContent>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import SearchForm from '../components/SearchRecipe/SearchForm';
-import {getdatabaseIngredients, deleteDatabase, searchRecipe } from '../ducks/Getdatabase';
+import { getdatabaseIngredients, deleteDatabase, searchRecipe } from '../ducks/Getdatabase';
 
 class SearchFormContainer extends Component {
   // static defaultProps = {
@@ -19,6 +19,7 @@ class SearchFormContainer extends Component {
 
 export default connect(
   state => ({
+    searchRecipeDone: state.Getdatabase.searchRecipeDone,
     searchData: state.Getdatabase.searchData,
   }),
   dispatch => ({

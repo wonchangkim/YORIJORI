@@ -7,6 +7,8 @@ export const ERROR = 'getdatabase/ERROR';
 export const DELETE = 'getdatabase/DELETE';
 export const NULL = 'getdatabase/NULL';
 export const ADDSEARCHFROM = 'getdatabase/ADDSEARCHFROM';
+export const ADDRECIPE_TITLE = 'getdatabase/ADDRECIPE_TITLE';
+export const ADDDETAIL_RECIPE = 'getdatabase/ADDDETAIL_RECIPE';
 
 export function getdataLoading() {
   return {
@@ -42,7 +44,19 @@ export function getdataError(errorMessage) {
     errorMessage,
   };
 }
-
+export function addrecipeTitle(resultData) {
+  return {
+    type: ADDRECIPE_TITLE,
+    resultData,
+  };
+}
+export function addDetailrecipe(detailreciperesult, recipeName) {
+  return {
+    type: ADDDETAIL_RECIPE,
+    detailreciperesult,
+    recipeName,
+  };
+}
 const initialState = {
   loading: false,
   success: false,
@@ -51,6 +65,10 @@ const initialState = {
   done: false,
   addSearchFormOn: false,
   searchData: [],
+  recipeTitle: [],
+  searchRecipeDone: false,
+  detailRecipe: [],
+  detailRecipeDone: false,
 };
 
 export default function (state = initialState, action) {
@@ -59,38 +77,22 @@ export default function (state = initialState, action) {
       return {
         ...state,
         laoding: true,
-        success: false,
-        errorMessage: '',
-        ingredients: [],
-        done: false,
       };
     case SUCCESS:
       return {
         ...state,
-        loading: false,
         success: true,
-        errorMessage: '',
         ingredients: action.ingredients,
-        done: false,
       };
     case DELETE:
       return {
         ...state,
-        loading: false,
-        success: false,
-        errorMessage: '',
-        ingredients: '',
         done: true,
       };
     case NULL:
       return {
         ...state,
-        loading: false,
-        success: false,
-        errorMessage: '',
-        ingredients: '',
         done: true,
-        nothingdata: false,
       };
     case ADDSEARCHFROM:
       return {
@@ -98,14 +100,23 @@ export default function (state = initialState, action) {
         addSearchFormOn: true,
         searchData: [...(state.searchData), action.title],
       };
+    case ADDRECIPE_TITLE:
+      return {
+        ...state,
+        searchRecipeDone: true,
+        recipeTitle: action.resultData,
+      };
+    case ADDDETAIL_RECIPE:
+      return {
+        ...state,
+        recipeName: action.recipeName,
+        detailRecipeDone: true,
+        detailRecipe: action.detailreciperesult,
+      };
     case ERROR:
       return {
         ...state,
-        loading: false,
-        success: false,
         errorMessage: action.errorMessage,
-        ingredients: [],
-        done: false,
       };
     default:
       return state;
@@ -151,7 +162,7 @@ export const addIngredientForm = (cardId, title) => async (dispatch) => {
   dispatch(addSearchForm(cardId, title));
 };
 
-export const searchRecipe = searchTitle => async(dispatch) => {
+export const searchRecipe = searchTitle => async (dispatch) => {
   console.log('검색');
   console.log(searchTitle[0]);
   const API_KEY = '068053684a6ffcd05aa40616567345cbdd4febd116fbad4a7e0c0f6ee5741cc1';
@@ -173,13 +184,33 @@ export const searchRecipe = searchTitle => async(dispatch) => {
       console.log(newReicpeIdarry);
       const newData = recipeData.data;
       const resultData = [];
-      const newArry = (element, index, array) => {
+      const newArry = (element) => {
         const a = newData.filter(data => data.RECIPE_ID === element);
         resultData.push(a[0]);
       };
       newReicpeIdarry.forEach(newArry)
       console.log(resultData);
+      dispatch(addrecipeTitle(resultData));
     });
-
-  // console.log(arryByID)
 };
+
+export const searchDetailRecipe = (recipeId, recipeName) => async (dispatch) => {
+  console.log('디테일리세피검색');
+  console.log(recipeId);
+
+  const API_KEY = '068053684a6ffcd05aa40616567345cbdd4febd116fbad4a7e0c0f6ee5741cc1';
+  const request = `http://211.237.50.150:7080/openapi/${API_KEY}/json/Grid_20150827000000000228_1/1/10?RECIPE_ID=${recipeId}`;
+
+  fetch(request, {
+    method: 'GET',
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET',
+    },
+  })
+    .then(res => res.json()).then((response) => {
+      const detailreciperesult = response.Grid_20150827000000000228_1.row;
+      console.log(detailreciperesult);
+      dispatch(addDetailrecipe(detailreciperesult, recipeName));
+    });
+}
