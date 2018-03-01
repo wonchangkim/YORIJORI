@@ -36,7 +36,7 @@ export default class ResultRecipeTitle extends Component {
     setTimeout(() => {
       console.log(this.state.recipeId);
     }, 100);
-    this.props.onDetailRecipe(data.value, data.title);
+    this.props.onDetailRecipe(data.value, data.title, data.img);
   }
   render() {
     const { searchRecipeDone, recipeTitle } = this.props;
@@ -58,7 +58,7 @@ export default class ResultRecipeTitle extends Component {
                   <ImgWrap src={IMG_URL} alt="" />
                   <TitleWrap>
                     <TitleStyle>{RECIPE_NM_KO}</TitleStyle>
-                    <Button onClick={this.handelClick} title={RECIPE_NM_KO} value={RECIPE_ID}>자세히보기</Button>
+                    <Button onClick={this.handelClick} title={RECIPE_NM_KO} value={RECIPE_ID} img={IMG_URL}>자세히보기</Button>
                   </TitleWrap>
                 </Wrap>
               </div>

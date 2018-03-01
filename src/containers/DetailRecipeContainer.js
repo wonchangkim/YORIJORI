@@ -19,6 +19,8 @@ export default connect(
   state => ({
     recipeName: state.Getdatabase.recipeName,
     detailRecipe: state.Getdatabase.detailRecipe,
+    recipeImg: state.Getdatabase.recipeImg,
+    baseRecipe: state.Getdatabase.baseRecipe,
     detailRecipeDone: state.Getdatabase.detailRecipeDone,
   }),
 )(DetailRecipeContainer);

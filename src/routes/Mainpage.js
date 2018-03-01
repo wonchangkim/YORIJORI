@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import Layout from '../components/common/Layout';
 import MyStorageContainer from '../containers/MyStorageContainer';
+import withAuth from '../hocs/withAuth';
 
-export default class MainScreenContainer extends Component {
+class MainScreenContainer extends Component {
   render() {
     return (
       <Layout title="나의냉장고">
@@ -11,3 +12,5 @@ export default class MainScreenContainer extends Component {
     );
   }
 }
+
+export default withAuth(MainScreenContainer);

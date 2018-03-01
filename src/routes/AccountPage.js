@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import MyStorage from '../components/MyStorage';
 import Layout from '../components/Layout';
+import withAuth from '../hocs/withAuth';
 
-
-export default class MainScreenContainer extends Component {
+class MainScreenContainer extends Component {
   render() {
     return (
       <Layout title="쿡마크">
@@ -13,3 +13,5 @@ export default class MainScreenContainer extends Component {
     );
   }
 }
+
+export default withAuth(MainScreenContainer);

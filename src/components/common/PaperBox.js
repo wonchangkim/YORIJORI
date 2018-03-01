@@ -10,7 +10,6 @@ const Wrapper = styled.div`
   margin-top: 15px;
   background-color: #FFF;
   box-shadow: 7px 9px 8px 9px rgba(0,0,0,0.4);
-  padding: 10px;
 `;
 
 const Title = styled.h1`

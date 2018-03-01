@@ -23,8 +23,8 @@ export default connect(
     recipeTitle: state.Getdatabase.recipeTitle,
   }),
   dispatch => ({
-    onDetailRecipe: (recipeId, recipeName) => {
-      dispatch(searchDetailRecipe(recipeId,recipeName));
+    onDetailRecipe: (recipeId, recipeName, recipeImg) => {
+      dispatch(searchDetailRecipe(recipeId, recipeName, recipeImg));
     },
   }),
 )(ResultRecipeTitleContainer);
