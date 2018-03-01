@@ -12,16 +12,6 @@ const Wrapper = styled.div`
   box-shadow: 7px 9px 8px 9px rgba(0,0,0,0.4);
 `;
 
-const Title = styled.h1`
-  font-size: 24px;
-  line-height: 24px;
-  color: black;
-`;
-const List = styled.div`
-  ${props => props.bigger && css`
-    height: 100%;
-  `}
-`;
 export default class PaperBox extends Component {
   render() {
     return (

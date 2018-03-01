@@ -18,7 +18,7 @@ const ImgStyle = styled.img`
 `;
 const TitleStyle = styled.h2`
   width: 200px;
-  margin: 10px 0 0 10px;
+  margin: 10px 0 10px 0px;
   color: black;
 `;
 const CookMarkIconWrap = styled.label`
@@ -60,22 +60,22 @@ const SubInfo = styled.p`
 const Sumary = styled.p`
   margin: 0 0 0 10px;
   display: block;
-  width: 200px;
+  width: 280px;
 `;
 const InfoWrap = styled.div`
- height: 100px;
  position: relative;
+ padding: 10px;
 `;
 const StepWarp = styled.div`
  margin: 5px 0;
  padding: 10px;
 `;
-const StepNum = styled.h2`
-  width: 40px;
-  height: 40px;
+const StepNum = styled.p`
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
   background: RGBA(181, 203, 49, 1.00);
-  line-height: 40px;
+  line-height: 26px;
   text-align: center;
   color: white;
 `;
@@ -95,38 +95,56 @@ export default class DetailRecipe extends Component {
   state = {
     isChecked: false,
   }
-  handleAddCookmark = () => {
 
-  }
   handleChange = () => {
     this.setState({
       isChecked: !this.state.isChecked,
     });
-    console.log('CHANGE!');
+    setTimeout(() => {
+      this.props.onAddCookmark(
+        this.state.isChecked,
+        this.props.baseRecipe,
+        this.props.detailRecipe,
+        this.props.baserecipeIngredient,
+      );
+    }, 100);
   }
   render() {
-    const { detailRecipe, recipeName, recipeImg, baseRecipe } = this.props;
+    const { detailRecipe, baseRecipe, baserecipeIngredient } = this.props;
     return (
       <DetailRecipeWrap>
-        <ImgWrap>
-          <ImgStyle src={recipeImg} alt="" />
-          <InfoWrap>
-            <Sumary>서머리</Sumary>
-            <TitleStyle>{recipeName}</TitleStyle>
-            <div>
-              <CookMarkIconWrap htmlFor="checkbox" background={this.state.isChecked} />
-              <CookMarkInput id="checkbox" type="checkbox" onChange={this.handleChange} checked={this.state.isChecked} />
-            </div>
-            <SubInfoWrap>
-              <SubInfo>칼로리</SubInfo>
-              <SubInfo>4인분</SubInfo>
-            </SubInfoWrap>
-          </InfoWrap>
-        </ImgWrap>
+        {
+        baseRecipe.map(({
+          RECIPE_ID,
+          IMG_URL,
+          SUMRY,
+          CALORIE,
+          RECIPE_NM_KO,
+          QNT,
+          COOKING_TIME,
+        }) => (
+          <ImgWrap key={RECIPE_ID}>
+            <ImgStyle src={IMG_URL} alt="" />
+            <InfoWrap>
+              <TitleStyle>{RECIPE_NM_KO}</TitleStyle>
+              <Sumary>{SUMRY}</Sumary>
+              <SubInfoWrap>
+                <SubInfo>{CALORIE}</SubInfo>
+                <SubInfo>{QNT}</SubInfo>
+                <SubInfo>{COOKING_TIME}</SubInfo>
+              </SubInfoWrap>
+            </InfoWrap>
+          </ImgWrap>
+          ))
+        }
+        <div>
+          <CookMarkIconWrap htmlFor="checkbox" background={this.state.isChecked} />
+          <CookMarkInput id="checkbox" type="checkbox" onChange={this.handleChange} checked={this.state.isChecked} />
+        </div>
         <RecipeIngredientWrap>
           <h3>요리재료</h3>
           {
-            baseRecipe.map(({ ROW_NUM, IRDNT_NM, IRDNT_CPCTY }) => (
+            baserecipeIngredient.map(({ ROW_NUM, IRDNT_NM, IRDNT_CPCTY }) => (
               <InredientWrap key={ROW_NUM}>
                 <Spanstyle>{IRDNT_NM}</Spanstyle>
                 <Spanstyle>{IRDNT_CPCTY}</Spanstyle>

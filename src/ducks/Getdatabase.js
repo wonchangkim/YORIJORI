@@ -9,6 +9,7 @@ export const NULL = 'getdatabase/NULL';
 export const ADDSEARCHFROM = 'getdatabase/ADDSEARCHFROM';
 export const ADDRECIPE_TITLE = 'getdatabase/ADDRECIPE_TITLE';
 export const ADDDETAIL_RECIPE = 'getdatabase/ADDDETAIL_RECIPE';
+export const ADDBASE_RECIPE_INGREDIENT = 'getdatabase/ADDBASE_RECIPE_INGREDIENT';
 export const ADDBASE_RECIPE = 'getdatabase/ADDBASE_RECIPE';
 
 export function getdataLoading() {
@@ -51,12 +52,19 @@ export function addrecipeTitle(resultData) {
     resultData,
   };
 }
-export function addbaserecipe(basereciperesult) {
+export function addbaserecipeIngredient(basereciperesultIngredient) {
+  return {
+    type: ADDBASE_RECIPE_INGREDIENT,
+    basereciperesultIngredient,
+  };
+}
+export function addbaseRecipe(basereciperesult) {
   return {
     type: ADDBASE_RECIPE,
     basereciperesult,
   };
 }
+
 export function addDetailrecipe(detailreciperesult, recipeName, recipeImg) {
   return {
     type: ADDDETAIL_RECIPE,
@@ -78,6 +86,7 @@ const initialState = {
   detailRecipe: [],
   detailRecipeDone: false,
   baseRecipe: [],
+  baserecipeIngredient: [],
 };
 
 export default function (state = initialState, action) {
@@ -122,6 +131,11 @@ export default function (state = initialState, action) {
         detailRecipeDone: true,
         detailRecipe: action.detailreciperesult,
         recipeImg: action.recipeImg,
+      };
+    case ADDBASE_RECIPE_INGREDIENT:
+      return {
+        ...state,
+        baserecipeIngredient: action.basereciperesultIngredient,
       };
     case ADDBASE_RECIPE:
       return {
@@ -203,19 +217,27 @@ export const searchRecipe = searchTitle => async (dispatch) => {
         const a = newData.filter(data => data.RECIPE_ID === element);
         resultData.push(a[0]);
       };
-      newReicpeIdarry.forEach(newArry)
+      newReicpeIdarry.forEach(newArry);
       console.log(resultData);
       dispatch(addrecipeTitle(resultData));
     });
 };
 
-export const searchDetailRecipe = (recipeId, recipeName, recipeImg) => async (dispatch) => {
+export const searchDetailRecipe = recipeId => async (dispatch) => {
   console.log('디테일리세피검색');
   console.log(recipeId);
 
   const API_KEY = '068053684a6ffcd05aa40616567345cbdd4febd116fbad4a7e0c0f6ee5741cc1';
-  const request = `http://211.237.50.150:7080/openapi/${API_KEY}/json/Grid_20150827000000000228_1/1/10?RECIPE_ID=${recipeId}`;
-  const baseRecipe = `http://211.237.50.150:7080/openapi/${API_KEY}/json/Grid_20150827000000000227_1/1/20?RECIPE_ID=${recipeId}`
+  const request = `http://211.237.50.150:7080/openapi/${API_KEY}/json/Grid_20150827000000000228_1/1/20?RECIPE_ID=${recipeId}`;
+  const baseRecipe = `http://211.237.50.150:7080/openapi/${API_KEY}/json/Grid_20150827000000000227_1/1/30?RECIPE_ID=${recipeId}`;
+  const newData = recipeData.data;
+  function newbaseRecipe(element) {
+    return newData.filter(data => data.RECIPE_ID === element);
+  }
+  newbaseRecipe(recipeId);
+  console.log(newbaseRecipe(recipeId));
+  dispatch(addbaseRecipe(newbaseRecipe(recipeId)));
+
   fetch(request, {
     method: 'GET',
     headers: {
@@ -226,7 +248,7 @@ export const searchDetailRecipe = (recipeId, recipeName, recipeImg) => async (di
     .then(res => res.json()).then((response) => {
       const detailreciperesult = response.Grid_20150827000000000228_1.row;
       console.log(detailreciperesult);
-      dispatch(addDetailrecipe(detailreciperesult, recipeName, recipeImg));
+      dispatch(addDetailrecipe(detailreciperesult));
     });
   fetch(baseRecipe, {
     method: 'GET',
@@ -236,8 +258,8 @@ export const searchDetailRecipe = (recipeId, recipeName, recipeImg) => async (di
     },
   })
     .then(res => res.json()).then((response) => {
-      const basereciperesult = response.Grid_20150827000000000227_1.row;
-      console.log(basereciperesult);
-      dispatch(addbaserecipe(basereciperesult));
+      const basereciperesultIngredient = response.Grid_20150827000000000227_1.row;
+      console.log(basereciperesultIngredient);
+      dispatch(addbaserecipeIngredient(basereciperesultIngredient));
     });
 }

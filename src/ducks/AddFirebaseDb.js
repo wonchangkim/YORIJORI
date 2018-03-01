@@ -93,3 +93,44 @@ export const addDatabase = (title, filename, base64) => async (dispatch) => {
   }
 };
 
+
+export const AddCookmark = (
+  isChecked,
+  baseRecipe,
+  detailRecipe,
+  baserecipeIngredient,
+) => async (dispatch) => {
+  // dispatch(firebaseCreating());
+  const { uid } = firebase.auth().currentUser;
+  try {
+    if (isChecked) {
+      console.log('add');
+      console.log(isChecked);
+      await firebase.database().ref(`usersCookmark/${uid}/${baseRecipe[0].RECIPE_ID}`).update({
+        isChecked,
+        baseRecipe,
+        detailRecipe,
+        baserecipeIngredient,
+        createdAt: firebase.database.ServerValue.TIMESTAMP,
+      });
+    } else {
+      console.log(isChecked);
+      await firebase.database().ref(`usersCookmark/${uid}/${baseRecipe[0].RECIPE_ID}`).remove();
+    }
+    // dispatch(firebaseDone());
+  } catch (e) {
+    dispatch(firebaseError(`${e.message}`));
+  }
+};
+
+export const DeleteCookmark = () => async (dispatch) => {
+  // dispatch(firebaseCreating());
+  const { uid } = firebase.auth().currentUser;
+  try {
+    console.log('Delete')
+    firebase.database().ref(`usersCookmark/${uid}`).child().remove();
+    // dispatch(firebaseDone());
+  } catch (e) {
+    dispatch(firebaseError(`${e.message}`));
+  }
+};
