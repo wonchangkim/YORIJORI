@@ -11,6 +11,9 @@ export const ADDRECIPE_TITLE = 'getdatabase/ADDRECIPE_TITLE';
 export const ADDDETAIL_RECIPE = 'getdatabase/ADDDETAIL_RECIPE';
 export const ADDBASE_RECIPE_INGREDIENT = 'getdatabase/ADDBASE_RECIPE_INGREDIENT';
 export const ADDBASE_RECIPE = 'getdatabase/ADDBASE_RECIPE';
+export const GET_DATA_COOKMARK = 'getdatabase/GET_DATA_COOKMARK';
+export const SELECT_COOKMARK = 'getdatabase/SELECT_COOKMARK';
+export const SELECT_COOKMARK_DONE = 'getdatabase/SELECT_COOKMARK_DONE';
 
 export function getdataLoading() {
   return {
@@ -73,6 +76,22 @@ export function addDetailrecipe(detailreciperesult, recipeName, recipeImg) {
     recipeImg,
   };
 }
+export function selectCookmark() {
+  return {
+    type: SELECT_COOKMARK,
+  };
+}
+export function getdataCookmark(Cookmarklist) {
+  return {
+    type: GET_DATA_COOKMARK,
+    Cookmarklist,
+  };
+}
+export function selectDone() {
+  return {
+    type: SELECT_COOKMARK_DONE,
+  };
+}
 const initialState = {
   loading: false,
   success: false,
@@ -87,6 +106,8 @@ const initialState = {
   detailRecipeDone: false,
   baseRecipe: [],
   baserecipeIngredient: [],
+  cookmark: [],
+  selectcookmarkclick: false,
 };
 
 export default function (state = initialState, action) {
@@ -141,6 +162,21 @@ export default function (state = initialState, action) {
       return {
         ...state,
         baseRecipe: action.basereciperesult,
+      };
+    case GET_DATA_COOKMARK:
+      return {
+        ...state,
+        cookmark: action.Cookmarklist,
+      };
+    case SELECT_COOKMARK:
+      return {
+        ...state,
+        selectcookmarkclick: true,
+      };
+    case SELECT_COOKMARK_DONE:
+      return {
+        ...state,
+        selectcookmarkclick: false,
       };
     case ERROR:
       return {
@@ -262,4 +298,35 @@ export const searchDetailRecipe = recipeId => async (dispatch) => {
       console.log(basereciperesultIngredient);
       dispatch(addbaserecipeIngredient(basereciperesultIngredient));
     });
+}
+
+export const getdatabaseCookmark = () => async (dispatch) => {
+  // dispatch(getdataLoading());
+  try {
+    const { uid } = firebase.auth().currentUser;
+    const snapshot = await firebase.database().ref(`usersCookmark/${uid}`).once('value');
+    const cookmarkObj = snapshot.val();
+    console.log(cookmarkObj);
+    if (cookmarkObj) {
+      const Cookmarklist = Object.entries(cookmarkObj).map(([key, { IMG_URL, RECIPE_ID, RECIPE_NM_KO }]) => ({
+        IMG_URL,
+        RECIPE_ID,
+        RECIPE_NM_KO,
+      }));
+      console.log(Cookmarklist);
+      dispatch(getdataCookmark(Cookmarklist));
+    } else {
+      // dispatch(getdataNull());
+    }
+  } catch (e) {
+    dispatch(getdataError(`${e.message}`));
+  }
+};
+
+export const clickcookmark = () => async (dispatch) => {
+  dispatch(selectCookmark());
+};
+
+export const clickcookmarkDone = () => async (dispatch) => {
+  dispatch(selectDone());
 }

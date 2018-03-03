@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
-import { Icon } from 'semantic-ui-react';
+import { Button, Image} from 'semantic-ui-react';
 import CookMarkIcon from '../../assets/icon/cookmark.png';
 import CookMarkIconactive from '../../assets/icon/cookmarkactive.png';
 
@@ -21,7 +21,7 @@ const TitleStyle = styled.h2`
   margin: 10px 0 10px 0px;
   color: black;
 `;
-const CookMarkIconWrap = styled.label`
+const CookMarkIconWrap = styled.div`
   background: url(${CookMarkIcon}) no-repeat center;
   background-size: 40px 70px;
   width: 40px;
@@ -35,7 +35,7 @@ const CookMarkIconWrap = styled.label`
     background-size: 40px 70px;
   `}
 `;
-const CookMarkInput = styled.input`
+const CookMarkInput = styled.div`
   position: absolute;
   width: 1px;
   height: 1px;
@@ -94,6 +94,7 @@ const Spanstyle = styled.span`
 export default class DetailRecipe extends Component {
   state = {
     isChecked: false,
+    recipeId: '',
   }
 
   handleChange = () => {
@@ -107,23 +108,16 @@ export default class DetailRecipe extends Component {
         this.props.detailRecipe,
         this.props.baserecipeIngredient,
       );
+      console.log(this.state.value)
     }, 100);
   }
   render() {
     const { detailRecipe, baseRecipe, baserecipeIngredient } = this.props;
+    const [{IMG_URL, SUMRY, CALORIE, RECIPE_NM_KO, QNT, COOKING_TIME, RECIPE_ID}] = baseRecipe;
     return (
       <DetailRecipeWrap>
         {
-        baseRecipe.map(({
-          RECIPE_ID,
-          IMG_URL,
-          SUMRY,
-          CALORIE,
-          RECIPE_NM_KO,
-          QNT,
-          COOKING_TIME,
-        }) => (
-          <ImgWrap key={RECIPE_ID}>
+          <ImgWrap key={Math.random()}>
             <ImgStyle src={IMG_URL} alt="" />
             <InfoWrap>
               <TitleStyle>{RECIPE_NM_KO}</TitleStyle>
@@ -134,18 +128,14 @@ export default class DetailRecipe extends Component {
                 <SubInfo>{COOKING_TIME}</SubInfo>
               </SubInfoWrap>
             </InfoWrap>
+            <CookMarkIconWrap background={this.state.isChecked} onClick={this.handleChange} />
           </ImgWrap>
-          ))
         }
-        <div>
-          <CookMarkIconWrap htmlFor="checkbox" background={this.state.isChecked} />
-          <CookMarkInput id="checkbox" type="checkbox" onChange={this.handleChange} checked={this.state.isChecked} />
-        </div>
         <RecipeIngredientWrap>
           <h3>요리재료</h3>
           {
-            baserecipeIngredient.map(({ ROW_NUM, IRDNT_NM, IRDNT_CPCTY }) => (
-              <InredientWrap key={ROW_NUM}>
+            baserecipeIngredient.map(({ IRDNT_NM, IRDNT_CPCTY }) => (
+              <InredientWrap key={Math.random()}>
                 <Spanstyle>{IRDNT_NM}</Spanstyle>
                 <Spanstyle>{IRDNT_CPCTY}</Spanstyle>
               </InredientWrap>
@@ -154,8 +144,8 @@ export default class DetailRecipe extends Component {
         </RecipeIngredientWrap>
         <div>
           {
-          detailRecipe.map(({ COOKING_NO, COOKING_DC, STRE_STEP_IMAGE_URL })=> (
-            <StepWarp key={COOKING_NO}>
+          detailRecipe.map(({ ROW_NUM, COOKING_NO, COOKING_DC, STRE_STEP_IMAGE_URL })=> (
+            <StepWarp key={Math.random()}>
               <StepNum>{COOKING_NO}</StepNum>
               {
                 STRE_STEP_IMAGE_URL ?

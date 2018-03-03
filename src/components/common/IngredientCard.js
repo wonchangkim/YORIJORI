@@ -60,4 +60,3 @@ export default class IngredientCard extends Component {
     );
   }
 }
-// 이미지경로 수정

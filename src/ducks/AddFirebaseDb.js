@@ -102,20 +102,21 @@ export const AddCookmark = (
 ) => async (dispatch) => {
   // dispatch(firebaseCreating());
   const { uid } = firebase.auth().currentUser;
+  const [{ RECIPE_ID, RECIPE_NM_KO, IMG_URL }] = baseRecipe;
+  const pushdata = {
+    RECIPE_ID,
+    RECIPE_NM_KO,
+    IMG_URL,
+    isChecked,
+  };
   try {
     if (isChecked) {
       console.log('add');
       console.log(isChecked);
-      await firebase.database().ref(`usersCookmark/${uid}/${baseRecipe[0].RECIPE_ID}`).update({
-        isChecked,
-        baseRecipe,
-        detailRecipe,
-        baserecipeIngredient,
-        createdAt: firebase.database.ServerValue.TIMESTAMP,
-      });
+      firebase.database().ref(`usersCookmark/${uid}/${RECIPE_ID}`).update(pushdata);
     } else {
       console.log(isChecked);
-      await firebase.database().ref(`usersCookmark/${uid}/${baseRecipe[0].RECIPE_ID}`).remove();
+      await firebase.database().ref(`usersCookmark/${uid}/${RECIPE_ID}`).remove();
     }
     // dispatch(firebaseDone());
   } catch (e) {

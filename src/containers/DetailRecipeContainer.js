@@ -2,13 +2,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PaperBox from '../components/common/PaperBox';
 import DetailRecipe from '../components/SearchRecipe/DetailRecipe';
-import { AddCookmark, DeleteCookmark } from '../ducks/AddFirebaseDb';
+import { AddCookmark } from '../ducks/AddFirebaseDb';
+import { clickcookmarkDone } from '../ducks/Getdatabase';
 
 class DetailRecipeContainer extends Component {
+  componentDidMount() {
+    this.props.clickcookmarkDone();
+  }
   render() {
     return (
       <div>
-        <PaperBox title="테스트">
+        <PaperBox>
           <DetailRecipe {...this.props} />
         </PaperBox>
       </div>
@@ -34,8 +38,8 @@ export default connect(
     ) => {
       dispatch(AddCookmark(isChecked, baseRecipe, detailRecipe, baserecipeIngredient));
     },
-    // onDelete: () => {
-    //   dispatch(DeleteCookmark());
-    // }
+    clickcookmarkDone: () => {
+      dispatch(clickcookmarkDone());
+    }
   }),
 )(DetailRecipeContainer);
