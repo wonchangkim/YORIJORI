@@ -3,7 +3,8 @@ import * as firebase from 'firebase';
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 import Cookmark from '../components/Cookmark/Cookmark';
-import { getdatabaseCookmark, clickcookmark, searchDetailRecipe } from '../ducks/Getdatabase';
+import { getdatabaseCookmark, clickcookmark, searchDetailRecipe, } from '../ducks/Getdatabase';
+import { addShoppingMemo } from '../ducks/AddFirebaseDb';
 
 
 class CookmarkContainer extends Component {
@@ -43,5 +44,8 @@ export default connect(
     onGetCookmark: () => {
       dispatch(getdatabaseCookmark());
     },
+    onAddshoppingMemo: (memoRecipeId ,memoRecipeimg, memoRecipeko) => {
+      dispatch(addShoppingMemo(memoRecipeId ,memoRecipeimg, memoRecipeko));
+    }
   }),
 )(CookmarkContainer);

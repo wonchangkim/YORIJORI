@@ -4,6 +4,7 @@ export const CREATING = 'addfirebaseDb/CREATING';
 export const DONE = 'addfirebaseDb/DONE';
 export const SUCCESS = 'addfirebaseDb/SUCCESS';
 export const ERROR = 'addfirebaseDb/ERROR';
+export const ADD_DATA_SHOPPING_MEMO = 'getdatabase/ADD_DATA_SHOPPING_MEMO';
 
 export function firebaseCreating() {
   return {
@@ -27,7 +28,12 @@ export function firebaseError(errorMessage) {
     errorMessage,
   };
 }
-
+export function addDataShoppingMemo(memoRecipeId) {
+  return {
+    type: ADD_DATA_SHOPPING_MEMO,
+    memoRecipeId,
+  };
+}
 const initialState = {
   creating: '',
   success: false,
@@ -68,6 +74,11 @@ export default function (state = initialState, action) {
         title: '',
         result: '',
       };
+    case ADD_DATA_SHOPPING_MEMO:
+      return {
+        ...state,
+        shoppingMemo: action.memoRecipeId,
+      }
     default:
       return state;
   }
@@ -134,4 +145,12 @@ export const DeleteCookmark = () => async (dispatch) => {
   } catch (e) {
     dispatch(firebaseError(`${e.message}`));
   }
+};
+export const addShoppingMemo = (memoRecipeId, memoRecipeimg, memoRecipeko) => async(dispatch) => {
+  const { uid } = firebase.auth().currentUser;
+  firebase.database().ref(`usersShoppingMemo/${uid}/${memoRecipeId}`).update({
+    RECIPE_ID: memoRecipeId,
+    RECIPE_IMG: memoRecipeimg,
+    RECIPE_KO: memoRecipeko,
+  });
 };

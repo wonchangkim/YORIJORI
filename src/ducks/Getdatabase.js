@@ -14,6 +14,7 @@ export const ADDBASE_RECIPE = 'getdatabase/ADDBASE_RECIPE';
 export const GET_DATA_COOKMARK = 'getdatabase/GET_DATA_COOKMARK';
 export const SELECT_COOKMARK = 'getdatabase/SELECT_COOKMARK';
 export const SELECT_COOKMARK_DONE = 'getdatabase/SELECT_COOKMARK_DONE';
+export const ADD_DATA_SHOPPING_MEMO = 'getdatabase/ADD_DATA_SHOPPING_MEMO';
 
 export function getdataLoading() {
   return {
@@ -92,6 +93,12 @@ export function selectDone() {
     type: SELECT_COOKMARK_DONE,
   };
 }
+export function addShoppingMemo(shoppingmemoObj) {
+  return {
+    type: ADD_DATA_SHOPPING_MEMO,
+    shoppingmemoObj,
+  };
+}
 const initialState = {
   loading: false,
   success: false,
@@ -108,6 +115,7 @@ const initialState = {
   baserecipeIngredient: [],
   cookmark: [],
   selectcookmarkclick: false,
+  shoppingMemo: [],
 };
 
 export default function (state = initialState, action) {
@@ -177,6 +185,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         selectcookmarkclick: false,
+      };
+    case ADD_DATA_SHOPPING_MEMO:
+      return {
+        ...state,
+        shoppingMemolist: action.shoppingmemoObj,
       };
     case ERROR:
       return {
@@ -329,4 +342,12 @@ export const clickcookmark = () => async (dispatch) => {
 
 export const clickcookmarkDone = () => async (dispatch) => {
   dispatch(selectDone());
+}
+
+export const getdataShoppingMemo = () => async (dispatch) => {
+  const { uid } = firebase.auth().currentUser;
+  const snapshot = await firebase.database().ref(`usersShoppingMemo/${uid}`).once('value');
+  const shoppingmemoObj = snapshot.val();
+  console.log(shoppingmemoObj);
+  dispatch(addShoppingMemo(shoppingmemoObj));
 }

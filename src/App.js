@@ -13,6 +13,7 @@ import NewingredientsPage from './routes/NewingredientsPage';
 import DetailRecipePage from './routes/DetailRecipePage';
 import CookmarkPage from './routes/CookmarkPage';
 import CookmarkDetailPage from './routes/CookmarkDetailPage';
+import ShoppingMemoPage from './routes/ShoppingMemoPage';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -34,6 +35,7 @@ class App extends Component {
             <Route path="/Detailrecipe" component={DetailRecipePage} />
             <Route path="/cookmark" exact component={CookmarkPage} />
             <Route path="/cookmarkdetail" exact component={CookmarkDetailPage} />
+            <Route path="/memo" exact component={ShoppingMemoPage} />
           </div>
         </BrowserRouter>
       </Provider>
