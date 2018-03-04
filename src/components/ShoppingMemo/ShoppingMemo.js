@@ -42,7 +42,7 @@ export default class ShoppingMemo extends Component {
                 <MemoLi key={Math.random()} >
                   <ImgWrap src={value.RECIPE_IMG} id={value.RECIPE_ID} alt="" onClick={this.handelClick} />
                   <Title>{value.RECIPE_KO}</Title>
-                  <CheckMemoContainer recipeid={value.RECIPE_ID} />
+                  <CheckMemoContainer ingredient={value.Ingredient} />
                 </MemoLi>
               )) : <p>없음</p>
             }

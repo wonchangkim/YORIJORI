@@ -346,8 +346,7 @@ export const clickcookmarkDone = () => async (dispatch) => {
 
 export const getdataShoppingMemo = () => async (dispatch) => {
   const { uid } = firebase.auth().currentUser;
-  const snapshot = await firebase.database().ref(`usersShoppingMemo/${uid}`).once('value');
+  const snapshot = await firebase.database().ref(`usersShoppingMemo/${uid}/`).once('value');
   const shoppingmemoObj = snapshot.val();
-  console.log(shoppingmemoObj);
   dispatch(addShoppingMemo(shoppingmemoObj));
 }

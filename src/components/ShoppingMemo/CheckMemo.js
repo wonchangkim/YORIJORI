@@ -9,7 +9,9 @@ const ListWrap = styled.div`
 `;
 const DetailList = styled.div`
   width: 100%;
+  height: 0px;
   background: yellow;
+
 `;
 const Spanstyle = styled.span`
   width: 50px;
@@ -18,12 +20,19 @@ const Spanstyle = styled.span`
   right: 0;
   top: -50px;
   position: absolute;
+
 `;
 const styles = {
   transition: 'all 500ms cubic-bezier(0.680, -0.550, 0.265, 1.550)',
 };
 const InredientWrap = styled.div`
   background: #198998;
+  display: none;
+  height: 0px;
+  ${props => props.show && css`
+  display: block;
+  height: 60px;
+ `}
 `;
 const Spanstyleingrediente = styled.span`
 `;
@@ -34,34 +43,37 @@ class CheckMemo extends Component {
     recipeId: '',
     showlist: false,
   }
-  handleClick = (e) => {
+  handleClick = () => {
     this.setState({
       click: !this.state.click,
-      recipeId: Number(e.target.id),
       showlist: true,
     });
     setTimeout(() => {
       if (this.state.showlist) {
-        this.props.oncheckMemo(this.state.recipeId);
+        // this.props.oncheckMemo(this.state.recipeId);
         console.log('click', this.state.recipeId);
       }
-    }, 500);
+    }, 100);
   }
-
+  handleClickOutside = () => {
+    if (this.state.click) {
+      this.handleClick();
+    }
+  }
   render() {
-    const { baserecipeIngredient, recipeid } = this.props;
+    const { ingredient, recipeid } = this.props;
+
     return (
       <ListWrap>
         <Spanstyle id={recipeid} onClick={this.handleClick}>메모확인</Spanstyle>
         <DetailList style={{ ...styles }} click={this.state.click}>
           {
-            baserecipeIngredient.map(({ RECIPE_ID, IRDNT_NM, IRDNT_CPCTY }) => (
-              (RECIPE_ID === recipeid) ?
-                <InredientWrap key={Math.random()} style={{ ...styles }}>
-                  <Spanstyleingrediente>{IRDNT_NM}</Spanstyleingrediente>
-                  <Spanstyleingrediente>{IRDNT_CPCTY}</Spanstyleingrediente>
-                </InredientWrap> : null
-            ))
+            ingredient.map(({ IRDNT_CPCTY, IRDNT_NM }) => (
+              <InredientWrap key={Math.random()} style={{ ...styles }} show={this.state.click}>
+                <Spanstyleingrediente>{IRDNT_NM}</Spanstyleingrediente>
+                <Spanstyleingrediente>{IRDNT_CPCTY}</Spanstyleingrediente>
+              </InredientWrap>
+              ))
           }
         </DetailList>
       </ListWrap>

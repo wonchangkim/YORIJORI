@@ -136,21 +136,35 @@ export const AddCookmark = (
 };
 
 export const DeleteCookmark = () => async (dispatch) => {
-  // dispatch(firebaseCreating());
+
   const { uid } = firebase.auth().currentUser;
   try {
     console.log('Delete')
     firebase.database().ref(`usersCookmark/${uid}`).child().remove();
-    // dispatch(firebaseDone());
+
   } catch (e) {
     dispatch(firebaseError(`${e.message}`));
   }
 };
 export const addShoppingMemo = (memoRecipeId, memoRecipeimg, memoRecipeko) => async(dispatch) => {
   const { uid } = firebase.auth().currentUser;
-  firebase.database().ref(`usersShoppingMemo/${uid}/${memoRecipeId}`).update({
-    RECIPE_ID: memoRecipeId,
-    RECIPE_IMG: memoRecipeimg,
-    RECIPE_KO: memoRecipeko,
-  });
+  const API_KEY = '068053684a6ffcd05aa40616567345cbdd4febd116fbad4a7e0c0f6ee5741cc1';
+  const baseRecipe = `http://211.237.50.150:7080/openapi/${API_KEY}/json/Grid_20150827000000000227_1/1/30?RECIPE_ID=${memoRecipeId}`;
+  fetch(baseRecipe, {
+    method: 'GET',
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET',
+    },
+  })
+    .then(res => res.json()).then((response) => {
+      const Ingredient = response.Grid_20150827000000000227_1.row;
+      console.log(Ingredient);
+      firebase.database().ref(`usersShoppingMemo/${uid}/${memoRecipeId}`).update({
+        RECIPE_ID: memoRecipeId,
+        RECIPE_IMG: memoRecipeimg,
+        RECIPE_KO: memoRecipeko,
+        Ingredient,
+      });
+    });
 };
