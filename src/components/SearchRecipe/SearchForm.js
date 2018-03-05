@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
-import { Button } from 'semantic-ui-react';
+import { Button, Icon } from 'semantic-ui-react';
 import ResultRecipeTitleContainer from '../../containers/ResultRecipeTitleContainer';
 
 const Wrapper = styled.div`
   position: relative;
-  width: 98vw;
+  width: 100vw;
   height: 200px;
   display: flex;
   flex-direction: column;
@@ -13,11 +13,11 @@ const Wrapper = styled.div`
   margin-top: 15px;
 `;
 const SearchFormOutter = styled.div`
-  width: 90%;
-  height: 90%;
+  width: 95%;
+  height: 95%;
   background-color: #FFF;
   border-radius: 50px;
-  box-shadow: 7px 9px 8px 9px rgba(0,0,0,0.4);
+  box-shadow: 2px 5px 2px 2px rgba(0,0,0,0.4);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -34,29 +34,72 @@ const SearchFormOutterInner = styled.div`
   align-items: center;
 `;
 const SearchFormContent = styled.div`
-  width: 88%;
-  height: 88%;
+  width: 90%;
+  height: 90%;
   background: linear-gradient(135deg, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%);
-  border-radius: 30px;
+  border-radius: 46px;
   text-align : center;
+  position: relative;
 `;
-
+const Btnstyle = styled(Button)`
+  height: 130px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  box-shadow: inset 2px 5px 2px 2px rgba(0,0,0,0.4);
+  ${props => props.right && css`
+    right: 10px;
+  `}
+  ${props => props.left && css`
+    left: 10px;
+  `}
+`;
+const SearchdataWrap = styled.div`
+  width: 120px;
+  height: 120px;
+  border: 1px solid #1CB5AC;
+  border-radius: 20px;
+  overflow: hidden;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+`;
+const ImgWrap = styled.img`
+  max-height: 90px;
+`;
+const TitleWrap = styled.p`
+  background: #1CB5AC;
+  height: 30px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  line-height: 30px;
+`;
 export default class SearchForm extends Component {
-  handleClick = () => {
-    this.props.onSearch(this.props.searchData);
+  handleClick = (e, data) => {
+    this.props.onSearch(data.id);
+  }
+  handleClose = () => {
+    this.props.onSearchFormOff();
   }
   render() {
-    const { searchData, searchRecipeDone } = this.props;
+    const { searchData } = this.props;
+    const [imgurl, title] = searchData;
     return (
       <Wrapper>
-        {
+        {/* {
           searchRecipeDone ? <ResultRecipeTitleContainer /> : null
-        }
+        } */}
         <SearchFormOutter>
           <SearchFormOutterInner>
             <SearchFormContent>
-              <p>{searchData}</p>
-              <Button onClick={this.handleClick}>검색하기</Button>
+              <SearchdataWrap>
+                <ImgWrap src={imgurl} alt="재료이미지" />
+                <TitleWrap>{title}</TitleWrap>
+              </SearchdataWrap>
+              <Btnstyle right="true" id={title} onClick={this.handleClick} color="teal" icon="search" circular />
+              <Btnstyle left="true" onClick={this.handleClose}color="teal" icon="close" circular />
             </SearchFormContent>
           </SearchFormOutterInner>
         </SearchFormOutter>

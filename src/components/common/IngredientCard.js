@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
+import { Loader } from 'semantic-ui-react';
 import styled from 'styled-components';
 import FlipperCard from '../common/FlipperCard';
-import NothingIngredients from '../common/NothingIngredients';
 
 const HeaderWrap = styled.div`
   position: absolute;
-  background : RGBA(181, 202, 64, 1);
+  background : #1CB5AC;
   width: 120px;
   height: 40px;
   bottom: 0;
@@ -26,7 +26,6 @@ const FlipCardWrap = styled.div`
   display: flex;
   align-item: space-around;
   justify-content: space-between;
-
   flex-wrap: wrap;
 `;
 const ImgWrap = styled.img`
@@ -37,26 +36,24 @@ export default class IngredientCard extends Component {
     onAddIngredients: () => {},
   }
   render() {
-    const { ingredients, onAddIngredients } = this.props;
+    const { ingredients, onAddIngredients, loading } = this.props;
     return (
-      ingredients ?
-        <FlipCardWrap>
-          {
-              ingredients.map(({
-                id, title, downloadURL, createdAt,
-              }) => (
-                <FlipperCard key={id} cardId={id} title={title} onAddIngredients={onAddIngredients}>
-                  <ImgWrap src={downloadURL} alt="재료이미지" />
-                  <HeaderWrap>
-                    <H5>{title}</H5>
-                    <Meta>{createdAt}</Meta>
-                  </HeaderWrap>
-                </FlipperCard>
-              ))
-          }
-        </FlipCardWrap>
-        : <NothingIngredients />
-
+      loading ? <Loader active /> :
+      <FlipCardWrap>
+        {
+          ingredients.map(({
+              id, title, downloadURL, createdAt,
+            }) => (
+              <FlipperCard key={id} cardId={id} title={title} imgUrl={downloadURL} onAddIngredients={onAddIngredients}>
+                <ImgWrap src={downloadURL} alt="재료이미지" />
+                <HeaderWrap>
+                  <H5>{title}</H5>
+                  <Meta>{createdAt}</Meta>
+                </HeaderWrap>
+              </FlipperCard>
+          ))
+        }
+      </FlipCardWrap>
     );
   }
 }

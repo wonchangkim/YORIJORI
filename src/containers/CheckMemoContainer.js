@@ -21,9 +21,6 @@ export default connect(
     shoppingMemolist: state.Getdatabase.shoppingMemolist,
   }),
   dispatch => ({
-    oncheckMemo: (recipeId) => {
-      dispatch(searchDetailRecipe(recipeId));
-    },
     getingredient: (recipeId) => {
       dispatch(getdataShoppingMemo(recipeId));
     },

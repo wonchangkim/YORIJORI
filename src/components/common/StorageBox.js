@@ -1,30 +1,31 @@
 import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
 
-
 const Wrapper = styled.div`
   position: relative;
-  width: 98vw;
-  height: 98vh;
+  width: 95vw;
+  min-height: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 15px;
+  margin-top: 5px;
 `;
 const FridgeOutter = styled.div`
-  width: 90%;
-  height: 90%;
+  min-width: 95%;
+  min-height: 300px;
+  padding: 5px;
   background-color: #FFF;
   border-radius: 50px;
-  box-shadow: 7px 9px 8px 9px rgba(0,0,0,0.4);
+  box-shadow: 2px 5px 2px 2px rgba(0,0,0,0.4);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
 const FridgeInner = styled.div`
-  width: 98%;
-  height: 98%;
+  padding: 8px;
+  min-width: 100%;
+  min-height: 300px;
   background-color: #e5e5e5;
   border-radius: 48px;
   display: flex;
@@ -33,10 +34,11 @@ const FridgeInner = styled.div`
   align-items: center;
 `;
 const Fridge = styled.div`
-  width: 88%;
-  height: 88%;
+  padding: 15px;
+  min-width: 100%;
+  min-height: 500px;
   background: linear-gradient(135deg, rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%);
-  border-radius: 30px;
+  border-radius: 46px;
   text-align : center;
 `;
 const Title = styled.h1`
@@ -54,17 +56,17 @@ const List = styled.div`
     height: 100%;
   `}
 `;
-const TiteleWrap = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  background-color: RGBA(243, 243, 243, 0.5);
-  box-shadow: inset 0px 0px 4px 2px RGBA(223, 223, 223,0.3);
-`;
+// const TiteleWrap = styled.div`
+//   position: absolute;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%,-50%);
+//   width: 200px;
+//   height: 200px;
+//   border-radius: 50%;
+//   background-color: RGBA(243, 243, 243, 0.5);
+//   box-shadow: inset 0px 0px 4px 2px RGBA(223, 223, 223,0.3);
+// `;
 export default class StorageBox extends Component {
   render() {
     return (
@@ -72,16 +74,6 @@ export default class StorageBox extends Component {
         <FridgeOutter>
           <FridgeInner>
             <Fridge>
-              {
-                this.props.title
-                ?
-                  <TiteleWrap >
-                    <Title>
-                      {this.props.title}
-                    </Title>
-                  </TiteleWrap>
-                : null
-              }
               {
                 this.props.children
                 ?

@@ -10,9 +10,15 @@
   },
   "dependencies": {
     "@google-cloud/storage": "^1.6.0",
+    "@google-cloud/vision": "^0.15.2",
+    "body-parser": "^1.18.2",
     "child-process-promise": "^2.2.1",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
     "firebase-admin": "~5.8.1",
-    "firebase-functions": "^0.8.1"
+    "firebase-functions": "^0.8.1",
+    "node-fetch": "^2.1.1",
+    "urlencode": "^1.1.0"
   },
   "private": true
 }

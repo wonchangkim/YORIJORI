@@ -3,12 +3,12 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Icon } from 'semantic-ui-react';
 import CheckDeleteContainer from '../../containers/CheckDeleteContainer';
-import SearchFormContaienr from '../../containers/SearchFormContaienr';
 
 const CardWarp = styled.div`
   width: 120px;
   height: 120px;
   margin: 4px;
+  border: 1px solid  #1CB5AC;
   border-radius: 20px;
   position: relative;
   overflow: hidden;
@@ -32,11 +32,9 @@ const CardFront = styled.div`
 `;
 const CardBack = styled.div`
   position: absolute;
-  width: 100%;
-  height: 100%;
+  border-radius: 20px;
   top: 0;
   left: 0;
-  background: RGBA(253, 174, 34, 1.00);
   backface-visibility: hidden;
   transform: rotateY(180deg);
 `;
@@ -44,7 +42,7 @@ const CardBack = styled.div`
 const BackWrap = styled.div`
   width: 120px;
   height: 120px;
-  background : RGBA(251, 236, 63, 1.00);
+  border-radius: 20px;
   z-index: 100;
 `;
 
@@ -52,15 +50,18 @@ const Left = styled.div`
   float: left;
   width: 50%;
   height: 100%;
-  background: RGBA(253, 174, 34, 1.00);
+
   display: flex;
   align-items: center;
+  justify-content: center;
 `;
 const Right = styled.div`
   float: right;
   width: 50%;
   height: 100%;
-  background: RGBA(251, 236, 63, 1.00);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 class FlipperCard extends Component {
   state = {
@@ -84,9 +85,6 @@ class FlipperCard extends Component {
     if (this.state.click) {
       this.handleClick();
     }
-    // this.setState({
-    //   deleteDimemr: false,
-    // });
   }
   handleDelete = () => {
     console.log(this.props);
@@ -95,7 +93,7 @@ class FlipperCard extends Component {
     }));
   }
   handleAdd = () => {
-    this.props.onAddIngredients(this.props.cardId, this.props.title);
+    this.props.onAddIngredients(this.props.cardId, this.props.imgUrl, this.props.title);
     console.log(this.props.cardId, this.props.title);
     console.log('추가');
   }
@@ -104,9 +102,6 @@ class FlipperCard extends Component {
 
     return (
       <div>
-        {/* {
-          this.state.addContainer ? <SearchFormContaienr /> : null
-        } */}
         {
           this.state.deleteDimemr ? <CheckDeleteContainer {...this.props} /> : null
         }
@@ -118,10 +113,10 @@ class FlipperCard extends Component {
             <CardBack>
               <BackWrap>
                 <Left onClick={this.handleAdd}>
-                  <Icon name="plus circle" size="large" />
+                  <Icon name="plus circle" color="teal" size="large" />
                 </Left>
                 <Right onClick={this.handleDelete}>
-                  <Icon name="minus circle" size="large" />
+                  <Icon name="minus circle" color="teal" size="large" />
                 </Right>
               </BackWrap>
             </CardBack>

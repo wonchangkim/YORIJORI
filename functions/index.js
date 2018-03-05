@@ -1,47 +1,91 @@
 const functions = require('firebase-functions');
-const gcs = require('@google-cloud/storage')();
-const os = require('os');
-const path = require('path');
-const spawn = require('child-process-promise').spawn;
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const fetch = require('node-fetch');
+const urlencode = require('urlencode');
 
-// // Create and Deploy Your First Cloud Functions //
-// https://firebase.google.com/docs/functions/write-firebase-functions
-//
-exports.onFileChange = functions
-  .storage
-  .object()
-  .onChange(event => {
-    const object = event.data;
-    const bucket = object.bucket;
-    const contentType = object.contentType;
-    const filePath = object.name;
-    console.log('File change detected, function execution started');
 
-    if (object.resourceState === 'not_exists') {
-      console.log('We deleted a file, exit...');
-      return;
-    }
+// Express 앱 객체 생성
+const app = express();
 
-    if (path.basename(filePath).startsWith('resized-')) {
-      console.log('We already renamed that file!');
-      return;
-    }
+// 미들웨어 등록
+app.use(bodyParser.json());
+app.use(cors({ origin: true }));
 
-    const destBucket = gcs.bucket(bucket);
-    const tmpFilePath = path.join(os.tmpdir(), path.basename(filePath));
-    const metadata = {
-      contentType: contentType
-    };
-    return destBucket
-      .file(filePath)
-      .download({destination: tmpFilePath})
-      .then(() => {
-        return spawn('convert', [tmpFilePath, '-resize', '500x500', tmpFilePath]);
-      })
-      .then(() => {
-        return destBucket.upload(tmpFilePath, {
-          destination: 'resized-' + path.basename(filePath),
-          metadata: metadata
-        })
-      });
+// const myToken = functions.config().github.token;
+// 라우터 핸들러 등록
+const API_KEY = '068053684a6ffcd05aa40616567345cbdd4febd116fbad4a7e0c0f6ee5741cc1';
+
+const searchtitleUrl = 'http://211.237.50.150:7080/openapi/068053684a6ffcd05aa40616567345cbdd4febd116fbad4a7e0c0f6ee5741cc1/json/Grid_20150827000000000227_1/1/5?IRDNT_NM=';
+
+const detailrecipeUrl = 'http://211.237.50.150:7080/openapi/068053684a6ffcd05aa40616567345cbdd4febd116fbad4a7e0c0f6ee5741cc1/json/Grid_20150827000000000228_1/1/20?RECIPE_ID=';
+
+const baseRecipeUrl = 'http://211.237.50.150:7080/openapi/068053684a6ffcd05aa40616567345cbdd4febd116fbad4a7e0c0f6ee5741cc1/json/Grid_20150827000000000227_1/1/30?RECIPE_ID=';
+
+app.get('/searchtitle/:id', (req, res) => {
+  const requestDict = req.params.id;
+  const para = urlencode(requestDict);
+  console.log(requestDict, para);
+
+  return fetch(searchtitleUrl + para, {
+    method: 'GET',
+  }).then(respon => respon.json()).then((data) => {
+    console.log(data);
+    res.send(data);
   });
+});
+app.get('/detailrecipe/:id', (req, res) => {
+  const recipeid = req.params.id;
+  const para = urlencode(recipeid)
+  return fetch(detailrecipeUrl + para, {
+    method: 'GET',
+  }).then(respon => respon.json()).then((respon) => {
+    res.send(respon);
+  });
+});
+app.get('/baserecipe/:id', (req, res) => {
+  const recipeid = req.params.id;
+  const para = urlencode(recipeid);
+  return fetch(baseRecipeUrl + para, {
+    method: 'GET',
+  }).then(respon => respon.json()).then((respon) => {
+    res.send(respon);
+  });
+});
+exports.recipeseacher = functions.https.onRequest(app);
+
+// googlevisionAPI
+
+const appvision = express();
+
+appvision.use(bodyParser.json());
+appvision.use(cors({ origin: true }));
+
+const visionUrl = 'https://vision.googleapis.com/v1/images:annotate?key=AIzaSyB4iT8dqlu88KMWEGSV8MxNqRsUeXNvJ6g';
+const tranlatUrl = 'https://translation.googleapis.com/language/translate/v2?key=AIzaSyB4iT8dqlu88KMWEGSV8MxNqRsUeXNvJ6g';
+appvision.post('/', (req, res) => {
+  console.log(req.body)
+  return fetch(visionUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(req.body),
+  }).then(respon => respon.json()).then((respon) => {
+    res.send(respon);
+  });
+});
+appvision.post('/translate/', (req, res) => {
+  console.log(req.body)
+  return fetch(tranlatUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: req.body,
+  }).then(respon => respon.json()).then((respon) => {
+    res.send(respon);
+  });
+});
+exports.vision = functions.https.onRequest(appvision);

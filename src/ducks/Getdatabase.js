@@ -6,7 +6,8 @@ export const SUCCESS = 'getdatabase/SUCCESS';
 export const ERROR = 'getdatabase/ERROR';
 export const DELETE = 'getdatabase/DELETE';
 export const NULL = 'getdatabase/NULL';
-export const ADDSEARCHFROM = 'getdatabase/ADDSEARCHFROM';
+export const ADD_SEARCH_FORM = 'getdatabase/ADD_SEARCH_FORM';
+export const ADD_SEARCH_FORM_OFF = 'getdatabase/ADD_SEARCH_FORM_OFF';
 export const ADDRECIPE_TITLE = 'getdatabase/ADDRECIPE_TITLE';
 export const ADDDETAIL_RECIPE = 'getdatabase/ADDDETAIL_RECIPE';
 export const ADDBASE_RECIPE_INGREDIENT = 'getdatabase/ADDBASE_RECIPE_INGREDIENT';
@@ -16,16 +17,23 @@ export const SELECT_COOKMARK = 'getdatabase/SELECT_COOKMARK';
 export const SELECT_COOKMARK_DONE = 'getdatabase/SELECT_COOKMARK_DONE';
 export const ADD_DATA_SHOPPING_MEMO = 'getdatabase/ADD_DATA_SHOPPING_MEMO';
 
-export function getdataLoading() {
+export function getdataLoading(step) {
   return {
     type: LOADING,
+    step,
   };
 }
-export function addSearchForm(cardId, title) {
+export function addSearchForm(cardId, title, imgurl) {
   return {
-    type: ADDSEARCHFROM,
+    type: ADD_SEARCH_FORM,
     cardId,
     title,
+    imgurl,
+  };
+}
+export function SearchFormOff() {
+  return {
+    type: ADD_SEARCH_FORM_OFF,
   };
 }
 export function getdataSuccess(ingredients) {
@@ -105,6 +113,7 @@ const initialState = {
   errorMessage: '',
   ingredients: [],
   done: false,
+  ingredientsNull: false,
   addSearchFormOn: false,
   searchData: [],
   recipeTitle: [],
@@ -123,12 +132,12 @@ export default function (state = initialState, action) {
     case LOADING:
       return {
         ...state,
-        laoding: true,
+        loading: action.step,
       };
     case SUCCESS:
       return {
         ...state,
-        success: true,
+        ingredientsNull: false,
         ingredients: action.ingredients,
       };
     case DELETE:
@@ -139,14 +148,19 @@ export default function (state = initialState, action) {
     case NULL:
       return {
         ...state,
-        done: true,
+        ingredientsNull: true,
       };
-    case ADDSEARCHFROM:
+    case ADD_SEARCH_FORM:
       return {
         ...state,
         addSearchFormOn: true,
-        searchData: [...(state.searchData), action.title],
+        searchData: [...(state.searchData), action.title, action.imgurl],
       };
+    case ADD_SEARCH_FORM_OFF:
+      return {
+        ...state,
+        addSearchFormOn: false,
+      }
     case ADDRECIPE_TITLE:
       return {
         ...state,
@@ -204,7 +218,7 @@ export default function (state = initialState, action) {
 // thunk
 
 export const getdatabaseIngredients = () => async (dispatch) => {
-  dispatch(getdataLoading());
+  dispatch(getdataLoading(true));
   try {
     const { uid } = firebase.auth().currentUser;
     const snapshot = await firebase.database().ref(`usersIngredients/${uid}`).once('value');
@@ -222,6 +236,7 @@ export const getdatabaseIngredients = () => async (dispatch) => {
   } catch (e) {
     dispatch(getdataError(`${e.message}`));
   }
+  dispatch(getdataLoading(false));
 };
 
 export const deleteDatabase = cardId => async (dispatch) => {
@@ -236,22 +251,21 @@ export const deleteDatabase = cardId => async (dispatch) => {
   }
 };
 
-export const addIngredientForm = (cardId, title) => async (dispatch) => {
-  dispatch(addSearchForm(cardId, title));
+export const addIngredientForm = (cardId, title, imgurl) => async (dispatch) => {
+  dispatch(addSearchForm(cardId, title, imgurl));
 };
-
+// firebase function recipesearcher
+// firebase function fetch 보내기
+// 재료을 통한 레시피 타이틀 검색
 export const searchRecipe = searchTitle => async (dispatch) => {
+  dispatch(getdataLoading(true));
   console.log('검색');
-  console.log(searchTitle[0]);
-  const API_KEY = '068053684a6ffcd05aa40616567345cbdd4febd116fbad4a7e0c0f6ee5741cc1';
-  const request = `http://211.237.50.150:7080/openapi/${API_KEY}/json/Grid_20150827000000000227_1/1/5?IRDNT_NM=${searchTitle[0]}`;
+  console.log(searchTitle);
 
-  fetch(request, {
+  const searchtitleUrl = `https://us-central1-yorijori-5bfc6.cloudfunctions.net/recipeseacher/searchtitle/${searchTitle}`;
+
+  fetch(searchtitleUrl, {
     method: 'GET',
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET',
-    },
   })
     .then(res => res.json()).then((response) => {
       const result = response.Grid_20150827000000000227_1.row;
@@ -269,49 +283,48 @@ export const searchRecipe = searchTitle => async (dispatch) => {
       newReicpeIdarry.forEach(newArry);
       console.log(resultData);
       dispatch(addrecipeTitle(resultData));
+      dispatch(getdataLoading(false));
     });
 };
 
+// 상세레시피 검색(요리순서 + 재료)
 export const searchDetailRecipe = recipeId => async (dispatch) => {
+
   console.log('디테일리세피검색');
   console.log(recipeId);
 
-  const API_KEY = '068053684a6ffcd05aa40616567345cbdd4febd116fbad4a7e0c0f6ee5741cc1';
-  const request = `http://211.237.50.150:7080/openapi/${API_KEY}/json/Grid_20150827000000000228_1/1/20?RECIPE_ID=${recipeId}`;
-  const baseRecipe = `http://211.237.50.150:7080/openapi/${API_KEY}/json/Grid_20150827000000000227_1/1/30?RECIPE_ID=${recipeId}`;
+  const detailrecipeUrl = `https://us-central1-yorijori-5bfc6.cloudfunctions.net/recipeseacher/detailrecipe/${recipeId}`;
+  const baseRecipeUrl = `https://us-central1-yorijori-5bfc6.cloudfunctions.net/recipeseacher/baserecipe/${recipeId}`;
   const newData = recipeData.data;
+
   function newbaseRecipe(element) {
     return newData.filter(data => data.RECIPE_ID === element);
   }
   newbaseRecipe(recipeId);
   console.log(newbaseRecipe(recipeId));
+
   dispatch(addbaseRecipe(newbaseRecipe(recipeId)));
 
-  fetch(request, {
+  fetch(detailrecipeUrl, {
     method: 'GET',
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET',
-    },
   })
     .then(res => res.json()).then((response) => {
       const detailreciperesult = response.Grid_20150827000000000228_1.row;
       console.log(detailreciperesult);
       dispatch(addDetailrecipe(detailreciperesult));
     });
-  fetch(baseRecipe, {
+
+  fetch(baseRecipeUrl, {
     method: 'GET',
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET',
-    },
   })
     .then(res => res.json()).then((response) => {
       const basereciperesultIngredient = response.Grid_20150827000000000227_1.row;
       console.log(basereciperesultIngredient);
       dispatch(addbaserecipeIngredient(basereciperesultIngredient));
     });
-}
+};
+// firebase function recipesearcher 끝
+
 
 export const getdatabaseCookmark = () => async (dispatch) => {
   // dispatch(getdataLoading());

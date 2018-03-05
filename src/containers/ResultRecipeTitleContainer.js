@@ -6,13 +6,20 @@ import ResultRecipeTitle from '../components/SearchRecipe/ResultRecipeTitle';
 
 class ResultRecipeTitleContainer extends Component {
   render() {
-    const { detailRecipeDone } = this.props;
+    const { detailRecipeDone, recipeTitle } = this.props;
     if (detailRecipeDone) {
       return (
-        <Redirect to="Detailrecipe" />
+        <Redirect to="/Detailrecipe" />
       );
     }
-    return (<ResultRecipeTitle {...this.props} />);
+    if (recipeTitle.length === 0) {
+      return (
+        <Redirect to="/main" />
+      );
+    }
+    return (
+      <ResultRecipeTitle {...this.props} />
+    );
   }
 }
 

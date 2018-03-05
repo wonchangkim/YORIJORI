@@ -83,6 +83,8 @@ export default function (state = initialState, action) {
 
 // thunk
 
+// 구글 비전 API
+
 export const fetchvision = ({ base64 }) => async (dispatch) => {
   const index = base64.indexOf(',');
   const newBase64 = base64.substring(index + 1, base64.lenght);
@@ -103,8 +105,8 @@ export const fetchvision = ({ base64 }) => async (dispatch) => {
   };
   dispatch(fetchCreating());
   try {
-    const visionUrl = 'https://vision.googleapis.com/v1/images:annotate?key=AIzaSyB4iT8dqlu88KMWEGSV8MxNqRsUeXNvJ6g';
-    const tranlatUrl = 'https://translation.googleapis.com/language/translate/v2?key=AIzaSyB4iT8dqlu88KMWEGSV8MxNqRsUeXNvJ6g';
+    const visionUrl = 'https://us-central1-yorijori-5bfc6.cloudfunctions.net/vision/';
+    const tranlatUrl = 'https://us-central1-yorijori-5bfc6.cloudfunctions.net/vision/translate';
     await fetch(visionUrl, {
       method: 'post',
       headers: {
@@ -122,9 +124,6 @@ export const fetchvision = ({ base64 }) => async (dispatch) => {
         };
         fetch(tranlatUrl, {
           method: 'post',
-          headers: {
-            'Content-Type': 'application/json',
-          },
           body: JSON.stringify(translateRequest),
         }).then(response => response.json())
           .then((response) => {

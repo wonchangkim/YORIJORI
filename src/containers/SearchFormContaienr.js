@@ -19,7 +19,6 @@ class SearchFormContainer extends Component {
 
 export default connect(
   state => ({
-    searchRecipeDone: state.Getdatabase.searchRecipeDone,
     searchData: state.Getdatabase.searchData,
   }),
   dispatch => ({

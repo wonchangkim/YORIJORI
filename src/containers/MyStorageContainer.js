@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import StorageBox from '../components/common/StorageBox';
 import IngredientCard from '../components/common/IngredientCard';
-import { getdatabaseIngredients, deleteDatabase, addIngredientForm } from '../ducks/Getdatabase';
+import { getdatabaseIngredients, deleteDatabase, addIngredientForm, SearchFormOff } from '../ducks/Getdatabase';
 import SearchFormContainer from '../containers/SearchFormContaienr';
+import NothingIngredients from '../components/common/NothingIngredients';
 
 class MyStorageContainer extends Component {
   static defaultProps = {
@@ -14,15 +16,23 @@ class MyStorageContainer extends Component {
     this.props.onMount();
     console.log(firebase.auth())
   }
+
   render() {
-    const { addSearchFormOn } = this.props;
+    const { addSearchFormOn, ingredientsNull, searchRecipeDone } = this.props;
+    if (searchRecipeDone) {
+      return (
+        <Redirect to="searchresult" />
+      );
+    }
     return (
       <div>
         {
-          addSearchFormOn ? <SearchFormContainer {...this.props}/> : null
+          addSearchFormOn ? <SearchFormContainer {...this.props} /> : null
         }
         <StorageBox title="재료" >
-          <IngredientCard {...this.props} />
+          {
+            ingredientsNull ? <NothingIngredients /> : <IngredientCard {...this.props} />
+          }
         </StorageBox>
       </div>
     );
@@ -31,9 +41,11 @@ class MyStorageContainer extends Component {
 
 export default connect(
   state => ({
+    searchRecipeDone: state.Getdatabase.searchRecipeDone,
     addSearchFormOn: state.Getdatabase.addSearchFormOn,
     loading: state.Getdatabase.loading,
     ingredients: state.Getdatabase.ingredients,
+    ingredientsNull: state.Getdatabase.ingredientsNull,
   }),
   dispatch => ({
     onMount: () => {
@@ -42,8 +54,11 @@ export default connect(
     onDelete: ({ cardId }) => {
       dispatch(deleteDatabase({ cardId }));
     },
-    onAddIngredients: (cardId, title) => {
-      dispatch(addIngredientForm(cardId, title));
+    onAddIngredients: (cardId, title, imgurl) => {
+      dispatch(addIngredientForm(cardId, title, imgurl));
     },
+    onSearchFormOff: () => {
+      dispatch(SearchFormOff());
+    }
   }),
 )(MyStorageContainer);

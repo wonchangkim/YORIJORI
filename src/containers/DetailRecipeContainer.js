@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import {Redirect} from 'react-router-dom';
 import PaperBox from '../components/common/PaperBox';
 import DetailRecipe from '../components/SearchRecipe/DetailRecipe';
 import { AddCookmark } from '../ducks/AddFirebaseDb';
@@ -10,6 +11,12 @@ class DetailRecipeContainer extends Component {
     this.props.clickcookmarkDone();
   }
   render() {
+    const { detailRecipe } = this.props;
+    if (detailRecipe.length === 0) {
+      return (
+        <Redirect to="/main" />
+      )
+    }
     return (
       <div>
         <PaperBox>
