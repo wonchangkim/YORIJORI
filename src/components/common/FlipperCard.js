@@ -90,7 +90,9 @@ class FlipperCard extends Component {
     console.log(this.props);
     this.setState(prevState => ({
       deleteDimemr: !prevState.deleteDimemr,
+      checkedtitle: this.props.title,
     }));
+    console.log(this.state.checkedtitle)
   }
   handleAdd = () => {
     this.props.onAddIngredients(this.props.cardId, this.props.imgUrl, this.props.title);
@@ -103,7 +105,7 @@ class FlipperCard extends Component {
     return (
       <div>
         {
-          this.state.deleteDimemr ? <CheckDeleteContainer {...this.props} /> : null
+          this.state.deleteDimemr ? <CheckDeleteContainer checkedtitle={this.state.checkedtitle} onClose={this.handleDelete} {...this.props} /> : null
         }
         <CardWarp>
           <Flipper style={{ transform }} >

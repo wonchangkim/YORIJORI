@@ -29,12 +29,7 @@ const FlipCardWrap = styled.div`
   justify-content: space-between;
   flex-wrap: wrap;
 `;
-const ImgWrap = styled.img`
-  max-width: 100%;
-   ${props => props.loading && css`
 
-  `}
-`;
 export default class IngredientCard extends Component {
   static defaultProps = {
     onAddIngredients: () => {},
