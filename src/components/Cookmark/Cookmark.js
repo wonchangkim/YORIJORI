@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { Button } from 'semantic-ui-react';
 import styled from 'styled-components';
 import StorageBox from '../common/StorageBox';
@@ -50,13 +49,11 @@ export default class Cookmark extends Component {
           {this.state.addMemoe ? <p>쇼핑메모에 추가되었습니다</p> : null}
           {
             cookmark.map(({ IMG_URL, RECIPE_ID, RECIPE_NM_KO }) => (
-              // <Link to="/cookmarkdetail" key={Math.random()}>
               <CookmarkWrap key={Math.random()} >
                 <ImgWrap src={IMG_URL} id={RECIPE_ID} alt="" onClick={this.handelClick} />
                 <p>{RECIPE_NM_KO}</p>
                 <Button onClick={this.handelMemo} id={RECIPE_ID} img={IMG_URL} ko={RECIPE_NM_KO}>쇼핑메모추가</Button>
               </CookmarkWrap>
-              // </Link>
             ))
           }
         </div>

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Loader } from 'semantic-ui-react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import FlipperCard from '../common/FlipperCard';
+import Imgloader from '../common/Imgloader';
 
 const HeaderWrap = styled.div`
   position: absolute;
@@ -30,11 +31,15 @@ const FlipCardWrap = styled.div`
 `;
 const ImgWrap = styled.img`
   max-width: 100%;
+   ${props => props.loading && css`
+
+  `}
 `;
 export default class IngredientCard extends Component {
   static defaultProps = {
     onAddIngredients: () => {},
   }
+
   render() {
     const { ingredients, onAddIngredients, loading } = this.props;
     return (
@@ -45,7 +50,7 @@ export default class IngredientCard extends Component {
               id, title, downloadURL, createdAt,
             }) => (
               <FlipperCard key={id} cardId={id} title={title} imgUrl={downloadURL} onAddIngredients={onAddIngredients}>
-                <ImgWrap src={downloadURL} alt="재료이미지" />
+                <Imgloader key={id} src={downloadURL} id={title} />
                 <HeaderWrap>
                   <H5>{title}</H5>
                   <Meta>{createdAt}</Meta>
