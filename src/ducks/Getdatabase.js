@@ -16,11 +16,18 @@ export const GET_DATA_COOKMARK = 'getdatabase/GET_DATA_COOKMARK';
 export const SELECT_COOKMARK = 'getdatabase/SELECT_COOKMARK';
 export const SELECT_COOKMARK_DONE = 'getdatabase/SELECT_COOKMARK_DONE';
 export const ADD_DATA_SHOPPING_MEMO = 'getdatabase/ADD_DATA_SHOPPING_MEMO';
+export const DELTE_INGREDIENT_LOADING = 'getdatabase/DELTE_INGREDIENT_LOADING';
 
 export function getdataLoading(step) {
   return {
     type: LOADING,
     step,
+  };
+}
+export function deleteingredientloading(data) {
+  return {
+    type: DELTE_INGREDIENT_LOADING,
+    data,
   };
 }
 export function addSearchForm(cardId, title, imgurl) {
@@ -125,6 +132,7 @@ const initialState = {
   cookmark: [],
   selectcookmarkclick: false,
   shoppingMemo: [],
+  deleteingredientloading: false,
 };
 
 export default function (state = initialState, action) {
@@ -145,6 +153,11 @@ export default function (state = initialState, action) {
         ...state,
         done: true,
       };
+    case DELTE_INGREDIENT_LOADING:
+      return {
+        ...state,
+        deleteingredientloading: action.data,
+      }
     case NULL:
       return {
         ...state,
@@ -240,15 +253,14 @@ export const getdatabaseIngredients = () => async (dispatch) => {
 };
 
 export const deleteDatabase = cardId => async (dispatch) => {
-  dispatch(getdataLoading());
+  dispatch(deleteingredientloading(false));
   try {
     const { uid } = firebase.auth().currentUser;
-    console.log(cardId);
     await firebase.database().ref(`usersIngredients/${uid}`).child(`${cardId}`).remove();
-    dispatch(getdataDelete());
   } catch (e) {
     dispatch(getdataError(`${e.message}`));
   }
+  dispatch(deleteingredientloading(true));
 };
 
 export const addIngredientForm = (cardId, title, imgurl) => async (dispatch) => {

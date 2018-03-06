@@ -18,11 +18,11 @@ class SearchingButtonContainer extends Component {
 
     if (this.state.clickClose) {
       return (
-        <Redirect to="main" />
+        <Redirect to="/" />
       );
     }
     return (
-      <FootterButton {...rest} onClose={this.handelClickClose}/>
+      <FootterButton {...rest} onClose={this.handelClickClose} />
     );
   }
 }

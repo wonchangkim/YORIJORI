@@ -5,14 +5,19 @@ import Newingredients from '../components/Newingredients';
 
 class NewingredientsContainer extends Component {
   render() {
-    const { success, ...rest } = this.props;
+    const { success, imageUrl } = this.props;
+    if (!imageUrl) {
+      return (
+        <Redirect to="/" />
+      );
+    }
     if (success) {
       return (
         <Redirect to="visionresult" />
       );
     }
     return (
-      <Newingredients {...rest} />
+      <Newingredients {...this.props} />
     );
   }
 }

@@ -6,13 +6,13 @@ import ResultDimmer from '../components/NewIngredients/ResultDimmer';
 
 class VisionResultDimmerContainer extends Component {
   render() {
-    const { done, success, ...rest } = this.props;
+    const { done } = this.props;
     if (done) {
       return (
-        <Redirect to="main" />
+        <Redirect to="/" />
       );
     }
-    return (<ResultDimmer {...rest} />);
+    return (<ResultDimmer {...this.props} />);
   }
 }
 

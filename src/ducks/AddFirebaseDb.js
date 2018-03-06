@@ -44,41 +44,27 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case CREATING:
-      return {
-        creating: true,
-        success: false,
-        errorMessage: '',
-        title: '',
-        done: '',
-      };
     case DONE:
       return {
-        success: false,
-        errorMessage: '',
-        title: '',
-        result: '',
-        done: true,
+        ...state,
+        done: false,
       };
     case SUCCESS:
       return {
         ...state,
         success: true,
-        title: '',
-
+        done: true,
       };
     case ERROR:
       return {
-        success: false,
+        ...state,
         errorMessage: action.errorMessage,
-        title: '',
-        result: '',
       };
     case ADD_DATA_SHOPPING_MEMO:
       return {
         ...state,
         shoppingMemo: action.memoRecipeId,
-      }
+      };
     default:
       return state;
   }
@@ -87,7 +73,6 @@ export default function (state = initialState, action) {
 // thunk
 
 export const addDatabase = (title, filename, base64) => async (dispatch) => {
-  dispatch(firebaseCreating());
   const { uid } = firebase.auth().currentUser;
   try {
     const snapshot = await firebase.storage().ref(`images${uid}:${new Date().getTime()}`).putString(base64, 'data_url');
@@ -98,6 +83,7 @@ export const addDatabase = (title, filename, base64) => async (dispatch) => {
       filename,
     });
     console.log(firebase.auth())
+    dispatch(firebaseSuccess());
     dispatch(firebaseDone());
   } catch (e) {
     dispatch(firebaseError(`${e.message}`));

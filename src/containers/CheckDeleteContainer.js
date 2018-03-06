@@ -9,10 +9,10 @@ class CheckDeleteContainer extends Component {
     onDelete: () => {},
   }
   render() {
-    const { done } = this.props;
-    if (done) {
+    const { deleteingredientloading } = this.props;
+    if (deleteingredientloading) {
       return (
-        <Redirect to="main" />
+        <Redirect to="/" refresh="true" />
       );
     }
     return (
@@ -23,7 +23,7 @@ class CheckDeleteContainer extends Component {
 
 export default connect(
   state => ({
-    done: state.Getdatabase.done,
+    deleteingredientloading: state.Getdatabase.deleteingredientloading,
     ingredients: state.Getdatabase.ingredients,
   }),
   dispatch => ({

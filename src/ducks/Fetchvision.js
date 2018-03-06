@@ -42,39 +42,25 @@ export default function (state = initialState, action) {
   switch (action.type) {
     case CREATING:
       return {
-        creating: true,
-        success: false,
-        errorMessage: '',
-        base64: '',
-        result: [],
-        transResult: [],
-        done: false,
+        ...state,
+        success: true,
       };
     case DONE:
       return {
-        creating: '',
-        success: true,
-        errorMessage: '',
-        base64: '',
-        result: [],
-        transResult: [],
-        done: true,
+        ...state,
+        success: false,
       };
     case SUCCESS:
       return {
-        errorMessage: '',
-        success: true,
+        ...state,
         base64: action.base64,
         transResult: action.transResult,
-        done: '',
+        success: false,
       };
     case ERROR:
       return {
-        success: false,
+        ...state,
         errorMessage: action.errorMessage,
-        base64: '',
-        result: [],
-        transResult: [],
       };
     default:
       return state;
@@ -131,13 +117,10 @@ export const fetchvision = ({ base64 }) => async (dispatch) => {
               .map(({ translatedText }) => (translatedText));
             console.log(transResult);
             dispatch(fetchSuccess({ base64 }, transResult));
+            dispatch(fetchDone());
           });
       });
-
-    // dispatch(fetchDone());
   } catch (e) {
     dispatch(fetchError(`${e.message}`));
   }
 };
-
-
