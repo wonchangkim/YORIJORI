@@ -12,6 +12,7 @@ const Wrap = styled.div`
   border-radius: 20px;
   left:50%;
   top:50%;
+  background: white;
   transform: translate(-50%,-50%);
   display: flex;
   flex-direction: column;

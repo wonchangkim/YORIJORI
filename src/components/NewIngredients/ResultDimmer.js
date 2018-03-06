@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Dimmer, Header } from 'semantic-ui-react';
+import { Button, Loader, Header } from 'semantic-ui-react';
 import styled, { css } from 'styled-components';
 import labeback from '../../assets/images/check_radio_sheet.png';
 import labebacknone from '../../assets/images/check_radio_sheet_none.png';
@@ -65,19 +65,22 @@ export default class ResultDimmer extends Component {
     this.props.onAdd(this.state.title, this.props.filename, this.props.base64);
   }
   render() {
-    const { transResult } = this.props;
+    const { transResult, success } = this.props;
     const generateKey = (title, index) => {
       return `${title}_${index}`;
     };
     return (
       <StorageBox>
+        {
+          success ? <Loader active /> : null
+        }
         <DimmerWrap>
           <Header as="h2" icon>
             결과중 하나를 선택해주세요.
             <Header.Subheader>냉장고에 추가 됩니다.</Header.Subheader>
           </Header>
           {
-          transResult.map((title, index) => (
+          success ? null : transResult.map((title, index) => (
             <ListWrap key={generateKey(title, index)}>
               <Inputradio
                 id={index}

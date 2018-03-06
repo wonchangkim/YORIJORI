@@ -92,7 +92,7 @@ class FlipperCard extends Component {
       deleteDimemr: !prevState.deleteDimemr,
       checkedtitle: this.props.title,
     }));
-    console.log(this.state.checkedtitle)
+    console.log(this.state.deleteDimemr)
   }
   handleAdd = () => {
     this.props.onAddIngredients(this.props.cardId, this.props.imgUrl, this.props.title);

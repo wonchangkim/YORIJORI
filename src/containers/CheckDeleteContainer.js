@@ -12,7 +12,7 @@ class CheckDeleteContainer extends Component {
     const { deleteingredientloading } = this.props;
     if (deleteingredientloading) {
       return (
-        <Redirect to="/" refresh="true" />
+        <Redirect to="/" />
       );
     }
     return (

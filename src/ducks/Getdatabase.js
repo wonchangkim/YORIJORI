@@ -257,11 +257,13 @@ export const deleteDatabase = cardId => async (dispatch) => {
   try {
     const { uid } = firebase.auth().currentUser;
     await firebase.database().ref(`usersIngredients/${uid}`).child(`${cardId}`).remove();
+    dispatch(deleteingredientloading(true));
+    dispatch(deleteingredientloading(false));
   } catch (e) {
     dispatch(getdataError(`${e.message}`));
   }
-  dispatch(deleteingredientloading(true));
 };
+
 
 export const addIngredientForm = (cardId, title, imgurl) => async (dispatch) => {
   dispatch(addSearchForm(cardId, title, imgurl));
