@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
-import { Button, Image} from 'semantic-ui-react';
 import CookMarkIcon from '../../assets/icon/cookmark.png';
 import CookMarkIconactive from '../../assets/icon/cookmarkactive.png';
 import CookMarkIcondelete from '../../assets/icon/cookmarkdelete.png';
@@ -27,7 +26,7 @@ const CookMarkIconWrap = styled.div`
 export default class Cookmarkicon extends Component {
 
   render() {
-    const { state, onadd, ischecked, cookmark } = this.props;
+    const { state, onadd, ischecked } = this.props;
     return (
       <div>
         {

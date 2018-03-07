@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PaperBox from '../components/common/PaperBox';
 import CookmarkDetail from '../components/CookmarkDetail/CookmarkDetail';
-import { AddCookmark, DeleteCookmark, } from '../ducks/AddFirebaseDb';
-import { onLoaded, searchDetailRecipe } from '../ducks/Getdatabase';
+import { searchDetailRecipe } from '../ducks/Getdatabase';
 
 class CookmarkDetailContainer extends Component {
   static defaultProps = {

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Button, Icon, Loader } from 'semantic-ui-react';
+import { Button, Loader } from 'semantic-ui-react';
 import styled, { css } from 'styled-components';
 import StorageBox from '../common/StorageBox';
 
@@ -129,7 +128,7 @@ export default class ShoppingMemo extends Component {
                   <Btnstyled circular icon="minus" color="teal" id={value.RECIPE_ID} onClick={this.handeDelete} />
                 </MemoLi>
                 {
-                  (this.state.click == value.RECIPE_ID) && this.state.show ?
+                  (Number(this.state.click) === value.RECIPE_ID) && this.state.show ?
                     <Spanstyleingrediente >
                       <HaveWrap>
                         <h4>냉장고재료</h4>

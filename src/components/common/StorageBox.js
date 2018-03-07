@@ -41,16 +41,7 @@ const Fridge = styled.div`
   border-radius: 46px;
   text-align : center;
 `;
-const Title = styled.h1`
-  font-size: 80px;
-  line-height: 200px;
-  background-color: RGBA(193, 193, 193, 0.2);
-  color: transparent;
-  text-shadow: 2px 2px 2px rgba(255,255,255,1);
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  background-clip: text;
-`;
+
 const List = styled.div`
   ${props => props.bigger && css`
     height: 100%;

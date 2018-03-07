@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Loader } from 'semantic-ui-react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 const ImgWrap = styled.img`
   width: 80px;

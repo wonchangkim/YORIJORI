@@ -37,7 +37,7 @@ const Pstyle = styled.span`
 `
 export default class ImageCard extends Component {
   render() {
-    const { imageUrl, transResult } = this.props.props;
+    const { imageUrl } = this.props.props;
     return (
       <CardWarp as="div" >
         <ImageWrap>

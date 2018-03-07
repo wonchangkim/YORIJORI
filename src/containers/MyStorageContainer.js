@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import * as firebase from 'firebase';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import StorageBox from '../components/common/StorageBox';

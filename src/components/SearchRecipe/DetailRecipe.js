@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import styled, { css } from 'styled-components';
-import { Button, Image, Loader } from 'semantic-ui-react';
-import CookMarkIcon from '../../assets/icon/cookmark.png';
-import CookMarkIconactive from '../../assets/icon/cookmarkactive.png';
+import styled from 'styled-components';
+import { Loader } from 'semantic-ui-react';
 import Cookmarkiconcontainer from '../../containers/Cookmarkiconcontainer';
 import SimpleContainer from '../common/SimpleContaner';
 
@@ -101,8 +99,8 @@ export default class DetailRecipe extends Component {
     }, 100);
   }
   render() {
-    const { detailRecipe, baseRecipe, baserecipeIngredient, detailRecipeDone, cookmark } = this.props;
-    const [{ RECIPE_ID, IMG_URL, SUMRY, CALORIE, RECIPE_NM_KO, QNT, COOKING_TIME }] = baseRecipe;
+    const { detailRecipe, baseRecipe, baserecipeIngredient, detailRecipeDone } = this.props;
+    const [{ IMG_URL, SUMRY, CALORIE, RECIPE_NM_KO, QNT, COOKING_TIME }] = baseRecipe;
     return (
       <div>
         <DetailRecipeWrap>

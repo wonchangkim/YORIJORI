@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import StorageBox from '../components/common/StorageBox';
-import { searchDetailRecipe, searchDetail } from '../ducks/Getdatabase';
+import { searchDetailRecipe } from '../ducks/Getdatabase';
 import ResultRecipeTitle from '../components/SearchRecipe/ResultRecipeTitle';
 
 class ResultRecipeTitleContainer extends Component {
@@ -10,7 +10,7 @@ class ResultRecipeTitleContainer extends Component {
     onMount: () => {},
   }
   render() {
-    const { detailRecipeDone, recipeTitle } = this.props;
+    const { detailRecipeDone } = this.props;
     if (detailRecipeDone) {
       return (
         <Redirect to="/Detailrecipe" />

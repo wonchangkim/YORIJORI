@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
 import onClickOutside from 'react-onclickoutside';
-import { Button, Icon } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
 import Imgloader from '../common/Imgloader';
-import ResultRecipeTitleContainer from '../../containers/ResultRecipeTitleContainer';
 
 const Wrapper = styled.div`
   position: relative;
@@ -66,9 +65,6 @@ const SearchdataWrap = styled.div`
   left: 50%;
   top: 50%;
   transform: translate(-50%,-50%);
-`;
-const ImgWrap = styled.img`
-  max-height: 90px;
 `;
 const TitleWrap = styled.p`
   background: #1CB5AC;

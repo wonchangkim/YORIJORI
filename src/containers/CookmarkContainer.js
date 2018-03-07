@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import * as firebase from 'firebase';
 import { connect } from 'react-redux';
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import Cookmark from '../components/Cookmark/Cookmark';
 import { getdatabaseCookmark, clickcookmark, searchDetailRecipe } from '../ducks/Getdatabase';
 import { addShoppingMemo } from '../ducks/AddFirebaseDb';
@@ -17,7 +16,7 @@ class CookmarkContainer extends Component {
   }
 
   render() {
-    const { selectcookmarkclick, done, ingredientsNull } = this.props;
+    const { selectcookmarkclick, done } = this.props;
     if (selectcookmarkclick) {
       return (
         <Redirect to="detailrecipe" />

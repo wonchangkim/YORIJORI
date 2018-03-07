@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Loader } from 'semantic-ui-react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import FlipperCard from '../common/FlipperCard';
 import Imgloader from '../common/Imgloader';
 
