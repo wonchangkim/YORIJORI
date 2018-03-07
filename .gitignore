@@ -26,3 +26,9 @@ yarn-error.log*
 .runtimeconfig.json
 
 rules.json
+yarn.lock
+myfridge.json
+databaseSample.json
+
+.storybook
+.vscode
