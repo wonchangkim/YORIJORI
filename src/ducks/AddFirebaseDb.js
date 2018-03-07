@@ -86,7 +86,7 @@ export default function (state = initialState, action) {
 export const addDatabase = (title, filename, base64) => async (dispatch) => {
   const { uid } = firebase.auth().currentUser;
   try {
-    const snapshot = await firebase.storage().ref(`images${uid}:${new Date().getTime()}`).putString(base64, 'data_url');
+    const snapshot = await firebase.storage().ref(`images/${uid}/${new Date().getTime()}`).putString(base64, 'data_url');
     await firebase.database().ref(`usersIngredients/${uid}`).push({
       title,
       createdAt: firebase.database.ServerValue.TIMESTAMP,

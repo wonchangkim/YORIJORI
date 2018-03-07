@@ -25,4 +25,3 @@ export default class Layout extends Component {
     );
   }
 }
-//  background: linear-gradient(to right, #00E39F, #00C4E1);
