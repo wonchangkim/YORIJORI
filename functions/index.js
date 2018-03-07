@@ -5,7 +5,8 @@ const cors = require('cors');
 const fetch = require('node-fetch');
 const urlencode = require('urlencode');
 
-
+const visionkey = functions.cofig().vision.key;
+const recipekey = functions.cofig().recipe.key;
 // Express 앱 객체 생성
 const app = express();
 
@@ -15,13 +16,12 @@ app.use(cors({ origin: true }));
 
 // const myToken = functions.config().github.token;
 // 라우터 핸들러 등록
-const API_KEY = '068053684a6ffcd05aa40616567345cbdd4febd116fbad4a7e0c0f6ee5741cc1';
 
-const searchtitleUrl = 'http://211.237.50.150:7080/openapi/068053684a6ffcd05aa40616567345cbdd4febd116fbad4a7e0c0f6ee5741cc1/json/Grid_20150827000000000227_1/1/5?IRDNT_NM=';
+const searchtitleUrl = `http://211.237.50.150:7080/openapi/${recipekey}/json/Grid_20150827000000000227_1/1/5?IRDNT_NM=`;
 
-const detailrecipeUrl = 'http://211.237.50.150:7080/openapi/068053684a6ffcd05aa40616567345cbdd4febd116fbad4a7e0c0f6ee5741cc1/json/Grid_20150827000000000228_1/1/20?RECIPE_ID=';
+const detailrecipeUrl = `http://211.237.50.150:7080/openapi/${recipekey}/json/Grid_20150827000000000228_1/1/20?RECIPE_ID=`;
 
-const baseRecipeUrl = 'http://211.237.50.150:7080/openapi/068053684a6ffcd05aa40616567345cbdd4febd116fbad4a7e0c0f6ee5741cc1/json/Grid_20150827000000000227_1/1/30?RECIPE_ID=';
+const baseRecipeUrl = `http://211.237.50.150:7080/openapi/${recipekey}/json/Grid_20150827000000000227_1/1/30?RECIPE_ID=`;
 
 app.get('/searchtitle/:id', (req, res) => {
   const requestDict = req.params.id;
@@ -37,7 +37,7 @@ app.get('/searchtitle/:id', (req, res) => {
 });
 app.get('/detailrecipe/:id', (req, res) => {
   const recipeid = req.params.id;
-  const para = urlencode(recipeid)
+  const para = urlencode(recipeid);
   return fetch(detailrecipeUrl + para, {
     method: 'GET',
   }).then(respon => respon.json()).then((respon) => {
@@ -49,8 +49,8 @@ app.get('/baserecipe/:id', (req, res) => {
   const para = urlencode(recipeid);
   return fetch(baseRecipeUrl + para, {
     method: 'GET',
-  }).then(respon => respon.json()).then((respon) => {
-    res.send(respon);
+  }).then(respon => respon.json()).then((data) => {
+    res.send(data);
   });
 });
 exports.recipeseacher = functions.https.onRequest(app);
@@ -62,8 +62,8 @@ const appvision = express();
 appvision.use(bodyParser.json());
 appvision.use(cors({ origin: true }));
 
-const visionUrl = 'https://vision.googleapis.com/v1/images:annotate?key=AIzaSyB4iT8dqlu88KMWEGSV8MxNqRsUeXNvJ6g';
-const tranlatUrl = 'https://translation.googleapis.com/language/translate/v2?key=AIzaSyB4iT8dqlu88KMWEGSV8MxNqRsUeXNvJ6g';
+const visionUrl = `https://vision.googleapis.com/v1/images:annotate?key=${visionkey}`;
+const tranlatUrl = `https://translation.googleapis.com/language/translate/v2?key=${visionkey}`;
 appvision.post('/', (req, res) => {
   console.log(req.body)
   return fetch(visionUrl, {

@@ -44,14 +44,13 @@ const AddButton = styled(Button)`
   bottom: 30px;
   left: 50%;
   transform: translateX(-50%);
-
-`
+`;
 
 export default class ResultDimmer extends Component {
   state = {
-    active: true,
+    title: '',
+    onBtn: false,
   }
-
   handleChange = (e) => {
     this.setState({
       title: e.target.value,
@@ -89,7 +88,9 @@ export default class ResultDimmer extends Component {
                 value={title}
                 name="transdata"
               />
-              <Labelstyle htmlFor={index} ><Checkstyle checked={this.state.title === title} />{title}</Labelstyle>
+              <Labelstyle htmlFor={index} >
+                <Checkstyle checked={this.state.title === title} />{title}
+              </Labelstyle>
             </ListWrap>
           ))
           }

@@ -44,7 +44,13 @@ export default class IngredientCard extends Component {
           ingredients.map(({
               id, title, downloadURL, createdAt,
             }) => (
-              <FlipperCard key={id} cardId={id} title={title} imgUrl={downloadURL} onAddIngredients={onAddIngredients}>
+              <FlipperCard
+                key={id}
+                cardId={id}
+                title={title}
+                imgUrl={downloadURL}
+                onAddIngredients={onAddIngredients}
+              >
                 <Imgloader key={id} src={downloadURL} id={title} />
                 <HeaderWrap>
                   <H5>{title}</H5>

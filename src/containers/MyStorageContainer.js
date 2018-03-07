@@ -4,7 +4,14 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import StorageBox from '../components/common/StorageBox';
 import IngredientCard from '../components/common/IngredientCard';
-import { getdatabaseIngredients, deleteDatabase, addIngredientForm, SearchFormOff } from '../ducks/Getdatabase';
+import {
+  getdatabaseIngredients,
+  deleteDatabase,
+  addIngredientForm,
+  SearchFormOff,
+  searchRecipeDone,
+  searchDetail,
+} from '../ducks/Getdatabase';
 import SearchFormContainer from '../containers/SearchFormContaienr';
 import NothingIngredients from '../components/common/NothingIngredients';
 
@@ -14,7 +21,9 @@ class MyStorageContainer extends Component {
   }
   componentDidMount() {
     this.props.onMount();
-    console.log(firebase.auth())
+    this.props.onSearchFormOff();
+    this.props.onSearchRecipeDone();
+    this.props.onDetailRecipeDone();
   }
 
   render() {
@@ -59,6 +68,12 @@ export default connect(
     },
     onSearchFormOff: () => {
       dispatch(SearchFormOff());
-    }
+    },
+    onSearchRecipeDone: () => {
+      dispatch(searchRecipeDone(false));
+    },
+    onDetailRecipeDone: () => {
+      dispatch(searchDetail(false));
+    },
   }),
 )(MyStorageContainer);

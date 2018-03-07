@@ -3,7 +3,7 @@ import * as firebase from 'firebase';
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 import Cookmark from '../components/Cookmark/Cookmark';
-import { getdatabaseCookmark, clickcookmark, searchDetailRecipe, } from '../ducks/Getdatabase';
+import { getdatabaseCookmark, clickcookmark, searchDetailRecipe } from '../ducks/Getdatabase';
 import { addShoppingMemo } from '../ducks/AddFirebaseDb';
 
 
@@ -12,16 +12,19 @@ class CookmarkContainer extends Component {
     onGetCookmark: () => {},
     onClick: () => {},
   }
-
   componentDidMount() {
     this.props.onGetCookmark();
   }
 
   render() {
-    if (this.props.selectcookmarkclick) {
+    const { selectcookmarkclick, done, ingredientsNull } = this.props;
+    if (selectcookmarkclick) {
       return (
         <Redirect to="detailrecipe" />
       );
+    }
+    if (done) {
+      window.location.reload();
     }
     return (
       <div>
@@ -33,7 +36,9 @@ class CookmarkContainer extends Component {
 
 export default connect(
   state => ({
+    ingredientsNull: state.Getdatabase.ingredientsNull,
     cookmark: state.Getdatabase.cookmark,
+    done: state.AddFirebaseDb.done,
     selectcookmarkclick: state.Getdatabase.selectcookmarkclick,
   }),
   dispatch => ({
@@ -44,8 +49,8 @@ export default connect(
     onGetCookmark: () => {
       dispatch(getdatabaseCookmark());
     },
-    onAddshoppingMemo: (memoRecipeId ,memoRecipeimg, memoRecipeko) => {
-      dispatch(addShoppingMemo(memoRecipeId ,memoRecipeimg, memoRecipeko));
-    }
+    onAddshoppingMemo: (memoRecipeId, memoRecipeimg, memoRecipeko) => {
+      dispatch(addShoppingMemo(memoRecipeId, memoRecipeimg, memoRecipeko));
+    },
   }),
 )(CookmarkContainer);

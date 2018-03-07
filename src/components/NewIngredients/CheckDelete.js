@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Button, Dimmer, Header } from 'semantic-ui-react';
-import styled, {css} from 'styled-components';
+import { Button } from 'semantic-ui-react';
+import styled, { css } from 'styled-components';
 
 const Wrap = styled.div`
   position: absolute;

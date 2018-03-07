@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Dimmer, Header } from 'semantic-ui-react';
+import { Button, Loader } from 'semantic-ui-react';
 import styled, { css } from 'styled-components';
 
 const ImgWrap = styled.img`
@@ -9,29 +9,31 @@ const ImgWrap = styled.img`
   float: left;
 `;
 const Wrap = styled.div`
-  width: 90vw;
+  width: 310px;
   height: 100px;
   background-color: white;
   margin: 5px;
   padding: 10px;
   border-radius: 10px;
   display: inline-block;
+  border-radius: 50px;
+  border: 1px solid #1CB5AC;
 `;
-const TitleWrap = styled.div`
-  float: right;
-`;
+
 const TitleStyle = styled.p`
   color: black;
   float: left;
+  margin-left: 10px;
+  margin-top: 30px;
 `;
 const DimmerWrap = styled.div`
-  z-index: 3000;
-  width: 100vw;
-  padding: 10px;
-  text-align: center;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 const H4wrap = styled.h4`
-  display: block;
+  width: 180px;
 `;
 const Btnstyle = styled(Button)`
   width: 80px;
@@ -42,13 +44,6 @@ export default class ResultRecipeTitle extends Component {
   state = {
     active: true,
   }
-  handleOpen = () => {
-    this.setState({
-      active: true,
-    });
-  }
-  handleClose = () => this.setState({ active: false })
-
   handelClick = (e, data) => {
     this.setState({
       recipeId: data.value,
@@ -59,22 +54,25 @@ export default class ResultRecipeTitle extends Component {
     this.props.onDetailRecipe(data.value, data.title, data.img);
   }
   render() {
-    const { searchRecipeDone, recipeTitle } = this.props;
+    const { recipeTitle, searchRecipeDone } = this.props;
     return (
-      <DimmerWrap
-        onClickOutside={this.handleClose}
-      >
-        <H4wrap>자세히 보기를 클릭하면 상세한 레시피를 볼 수 있습니다.</H4wrap>
+      <div>
         {
-          recipeTitle.map(({ RECIPE_ID, RECIPE_NM_KO, IMG_URL }) => (
-            <Wrap key={RECIPE_ID}>
-              <ImgWrap src={IMG_URL} alt="" />
-              <TitleStyle>{RECIPE_NM_KO}</TitleStyle>
-              <Btnstyle circular color="olive" onClick={this.handelClick} title={RECIPE_NM_KO} value={RECIPE_ID} img={IMG_URL}>자세히보기</Btnstyle>
-            </Wrap>
-          ))
-        }
-      </DimmerWrap>
+          searchRecipeDone ? <Loader active /> :
+          <DimmerWrap>
+            <H4wrap>자세히 보기를 클릭하면 상세한 레시피를 볼 수 있습니다.</H4wrap>
+            {
+              recipeTitle.map(({ RECIPE_ID, RECIPE_NM_KO, IMG_URL }) => (
+                <Wrap key={RECIPE_ID}>
+                  <ImgWrap src={IMG_URL} alt="" />
+                  <TitleStyle>{RECIPE_NM_KO}</TitleStyle>
+                  <Btnstyle circular color="teal" onClick={this.handelClick} title={RECIPE_NM_KO} value={RECIPE_ID} img={IMG_URL}>자세히보기</Btnstyle>
+                </Wrap>
+              ))
+            }
+          </DimmerWrap>
+          }
+      </div>
     );
   }
 }

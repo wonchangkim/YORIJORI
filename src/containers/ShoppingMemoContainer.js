@@ -3,7 +3,7 @@ import * as firebase from 'firebase';
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 import ShoppingMemo from '../components/ShoppingMemo/ShoppingMemo';
-import { getdataShoppingMemo } from '../ducks/Getdatabase';
+import { getdataShoppingMemo, deleteShoppingMemo } from '../ducks/Getdatabase';
 
 
 class ShoppingMemoContainer extends Component {
@@ -15,10 +15,9 @@ class ShoppingMemoContainer extends Component {
   }
 
   render() {
-    // if (this.props.selectcookmarkclick) {
-    //   return (
-    //     <Redirect to="detailrecipe" />
-    //   );
+    const { deleteMemoDone } = this.props;
+    // if (deleteMemoDone) {
+    //   window.location.reload();
     // }
     return (
       <div>
@@ -31,10 +30,15 @@ class ShoppingMemoContainer extends Component {
 export default connect(
   state => ({
     shoppingMemolist: state.Getdatabase.shoppingMemolist,
+    ingredients: state.Getdatabase.ingredients,
+    deleteMemoDone: state.Getdatabase.deleteMemoDone,
   }),
   dispatch => ({
     onGetShoppingMemo: () => {
       dispatch(getdataShoppingMemo());
     },
+    memoDelete: (id) => {
+      dispatch(deleteShoppingMemo(id));
+    }
   }),
 )(ShoppingMemoContainer);

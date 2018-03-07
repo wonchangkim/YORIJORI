@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { searchDetailRecipe } from '../ducks/Getdatabase';
+import StorageBox from '../components/common/StorageBox';
+import { searchDetailRecipe, searchDetail } from '../ducks/Getdatabase';
 import ResultRecipeTitle from '../components/SearchRecipe/ResultRecipeTitle';
 
 class ResultRecipeTitleContainer extends Component {
+  static defaultProps = {
+    onMount: () => {},
+  }
   render() {
     const { detailRecipeDone, recipeTitle } = this.props;
     if (detailRecipeDone) {
@@ -14,11 +18,13 @@ class ResultRecipeTitleContainer extends Component {
     }
     if (recipeTitle.length === 0) {
       return (
-        <Redirect to="/main" />
+        <Redirect to="/" />
       );
     }
     return (
-      <ResultRecipeTitle {...this.props} />
+      <StorageBox>
+        <ResultRecipeTitle {...this.props} />
+      </StorageBox>
     );
   }
 }

@@ -112,7 +112,7 @@ class MenuBar extends Component {
       <WrapMenu>
         <OutsideArea style={{ ...styles, transform }}>
           <ProfileWrap src={ProfileImg} />
-          <Btn to="main" first="true">메인</Btn>
+          <Btn to="/" first="true">메인</Btn>
           <Btn to="cookmark" second="true">쿡마크</Btn>
           <Btn to="memo" third="true">메모</Btn>
           <Btn to="share" fourth="true">쉐어</Btn>

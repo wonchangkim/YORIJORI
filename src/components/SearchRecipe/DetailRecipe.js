@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import { Button, Image} from 'semantic-ui-react';
 import CookMarkIcon from '../../assets/icon/cookmark.png';
 import CookMarkIconactive from '../../assets/icon/cookmarkactive.png';
+import Cookmarkiconcontainer from '../../containers/Cookmarkiconcontainer';
 
 const DetailRecipeWrap = styled.div`
   position: relative;
@@ -118,7 +119,7 @@ export default class DetailRecipe extends Component {
       <DetailRecipeWrap>
         {
           <ImgWrap key={Math.random()}>
-            <ImgStyle src={IMG_URL} alt="" />
+            <ImgStyle src={IMG_URL} alt="요리이미지" />
             <InfoWrap>
               <TitleStyle>{RECIPE_NM_KO}</TitleStyle>
               <Sumary>{SUMRY}</Sumary>
@@ -128,7 +129,7 @@ export default class DetailRecipe extends Component {
                 <SubInfo>{COOKING_TIME}</SubInfo>
               </SubInfoWrap>
             </InfoWrap>
-            <CookMarkIconWrap background={this.state.isChecked} onClick={this.handleChange} />
+            <Cookmarkiconcontainer {...this.props} />
           </ImgWrap>
         }
         <RecipeIngredientWrap>

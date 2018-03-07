@@ -22,3 +22,5 @@ yarn-error.log*
 
 .databaseSample.json
 
+# firebase
+.runtimeconfig.json

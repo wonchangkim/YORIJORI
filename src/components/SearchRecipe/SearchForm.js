@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
+import onClickOutside from 'react-onclickoutside';
 import { Button, Icon } from 'semantic-ui-react';
+import Imgloader from '../common/Imgloader';
 import ResultRecipeTitleContainer from '../../containers/ResultRecipeTitleContainer';
 
 const Wrapper = styled.div`
@@ -76,26 +78,32 @@ const TitleWrap = styled.p`
   bottom: 0;
   line-height: 30px;
 `;
-export default class SearchForm extends Component {
+class SearchForm extends Component {
+  state = {
+    click: false,
+  }
   handleClick = (e, data) => {
+    this.setState({
+      click: !this.state.click,
+    });
     this.props.onSearch(data.id);
   }
   handleClose = () => {
     this.props.onSearchFormOff();
+  }
+  handleClickOutside = () => {
+    this.handleClose();
   }
   render() {
     const { searchData } = this.props;
     const [imgurl, title] = searchData;
     return (
       <Wrapper>
-        {/* {
-          searchRecipeDone ? <ResultRecipeTitleContainer /> : null
-        } */}
         <SearchFormOutter>
           <SearchFormOutterInner>
             <SearchFormContent>
               <SearchdataWrap>
-                <ImgWrap src={imgurl} alt="재료이미지" />
+                <Imgloader src={imgurl} />
                 <TitleWrap>{title}</TitleWrap>
               </SearchdataWrap>
               <Btnstyle right="true" id={title} onClick={this.handleClick} color="teal" icon="search" circular />
@@ -104,7 +112,8 @@ export default class SearchForm extends Component {
           </SearchFormOutterInner>
         </SearchFormOutter>
       </Wrapper>
-
     );
   }
 }
+
+export default onClickOutside(SearchForm);
