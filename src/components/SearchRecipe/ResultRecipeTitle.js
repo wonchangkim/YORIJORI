@@ -60,7 +60,11 @@ export default class ResultRecipeTitle extends Component {
         {
           searchRecipeDone ? <Loader active /> :
           <DimmerWrap>
-            <H4wrap>자세히 보기를 클릭하면 상세한 레시피를 볼 수 있습니다.</H4wrap>
+            {
+              recipeTitle.length > 0 ?
+                <H4wrap>자세히 보기를 클릭하면 상세한 레시피를 볼 수 있습니다.</H4wrap>
+              : <H4wrap>검색결과가 없습니다. 다른재료를 이용해주세요.</H4wrap>
+            }
             {
               recipeTitle.map(({ RECIPE_ID, RECIPE_NM_KO, IMG_URL }) => (
                 <Wrap key={RECIPE_ID}>

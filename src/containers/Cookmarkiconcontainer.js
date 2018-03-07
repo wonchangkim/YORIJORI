@@ -20,27 +20,27 @@ class Cookmarkiconcontainer extends Component {
         this.props.detailRecipe,
         this.props.baserecipeIngredient,
       );
-      console.log(this.state.value);
-    }, 100);
+      console.log(this.state);
+    }, 1);
   }
-  handleCookmarkDelete = () => {
-    console.log('delete');
-    this.props.DeleteCookmark(this.props.ischecked);
-  }
+  // handleCookmarkDelete = () => {
+  //   console.log('delete');
+  //   this.setState({
+  //     isChecked: !this.state.isChecked,
+  //   });
+  //   this.props.DeleteCookmark(this.state.ischecked);
+  // }
   render() {
+    const { ischecked, cookmark } = this.props;
     return (
-      <div>
-        {
-          this.props.ischecked ?
-            <Cookmarkicon check="true" onclick={this.handleCookmarkDelete} /> :
-            <Cookmarkicon onclick={this.handleChange} />
-        }
-      </div>
+      <Cookmarkicon cookmark={cookmark} ischecked={ischecked} state={this.state.isChecked} onadd={this.handleChange} />
     );
   }
 }
 export default connect(
-  null,
+  state => ({
+    cookmark: state.Getdatabase.cookmark,
+  }),
   dispatch => ({
     DeleteCookmark: (recipeid) => {
       dispatch(DeleteCookmark(recipeid));

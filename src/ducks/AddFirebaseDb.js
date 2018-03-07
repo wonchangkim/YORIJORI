@@ -5,7 +5,7 @@ export const DONE = 'addfirebaseDb/DONE';
 export const SUCCESS = 'addfirebaseDb/SUCCESS';
 export const ERROR = 'addfirebaseDb/ERROR';
 export const ADD_DATA_SHOPPING_MEMO = 'getdatabase/ADD_DATA_SHOPPING_MEMO';
-
+export const ADD_SHOPPING_MEMO_DONE = 'getdatabase/ ADD_SHOPPING_MEMO_DONE';
 export function firebaseCreating() {
   return {
     type: CREATING,
@@ -33,6 +33,12 @@ export function addDataShoppingMemo(memoRecipeId) {
     type: ADD_DATA_SHOPPING_MEMO,
     memoRecipeId,
   };
+}
+export function addShoppingMemoDone(value) {
+  return {
+    type: ADD_SHOPPING_MEMO_DONE,
+    value,
+  }
 }
 const initialState = {
   creating: '',
@@ -65,6 +71,11 @@ export default function (state = initialState, action) {
         ...state,
         shoppingMemo: action.memoRecipeId,
       };
+    case ADD_SHOPPING_MEMO_DONE:
+      return {
+        ...state,
+        shoppingMemoDone: action.value,
+      }
     default:
       return state;
   }
@@ -136,6 +147,7 @@ export const DeleteCookmark = recipeid => async (dispatch) => {
 
 export const addShoppingMemo = (memoRecipeId, memoRecipeimg, memoRecipeko) => async (dispatch) => {
   console.log(memoRecipeId)
+  dispatch(addShoppingMemoDone(true));
   const { uid } = firebase.auth().currentUser;
   const baseRecipe = `https://us-central1-yorijori-5bfc6.cloudfunctions.net/recipeseacher/baserecipe/${memoRecipeId}`;
   await fetch(baseRecipe, {
@@ -152,4 +164,5 @@ export const addShoppingMemo = (memoRecipeId, memoRecipeimg, memoRecipeko) => as
         Ingredient,
       });
     });
+  dispatch(addShoppingMemoDone(false));
 };

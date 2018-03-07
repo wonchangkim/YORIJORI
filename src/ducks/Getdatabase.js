@@ -21,6 +21,7 @@ export const SEARCH_RECIPE_DONE = 'getdatabase/SEARCH_RECIPE_DONE';
 export const DELETE_MEMO_DONE = 'getdatabase/DELETE_MEMO_DONE';
 export const DELETE_MEMO_START = 'getdatabase/DELETE_MEMO_START';
 export const SEARCH_DETAIL_DONE = 'getdatabase/SEARCH_DETAIL_DONE';
+export const GET_SHOPPING_MEMO = 'getdatabase/GET_SHOPPING_MEMO';
 
 export function getdataLoading(step) {
   return {
@@ -101,9 +102,10 @@ export function addDetailrecipe(detailreciperesult, recipeName, recipeImg) {
     recipeImg,
   };
 }
-export function selectCookmark() {
+export function selectCookmark(recipeId) {
   return {
     type: SELECT_COOKMARK,
+    recipeId,
   };
 }
 export function getdataCookmark(Cookmarklist) {
@@ -132,7 +134,13 @@ export function searchRecipeDone(value) {
 export function deleteStart() {
   return {
     type: DELETE_MEMO_START,
-  }
+  };
+}
+export function getshoppingMemo(value) {
+  return {
+    type: GET_SHOPPING_MEMO,
+    value,
+  };
 }
 export function deleteDone() {
   return {
@@ -242,6 +250,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         selectcookmarkclick: true,
+        selectcookmarkid: action.recipeId,
       };
     case SELECT_COOKMARK_DONE:
       return {
@@ -262,6 +271,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         deleteMemoDone: false,
+      };
+    case GET_SHOPPING_MEMO:
+      return {
+        ...state,
+        getshoppingmemo: action.value,
       }
     case ERROR:
       return {
@@ -349,6 +363,7 @@ export const searchRecipe = searchTitle => async (dispatch) => {
 // 상세레시피 검색(요리순서 + 재료)
 export const searchDetailRecipe = recipeId => async (dispatch) => {
   dispatch(searchDetail(true));
+
   console.log('디테일리세피검색');
 
   const detailrecipeUrl = `https://us-central1-yorijori-5bfc6.cloudfunctions.net/recipeseacher/detailrecipe/${recipeId}`;
@@ -371,7 +386,6 @@ export const searchDetailRecipe = recipeId => async (dispatch) => {
       console.log(detailreciperesult);
       dispatch(addDetailrecipe(detailreciperesult));
     });
-
   await fetch(baseRecipeUrl, {
     method: 'GET',
   })
@@ -393,10 +407,11 @@ export const getdatabaseCookmark = () => async (dispatch) => {
     const cookmarkObj = snapshot.val();
     console.log(cookmarkObj);
     if (cookmarkObj) {
-      const Cookmarklist = Object.entries(cookmarkObj).map(([key, { IMG_URL, RECIPE_ID, RECIPE_NM_KO }]) => ({
+      const Cookmarklist = Object.entries(cookmarkObj).map(([key, { IMG_URL, RECIPE_ID, RECIPE_NM_KO, isChecked }]) => ({
         IMG_URL,
         RECIPE_ID,
         RECIPE_NM_KO,
+        isChecked,
       }));
       console.log(Cookmarklist);
       dispatch(getdataCookmark(Cookmarklist));
@@ -408,8 +423,8 @@ export const getdatabaseCookmark = () => async (dispatch) => {
   }
 };
 
-export const clickcookmark = () => async (dispatch) => {
-  dispatch(selectCookmark());
+export const clickcookmark = recipeId => async (dispatch) => {
+  dispatch(selectCookmark(recipeId));
 };
 
 export const clickcookmarkDone = () => async (dispatch) => {
@@ -418,15 +433,18 @@ export const clickcookmarkDone = () => async (dispatch) => {
 
 export const getdataShoppingMemo = () => async (dispatch) => {
   const { uid } = firebase.auth().currentUser;
+
   const snapshot = await firebase.database().ref(`usersShoppingMemo/${uid}/`).once('value');
   const shoppingmemoObj = snapshot.val();
   dispatch(addShoppingMemo(shoppingmemoObj));
+  dispatch(getshoppingMemo(true));
+  dispatch(getshoppingMemo(false));
 };
 
 export const deleteShoppingMemo = id => async (dispatch) => {
   const { uid } = firebase.auth().currentUser;
-  dispatch(deleteStart());
   await firebase.database().ref(`usersShoppingMemo/${uid}/`).child(`${id}`).remove();
+  dispatch(deleteStart());
   dispatch(deleteDone());
 };
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {Redirect} from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import PaperBox from '../components/common/PaperBox';
 import DetailRecipe from '../components/SearchRecipe/DetailRecipe';
 import { AddCookmark } from '../ducks/AddFirebaseDb';
@@ -12,16 +12,14 @@ class DetailRecipeContainer extends Component {
   }
   render() {
     const { detailRecipe } = this.props;
-    if (detailRecipe.length === 0) {
-      return (
-        <Redirect to="/main" />
-      )
-    }
+    // if (detailRecipe.length === 0) {
+    //   return (
+    //     <Redirect to="/main" />
+    //   )
+    // }
     return (
       <div>
-        <PaperBox>
-          <DetailRecipe {...this.props} />
-        </PaperBox>
+        <DetailRecipe {...this.props} />
       </div>
     );
   }

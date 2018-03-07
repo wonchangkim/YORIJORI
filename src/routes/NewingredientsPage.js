@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import Layout from '../components/common/Layout';
 import NewingredientsContainer from '../containers/NewingredientsContainer';
+import withAuth from '../hocs/withAuth';
 
-export default class NewingredientsPage extends Component {
+class NewingredientsPage extends Component {
   render() {
     return (
       <Layout title="이미지검색">
@@ -11,3 +12,5 @@ export default class NewingredientsPage extends Component {
     );
   }
 }
+
+export default withAuth(NewingredientsPage);

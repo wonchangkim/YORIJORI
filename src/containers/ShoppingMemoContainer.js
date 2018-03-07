@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import * as firebase from 'firebase';
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 import ShoppingMemo from '../components/ShoppingMemo/ShoppingMemo';
@@ -13,22 +12,20 @@ class ShoppingMemoContainer extends Component {
   componentDidMount() {
     this.props.onGetShoppingMemo();
   }
-
   render() {
     const { deleteMemoDone } = this.props;
-    // if (deleteMemoDone) {
-    //   window.location.reload();
-    // }
+    if (deleteMemoDone) {
+      window.location.reload();
+    }
     return (
-      <div>
-        <ShoppingMemo {...this.props} />
-      </div>
+      <ShoppingMemo {...this.props} />
     );
   }
 }
 
 export default connect(
   state => ({
+    getshoppingmemo: state.Getdatabase.shoppingMemolist,
     shoppingMemolist: state.Getdatabase.shoppingMemolist,
     ingredients: state.Getdatabase.ingredients,
     deleteMemoDone: state.Getdatabase.deleteMemoDone,

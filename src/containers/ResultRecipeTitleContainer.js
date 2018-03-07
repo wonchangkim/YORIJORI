@@ -16,11 +16,6 @@ class ResultRecipeTitleContainer extends Component {
         <Redirect to="/Detailrecipe" />
       );
     }
-    if (recipeTitle.length === 0) {
-      return (
-        <Redirect to="/" />
-      );
-    }
     return (
       <StorageBox>
         <ResultRecipeTitle {...this.props} />

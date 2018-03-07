@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Loader, Header } from 'semantic-ui-react';
+import { Button, Loader, Header, Form } from 'semantic-ui-react';
 import styled, { css } from 'styled-components';
 import labeback from '../../assets/images/check_radio_sheet.png';
 import labebacknone from '../../assets/images/check_radio_sheet_none.png';
@@ -36,14 +36,11 @@ const DimmerWrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 `;
 const AddButton = styled(Button)`
   width: 100px;
   height: 100px;
-  position: absolute;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
 `;
 
 export default class ResultDimmer extends Component {
@@ -65,6 +62,7 @@ export default class ResultDimmer extends Component {
   }
   render() {
     const { transResult, success } = this.props;
+    const { title } = this.state;
     const generateKey = (title, index) => {
       return `${title}_${index}`;
     };
@@ -94,6 +92,12 @@ export default class ResultDimmer extends Component {
             </ListWrap>
           ))
           }
+          <Form onSubmit={this.handelClick}>
+            <Form.Group>
+              <label>검색결과중 맞는결과가 없으면 직접입력해주세요</label>
+              <Form.Input placeholder="직접입력하기" name="title" value={title} onChange={this.handleChange} />
+            </Form.Group>
+          </Form>
           { this.state.onBtn ? <AddButton circular color="teal" onClick={this.handelClick}>냉장고에추가하기</AddButton> : null }
         </DimmerWrap>
       </StorageBox>

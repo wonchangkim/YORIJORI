@@ -24,3 +24,5 @@ yarn-error.log*
 
 # firebase
 .runtimeconfig.json
+
+rules.json

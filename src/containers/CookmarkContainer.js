@@ -36,6 +36,7 @@ class CookmarkContainer extends Component {
 
 export default connect(
   state => ({
+    shoppingMemoDone: state.AddFirebaseDb.shoppingMemoDone,
     ingredientsNull: state.Getdatabase.ingredientsNull,
     cookmark: state.Getdatabase.cookmark,
     done: state.AddFirebaseDb.done,
@@ -44,7 +45,7 @@ export default connect(
   dispatch => ({
     onClick: (recipeId, click) => {
       dispatch(searchDetailRecipe(recipeId));
-      dispatch(clickcookmark());
+      dispatch(clickcookmark(recipeId));
     },
     onGetCookmark: () => {
       dispatch(getdatabaseCookmark());

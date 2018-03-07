@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import Layout from '../components/common/Layout';
 import DetailRecipeContainer from '../containers/DetailRecipeContainer';
+import withAuth from '../hocs/withAuth';
 
-export default class DetailRecipePage extends Component {
+class DetailRecipePage extends Component {
   render() {
     return (
       <Layout title="레시피정보">
@@ -11,3 +12,4 @@ export default class DetailRecipePage extends Component {
     );
   }
 }
+export default withAuth(DetailRecipePage);

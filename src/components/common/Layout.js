@@ -11,6 +11,7 @@ const Wrap = styled.div`
   flex-direction: column;
   align-items: center;
   background-color: #7DAA55;
+  padding-bottom: 50px;
 
 `;
 export default class Layout extends Component {

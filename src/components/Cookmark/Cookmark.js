@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button } from 'semantic-ui-react';
+import { Button, Loader } from 'semantic-ui-react';
 import styled from 'styled-components';
 import StorageBox from '../common/StorageBox';
 import Cookmarkiconcontainer from '../../containers/Cookmarkiconcontainer';
@@ -51,7 +51,7 @@ const Addedshoppingmemo = styled.span`
   line-height: 90px;
   border: 1px solid #1CB5AC;
   border-radius: 20px;
-`
+`;
 export default class Cookmark extends Component {
   state = {
     recipeId: '',
@@ -79,24 +79,29 @@ export default class Cookmark extends Component {
         addMemoe: false,
       });
       this.props.onAddshoppingMemo(this.state.memoRecipeid, this.state.memoRecipeimg, this.state.memoRecipeko);
-    }, 2000);
+    }, 1);
     console.log('메모추가');
   }
   render() {
-    const { cookmark, ingredientsNull } = this.props;
+    const { cookmark, ingredientsNull, shoppingMemoDone } = this.props;
     return (
       <StorageBox size="true" >
         {
           ingredientsNull ? <p>쿡마크가 없습니다.</p> :
           <div>
-            {this.state.addMemoe ? <Addedshoppingmemo>쇼핑메모에 추가되었습니다</Addedshoppingmemo> : null}
+            { shoppingMemoDone ?
+              <Addedshoppingmemo>
+                <Loader active inline="centered" />쇼핑메모 추가중..
+              </Addedshoppingmemo>
+              : null
+            }
             {
-              cookmark.map(({ IMG_URL, RECIPE_ID, RECIPE_NM_KO }) => (
+              cookmark.map(({ IMG_URL, RECIPE_ID, RECIPE_NM_KO, isChecked }) => (
                 <CookmarkWrap key={Math.random()} >
                   <ImgWrap src={IMG_URL} id={RECIPE_ID} alt="" onClick={this.handelClick} />
                   <TitleWrap>{RECIPE_NM_KO}</TitleWrap>
                   <BtnStyle circular onClick={this.handelMemo} id={RECIPE_ID} img={IMG_URL} ko={RECIPE_NM_KO}>쇼핑메모추가</BtnStyle>
-                  <Cookmarkiconcontainer ischecked={RECIPE_ID} />
+                  <Cookmarkiconcontainer ischecked={isChecked} />
                 </CookmarkWrap>
               ))
             }

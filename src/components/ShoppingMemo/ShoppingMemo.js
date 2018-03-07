@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Icon } from 'semantic-ui-react';
+import { Button, Icon, Loader } from 'semantic-ui-react';
 import styled, { css } from 'styled-components';
 import StorageBox from '../common/StorageBox';
 
@@ -44,6 +44,7 @@ const HaveWrap = styled.div`
   padding: 10px;
   margin: 5px auto;
   border-radius: 10px;
+  display: inline-block;
 `;
 const NeedWrap = styled.div`
   display: inline-block;
@@ -66,6 +67,7 @@ const Pstyle = styled.span`
   color:  #1CB5AC;
   margin: 5px;
   border-radius: 10px;
+  float: left;
 `;
 const Btnstyled = styled(Button)`
   float: right;
@@ -102,7 +104,7 @@ export default class ShoppingMemo extends Component {
     })
   }
   render() {
-    const { shoppingMemolist, ingredients } = this.props;
+    const { shoppingMemolist, ingredients, getshoppingmemo } = this.props;
     const newarry = ingredients.map(({ title: value }) => {
       return value;
     });
@@ -118,7 +120,7 @@ export default class ShoppingMemo extends Component {
               </div>
               : null
           }
-          { shoppingMemolist ?
+          { getshoppingmemo ?
             Object.entries(shoppingMemolist).map(([recipeid, value]) => (
               <div key={Math.random()} >
                 <MemoLi >
@@ -160,7 +162,7 @@ export default class ShoppingMemo extends Component {
                     : null
                 }
               </div>
-            )) : <p>없음</p>
+            )) : <Loader active />
           }
         </Ulstyle>
       </StorageBox>

@@ -18,21 +18,24 @@ const CookMarkIconWrap = styled.div`
     background: url(${CookMarkIconactive}) no-repeat center;
     background-size: 40px 70px;
   `}
-   &:hover {
+   ${props => props.delete && css`
     background: url(${CookMarkIcondelete}) no-repeat center;
     background-size: 40px 70px;
-   }
+  `}
 `;
 
-export default class CookMarkicon extends Component {
-  state = {
-    isChecked: false,
-    recipeId: '',
-  }
+export default class Cookmarkicon extends Component {
 
   render() {
+    const { state, onadd, ischecked, cookmark } = this.props;
     return (
-      <CookMarkIconWrap checked={this.props.check} onClick={this.props.onclick} />
+      <div>
+        {
+          state || ischecked ?
+            <CookMarkIconWrap checked="true" /> :
+            <CookMarkIconWrap onClick={onadd} />
+        }
+      </div>
     );
   }
 }

@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
-import { Button, Image} from 'semantic-ui-react';
+import { Button, Image, Loader } from 'semantic-ui-react';
 import CookMarkIcon from '../../assets/icon/cookmark.png';
 import CookMarkIconactive from '../../assets/icon/cookmarkactive.png';
 import Cookmarkiconcontainer from '../../containers/Cookmarkiconcontainer';
+import SimpleContainer from '../common/SimpleContaner';
 
 const DetailRecipeWrap = styled.div`
-  position: relative;
-
+position: relative;
 `;
 const ImgWrap = styled.div`
   width: 100%;
-  background: RGBA(229, 229, 229, 1.00);
+  background: white;
 `;
 const ImgStyle = styled.img`
   width: 100%;
@@ -22,30 +22,7 @@ const TitleStyle = styled.h2`
   margin: 10px 0 10px 0px;
   color: black;
 `;
-const CookMarkIconWrap = styled.div`
-  background: url(${CookMarkIcon}) no-repeat center;
-  background-size: 40px 70px;
-  width: 40px;
-  height: 70px;
-  position: absolute;
-  top: 0;
-  right: 20px;
 
-  ${props => props.background && css`
-    background: url(${CookMarkIconactive}) no-repeat center;
-    background-size: 40px 70px;
-  `}
-`;
-const CookMarkInput = styled.div`
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding : 0;
-  border : 0;
-  margin : -1 px;
-  overflow : hidden;
-  clip : rect(0, 0, 0, 0);
-`;
 const SubInfoWrap = styled.div`
   display: block;
   margin: 5px 0 0 10px;
@@ -61,29 +38,32 @@ const SubInfo = styled.p`
 const Sumary = styled.p`
   margin: 0 0 0 10px;
   display: block;
-  width: 280px;
+  width: 230px;
 `;
 const InfoWrap = styled.div`
  position: relative;
  padding: 10px;
 `;
 const StepWarp = styled.div`
- margin: 5px 0;
- padding: 10px;
+  width: 300px;
+  margin: 5px 0;
+  border: 1px solid #1CB5AC;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  display: inlibe-block;
 `;
 const StepNum = styled.p`
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  background: RGBA(181, 203, 49, 1.00);
+  background: #1CB5AC;
   line-height: 26px;
   text-align: center;
   color: white;
+  display: block;
 `;
-const RecipeIngredientWrap = styled.div`
-  padding: 10px;
-  display: inline-block;
-`;
+
 const InredientWrap = styled.div`
   width: 130px;
   margin: 5px;
@@ -92,6 +72,14 @@ const InredientWrap = styled.div`
 const Spanstyle = styled.span`
   margin-right: 15px;
 `;
+const OderImg = styled.img`
+  width: 300px;
+  display: block;
+`;
+const OderNumWrap = styled.div`
+  padding: 10px;
+`
+
 export default class DetailRecipe extends Component {
   state = {
     isChecked: false,
@@ -113,52 +101,60 @@ export default class DetailRecipe extends Component {
     }, 100);
   }
   render() {
-    const { detailRecipe, baseRecipe, baserecipeIngredient } = this.props;
-    const [{IMG_URL, SUMRY, CALORIE, RECIPE_NM_KO, QNT, COOKING_TIME, RECIPE_ID}] = baseRecipe;
+    const { detailRecipe, baseRecipe, baserecipeIngredient, detailRecipeDone, cookmark } = this.props;
+    const [{ RECIPE_ID, IMG_URL, SUMRY, CALORIE, RECIPE_NM_KO, QNT, COOKING_TIME }] = baseRecipe;
     return (
-      <DetailRecipeWrap>
-        {
-          <ImgWrap key={Math.random()}>
-            <ImgStyle src={IMG_URL} alt="요리이미지" />
-            <InfoWrap>
-              <TitleStyle>{RECIPE_NM_KO}</TitleStyle>
-              <Sumary>{SUMRY}</Sumary>
-              <SubInfoWrap>
-                <SubInfo>{CALORIE}</SubInfo>
-                <SubInfo>{QNT}</SubInfo>
-                <SubInfo>{COOKING_TIME}</SubInfo>
-              </SubInfoWrap>
-            </InfoWrap>
-            <Cookmarkiconcontainer {...this.props} />
-          </ImgWrap>
-        }
-        <RecipeIngredientWrap>
+      <div>
+        <DetailRecipeWrap>
+          {
+            <ImgWrap key={Math.random()}>
+              <ImgStyle src={IMG_URL} alt="요리이미지" />
+              <InfoWrap>
+                <TitleStyle>{RECIPE_NM_KO}</TitleStyle>
+                <Sumary>{SUMRY}</Sumary>
+                <SubInfoWrap>
+                  <SubInfo>{CALORIE}</SubInfo>
+                  <SubInfo>{QNT}</SubInfo>
+                  <SubInfo>{COOKING_TIME}</SubInfo>
+                </SubInfoWrap>
+                <Cookmarkiconcontainer {...this.props} />
+              </InfoWrap>
+            </ImgWrap>
+          }
+        </DetailRecipeWrap>
+        <SimpleContainer>
           <h3>요리재료</h3>
           {
+            !detailRecipeDone ?
             baserecipeIngredient.map(({ IRDNT_NM, IRDNT_CPCTY }) => (
               <InredientWrap key={Math.random()}>
                 <Spanstyle>{IRDNT_NM}</Spanstyle>
                 <Spanstyle>{IRDNT_CPCTY}</Spanstyle>
               </InredientWrap>
-            ))
+            )) : <Loader active />
           }
-        </RecipeIngredientWrap>
-        <div>
+        </SimpleContainer>
+        <SimpleContainer>
+          <h3>요리방법</h3>
           {
-          detailRecipe.map(({ ROW_NUM, COOKING_NO, COOKING_DC, STRE_STEP_IMAGE_URL })=> (
+            !detailRecipeDone ?
+          detailRecipe.map(({ COOKING_NO, COOKING_DC, STRE_STEP_IMAGE_URL }) => (
             <StepWarp key={Math.random()}>
-              <StepNum>{COOKING_NO}</StepNum>
               {
                 STRE_STEP_IMAGE_URL ?
-                  <img src={STRE_STEP_IMAGE_URL} alt="" />
+                  <OderImg src={STRE_STEP_IMAGE_URL} alt="요리순서이미지" />
                 : null
               }
-              <p>{COOKING_DC}</p>
+              <OderNumWrap>
+                <StepNum>{COOKING_NO}</StepNum>
+                <p>{COOKING_DC}</p>
+              </OderNumWrap>
             </StepWarp>
-          ))
+          )) : <Loader active />
           }
-        </div>
-      </DetailRecipeWrap>
+        </SimpleContainer>
+      </div>
+
     );
   }
 }
