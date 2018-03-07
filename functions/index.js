@@ -5,8 +5,8 @@ const cors = require('cors');
 const fetch = require('node-fetch');
 const urlencode = require('urlencode');
 
-const visionkey = functions.cofig().vision.key;
-const recipekey = functions.cofig().recipe.key;
+const visionkey = functions.config().vision.key;
+const recipekey = functions.config().recipe.key;
 // Express 앱 객체 생성
 const app = express();
 
