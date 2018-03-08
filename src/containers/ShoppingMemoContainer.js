@@ -24,7 +24,7 @@ class ShoppingMemoContainer extends Component {
 
 export default connect(
   state => ({
-    getshoppingmemo: state.Getdatabase.shoppingMemolist,
+    getshoppingmemo: state.Getdatabase.getshoppingmemo,
     shoppingMemolist: state.Getdatabase.shoppingMemolist,
     ingredients: state.Getdatabase.ingredients,
     deleteMemoDone: state.Getdatabase.deleteMemoDone,

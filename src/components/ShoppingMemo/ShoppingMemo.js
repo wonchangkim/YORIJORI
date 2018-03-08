@@ -124,51 +124,51 @@ export default class ShoppingMemo extends Component {
               </div>
               : null
           }
-          { getshoppingmemo ?
-            Object.entries(shoppingMemolist).map(([recipeid, value]) => (
-              <div key={Math.random()} >
-                <MemoLi >
-                  <ImgWrapover>
-                    <ImgWrap src={value.RECIPE_IMG} id={value.RECIPE_ID} alt="레시피이미지" />
-                  </ImgWrapover>
-                  <Title id={value.RECIPE_ID} onClick={this.handelClick}>{value.RECIPE_KO}</Title>
-                  <Btnstyled circular icon="minus" color="teal" id={value.RECIPE_ID} onClick={this.handeDelete} />
-                </MemoLi>
-                {
-                  (Number(this.state.click) === value.RECIPE_ID) && this.state.show ?
-                    <Spanstyleingrediente >
-                      <HaveWrap>
-                        <h4>냉장고재료</h4>
-                        {
-                          newarry.map(title => (
-                            <Pstyle key={Math.random()}>{title}</Pstyle>
-                          ))
-                        }
-                      </HaveWrap>
-                      <NeedWrap>
-                        <h4>필요한재료</h4>
-                        {
-                          value.Ingredient.map(({ IRDNT_CPCTY, IRDNT_NM }) => (
-                            <MemolistWrap key={Math.random()} >
-                              {
-                                newarry.includes(IRDNT_NM) ?
-                                  <Spanstyle have>
-                                    {IRDNT_NM}{IRDNT_CPCTY}
-                                  </Spanstyle>
-                                :
-                                  <Spanstyle>
-                                    {IRDNT_NM}{IRDNT_CPCTY}
-                                  </Spanstyle>
-                              }
-                            </MemolistWrap>
+          { shoppingMemolist ?
+              Object.entries(shoppingMemolist).map(([recipeid, value]) => (
+                <div key={Math.random()} >
+                  <MemoLi >
+                    <ImgWrapover>
+                      <ImgWrap src={value.RECIPE_IMG} id={value.RECIPE_ID} alt="레시피이미지" />
+                    </ImgWrapover>
+                    <Title id={value.RECIPE_ID} onClick={this.handelClick}>{value.RECIPE_KO}</Title>
+                    <Btnstyled circular icon="minus" color="teal" id={value.RECIPE_ID} onClick={this.handeDelete} />
+                  </MemoLi>
+                  {
+                    (Number(this.state.click) === value.RECIPE_ID) && this.state.show ?
+                      <Spanstyleingrediente >
+                        <HaveWrap>
+                          <h4>냉장고재료</h4>
+                          {
+                            newarry.map(title => (
+                              <Pstyle key={Math.random()}>{title}</Pstyle>
                             ))
-                        }
-                      </NeedWrap>
-                    </Spanstyleingrediente>
-                    : null
-                }
-              </div>
-            )) : <Loader active />
+                          }
+                        </HaveWrap>
+                        <NeedWrap>
+                          <h4>필요한재료</h4>
+                          {
+                            value.Ingredient.map(({ IRDNT_CPCTY, IRDNT_NM }) => (
+                              <MemolistWrap key={Math.random()} >
+                                {
+                                  newarry.includes(IRDNT_NM) ?
+                                    <Spanstyle have>
+                                      {IRDNT_NM}{IRDNT_CPCTY}
+                                    </Spanstyle>
+                                  :
+                                    <Spanstyle>
+                                      {IRDNT_NM}{IRDNT_CPCTY}
+                                    </Spanstyle>
+                                }
+                              </MemolistWrap>
+                              ))
+                          }
+                        </NeedWrap>
+                      </Spanstyleingrediente>
+                      : null
+                  }
+                </div>
+              )) : <h4>쇼핑메모가 없습니다.</h4>
           }
         </Ulstyle>
       </StorageBox>

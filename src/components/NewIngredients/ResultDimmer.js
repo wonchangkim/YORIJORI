@@ -42,7 +42,13 @@ const AddButton = styled(Button)`
   width: 100px;
   height: 100px;
 `;
-
+const FormWrap = styled(Form)`
+  display: Flex !improtant;
+   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
 export default class ResultDimmer extends Component {
   state = {
     title: '',
@@ -72,7 +78,7 @@ export default class ResultDimmer extends Component {
           success ? <Loader active /> : null
         }
         <DimmerWrap>
-          <Header as="h2" icon>
+          <Header as="h4" icon>
             결과중 하나를 선택해주세요.
             <Header.Subheader>냉장고에 추가 됩니다.</Header.Subheader>
           </Header>
@@ -92,12 +98,10 @@ export default class ResultDimmer extends Component {
             </ListWrap>
           ))
           }
-          <Form onSubmit={this.handelClick}>
-            <Form.Group>
-              <label>검색결과중 맞는결과가 없으면 직접입력해주세요</label>
-              <Form.Input placeholder="직접입력하기" name="title" value={title} onChange={this.handleChange} />
-            </Form.Group>
-          </Form>
+          <FormWrap onSubmit={this.handelClick}>
+            <label>검색결과중 맞는결과가 없으면 직접입력해주세요</label>
+            <Form.Input placeholder="직접입력하기" name="title" value={title} onChange={this.handleChange} />
+          </FormWrap>
           { this.state.onBtn ? <AddButton circular color="teal" onClick={this.handelClick}>냉장고에추가하기</AddButton> : null }
         </DimmerWrap>
       </StorageBox>
