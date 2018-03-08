@@ -5,10 +5,21 @@ import styled from 'styled-components';
 
 // 스타일
 const FormWrap = styled.div`
-  width: 80vw;
+  width: 80%;
 `;
 const BtnStyle = styled(Button)`
   width: 140px;
+`;
+const NewAccbtn = styled(Link)`
+  width: 140px;
+  margin-left: 150px;
+  color: #96A929;
+  &:hover {
+     color: #E64E64;
+  }
+  &:visited {
+    color: #96A929;
+  }
 `;
 const GoogleBtnStyle = styled(Button)`
   margin-top: 1em !important;
@@ -52,7 +63,7 @@ export default class LoginForm extends Component {
             <Input icon="key" iconPosition="left" name="password" value={password}type="password" onChange={this.handleChange} />
           </Form.Field>
           <BtnStyle color="olive" type="submit" onClick={this.handleSubmit}>로그인</BtnStyle>
-          <BtnStyle as={Link} to="/CreateAccount" floated="right" basic color="olive" content="Olive" type="button" >회원가입</BtnStyle>
+          <NewAccbtn to="/CreateAccount">회원가입</NewAccbtn>
           {
             errorMessage && (
               <Message negative>

@@ -14,9 +14,7 @@ class LoginContianer extends Component {
       );
     }
     return (
-      <div>
-        <LoginForm {...rest} />
-      </div>
+      <LoginForm {...rest} />
     );
   }
 }
