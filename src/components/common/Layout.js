@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import TopHeader from '../Navigation/TopHeader';
 import Menubar from '../Navigation/MenuBar';
+import Min700 from './Min700';
 
 const Wrap = styled.div`
   display: flex;
@@ -13,15 +14,22 @@ const Wrap = styled.div`
   background-color: #7DAA55;
   padding-bottom: 50px;
 
+   @media only screen and (min-width: 700px) {
+    display: none;
+  }
 `;
+
 export default class Layout extends Component {
   render() {
     return (
-      <Wrap>
-        <TopHeader title={this.props.title} />
-        {this.props.children}
-        <Menubar />
-      </Wrap>
+      <div>
+        <Min700 />
+        <Wrap>
+          <TopHeader title={this.props.title} />
+          {this.props.children}
+          <Menubar />
+        </Wrap>
+      </div>
     );
   }
 }
