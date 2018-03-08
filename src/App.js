@@ -16,6 +16,8 @@ import CookmarkDetailPage from './routes/CookmarkDetailPage';
 import ShoppingMemoPage from './routes/ShoppingMemoPage';
 import SearchresultPage from './routes/SearchresultPage';
 import VisionResultpage from './routes/VisionResultpage';
+import SharePage from './routes/SharePage';
+
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -40,6 +42,7 @@ class App extends Component {
             <Route path="/memo" component={ShoppingMemoPage} />
             <Route path="/searchresult" component={SearchresultPage} />
             <Route path="/visionresult" component={VisionResultpage} />
+            <Route path="/share" component={SharePage} />
           </div>
         </BrowserRouter>
       </Provider>

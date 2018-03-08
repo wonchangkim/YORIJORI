@@ -20,11 +20,27 @@ const Wrap = styled.div`
 `;
 
 export default class Layout extends Component {
+  state = {
+    isMounted : false,
+  }
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({
+        isMounted: true,
+      })
+    }, 700);
+  }
   render() {
+    const styles = {
+      transitions: {
+        transition: 'all 500ms',
+        opacity: this.state.isMounted ? 1 : 0,
+      },
+    };
     return (
-      <div>
+      <div style={styles.transitions}>
         <Min700 />
-        <Wrap>
+        <Wrap >
           <TopHeader title={this.props.title} />
           {this.props.children}
           <Menubar />

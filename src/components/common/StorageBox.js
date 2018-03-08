@@ -59,9 +59,26 @@ const List = styled.div`
 //   box-shadow: inset 0px 0px 4px 2px RGBA(223, 223, 223,0.3);
 // `;
 export default class StorageBox extends Component {
+  state = {
+    isMounted: false,
+  }
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({
+        isMounted: true,
+      })
+    }, 700);
+  }
   render() {
+    const styles = {
+      transitions: {
+        transition: 'all 700ms',
+        opacity: this.state.isMounted ? 1 : 0,
+        left: this.state.isMounted ? 0 : 300,
+      },
+    };
     return (
-      <Wrapper>
+      <Wrapper style={styles.transitions}>
         <FridgeOutter>
           <FridgeInner>
             <Fridge>
