@@ -36,10 +36,10 @@ class App extends Component {
             <Route path="/Newingredients" component={NewingredientsPage} />
             <Route path="/Detailrecipe" component={DetailRecipePage} />
             <Route path="/cookmark" exact component={CookmarkPage} />
-            <Route path="/cookmarkdetail" exact component={CookmarkDetailPage} />
-            <Route path="/memo" exact component={ShoppingMemoPage} />
-            <Route path="/searchresult" exact component={SearchresultPage} />
-            <Route path="/visionresult" exact component={VisionResultpage} />
+            <Route path="/cookmarkdetail" component={CookmarkDetailPage} />
+            <Route path="/memo" component={ShoppingMemoPage} />
+            <Route path="/searchresult" component={SearchresultPage} />
+            <Route path="/visionresult" component={VisionResultpage} />
           </div>
         </BrowserRouter>
       </Provider>
