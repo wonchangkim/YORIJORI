@@ -6,7 +6,7 @@ import StorageBox from '../common/StorageBox';
 const Ulstyle = styled.ul`
   margin: 0;
   padding: 0;
-  width: 280px;
+  width: 95%;
 `;
 const MemoLi = styled.li`
   width: 100%;
@@ -17,10 +17,15 @@ const MemoLi = styled.li`
   list-style-type: none;
   display: inline-block;
 `;
-const ImgWrap = styled.img`
+const ImgWrapover = styled.div`
+  overflow: hidden;
   float: left;
   height: 50px;
-  border-radius: 50%;
+  width: 50px;
+  border-radius: 25px;
+`;
+const ImgWrap = styled.img`
+  height: 50px;
 `;
 const Title = styled.span`
   line-height: 50px;
@@ -123,7 +128,9 @@ export default class ShoppingMemo extends Component {
             Object.entries(shoppingMemolist).map(([recipeid, value]) => (
               <div key={Math.random()} >
                 <MemoLi >
-                  <ImgWrap src={value.RECIPE_IMG} id={value.RECIPE_ID} alt="레시피이미지" />
+                  <ImgWrapover>
+                    <ImgWrap src={value.RECIPE_IMG} id={value.RECIPE_ID} alt="레시피이미지" />
+                  </ImgWrapover>
                   <Title id={value.RECIPE_ID} onClick={this.handelClick}>{value.RECIPE_KO}</Title>
                   <Btnstyled circular icon="minus" color="teal" id={value.RECIPE_ID} onClick={this.handeDelete} />
                 </MemoLi>
